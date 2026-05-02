@@ -337,7 +337,7 @@ Eventos:
 Ejemplo:
 
 ```html
-<iv-button aria-haspopup="dialog" aria-controls="confirm-dialog">Abrir dialog</iv-button>
+<iv-button aria-haspopup="dialog">Abrir dialog</iv-button>
 
 <iv-dialog id="confirm-dialog" labelled-by="confirm-title" described-by="confirm-description">
   <h2 slot="header" id="confirm-title">Confirmar accion</h2>
