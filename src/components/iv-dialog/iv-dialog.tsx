@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Listen, Method, Prop, Watch, h } from '@stencil/core';
 import dialogPolyfill from 'dialog-polyfill';
 
 @Component({
@@ -152,22 +152,32 @@ export class IvDialog {
     focusTarget?.focus();
   }
 
-  private handleCancel = (event: Event) => {
+  @Listen('cancel', { capture: true })
+  protected handleCancel(event: Event) {
+    if (event.target !== this.dialogElement) {
+      return;
+    }
+
     this.ivCancel.emit();
 
     if (!this.closeOnEscape) {
       event.preventDefault();
     }
-  };
+  }
 
-  private handleClose = () => {
+  @Listen('close', { capture: true })
+  protected handleClose(event: Event) {
+    if (event.target !== this.dialogElement) {
+      return;
+    }
+
     const returnValue = this.dialogElement?.returnValue || '';
 
     this.returnValue = returnValue;
     this.open = false;
     this.restoreFocusToInvoker();
     this.ivClose.emit({ returnValue });
-  };
+  }
 
   private restoreFocusToInvoker() {
     if (!this.restoreFocus || !this.previouslyFocusedElement?.isConnected) {
@@ -179,7 +189,8 @@ export class IvDialog {
     this.previouslyFocusedElement = undefined;
   }
 
-  private handleDialogClick = (event: MouseEvent) => {
+  @Listen('click')
+  protected handleDialogClick(event: MouseEvent) {
     if (!this.modal || !this.closeOnBackdrop || event.target !== this.dialogElement) {
       return;
     }
@@ -190,7 +201,7 @@ export class IvDialog {
     if (isBackdropClick) {
       this.dialogElement.close();
     }
-  };
+  }
 
   render() {
     return (
@@ -198,9 +209,6 @@ export class IvDialog {
         <dialog
           class="iv-dialog"
           ref={element => (this.dialogElement = element)}
-          onCancel={this.handleCancel}
-          onClose={this.handleClose}
-          onClick={this.handleDialogClick}
           {...this.accessibilityAttributes}
         >
           <div class="iv-dialog__surface">
