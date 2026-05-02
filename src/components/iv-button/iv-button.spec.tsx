@@ -1,14 +1,10 @@
-import { newSpecPage } from '@stencil/core/testing';
-import { IvButton } from './iv-button';
+import { describe, expect, h, it, render, vi } from '@stencil/vitest';
+import './iv-button';
 
 describe('iv-button', () => {
   it('renders a primary button by default', async () => {
-    const page = await newSpecPage({
-      components: [IvButton],
-      html: '<iv-button>Guardar</iv-button>',
-    });
-
-    const button = page.root?.querySelector('button');
+    const { root } = await render(<iv-button>Guardar</iv-button>);
+    const button = root.querySelector('button');
 
     expect(button).not.toBeNull();
     expect(button?.className).toBe('iv-button iv-button--primary');
@@ -17,12 +13,12 @@ describe('iv-button', () => {
   });
 
   it('renders configured variant, type and aria state attributes', async () => {
-    const page = await newSpecPage({
-      components: [IvButton],
-      html: '<iv-button variant="secondary" type="submit" aria-controls="filters" aria-expanded="true" aria-pressed="mixed">Filtros</iv-button>',
-    });
-
-    const button = page.root?.querySelector('button');
+    const { root } = await render(
+      <iv-button variant="secondary" type="submit" aria-controls="filters" aria-expanded={true} aria-pressed="mixed">
+        Filtros
+      </iv-button>,
+    );
+    const button = root.querySelector('button');
 
     expect(button?.className).toBe('iv-button iv-button--secondary');
     expect(button?.type).toBe('submit');
@@ -32,12 +28,12 @@ describe('iv-button', () => {
   });
 
   it('renders links when href is provided', async () => {
-    const page = await newSpecPage({
-      components: [IvButton],
-      html: '<iv-button href="/storybook/" target="_blank">Storybook</iv-button>',
-    });
-
-    const link = page.root?.querySelector('a');
+    const { root } = await render(
+      <iv-button href="/storybook/" target="_blank">
+        Storybook
+      </iv-button>,
+    );
+    const link = root.querySelector('a');
 
     expect(link).not.toBeNull();
     expect(link?.className).toBe('iv-button iv-button--primary');
@@ -47,15 +43,15 @@ describe('iv-button', () => {
   });
 
   it('prevents disabled link navigation', async () => {
-    const page = await newSpecPage({
-      components: [IvButton],
-      html: '<iv-button href="/storybook/" disabled>Storybook</iv-button>',
-    });
-
-    const link = page.root?.querySelector('a');
+    const { root } = await render(
+      <iv-button href="/storybook/" disabled={true}>
+        Storybook
+      </iv-button>,
+    );
+    const link = root.querySelector('a');
     const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-    const preventDefault = jest.spyOn(event, 'preventDefault');
-    const stopPropagation = jest.spyOn(event, 'stopPropagation');
+    const preventDefault = vi.spyOn(event, 'preventDefault');
+    const stopPropagation = vi.spyOn(event, 'stopPropagation');
 
     link?.dispatchEvent(event);
 
