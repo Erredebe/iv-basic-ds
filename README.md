@@ -250,8 +250,19 @@ Primer componente del DS.
 Props:
 
 - `variant`: `primary`, `secondary` o `ghost`.
+- `type`: `button`, `submit` o `reset` cuando renderiza un `button` nativo.
 - `disabled`: deshabilita el control.
 - `href`: si se informa, renderiza un enlace en vez de un `button`.
+- `target`: destino del enlace cuando se usa `href`.
+- `rel`: relacion del enlace cuando se usa `href`; con `target="_blank"` se usa `noreferrer` por defecto si no se informa.
+- `aria-label`: nombre accesible cuando el contenido visible no es suficiente.
+- `aria-labelledby`: referencia al elemento que etiqueta el control.
+- `aria-describedby`: referencia al elemento que describe el control.
+- `aria-controls`: identificador del elemento controlado por el boton.
+- `aria-expanded`: estado expandido para botones que controlan contenido desplegable.
+- `aria-pressed`: estado pulsado para botones tipo toggle; admite `true`, `false` o `mixed`.
+- `aria-haspopup`: indica que el boton abre un popup; admite `true`, `menu`, `listbox`, `tree`, `grid` o `dialog`.
+- `aria-current`: marca un enlace como item actual dentro de un conjunto.
 
 Ejemplos:
 
@@ -261,6 +272,8 @@ Ejemplos:
 <iv-button variant="ghost">Ghost</iv-button>
 <iv-button disabled>Disabled</iv-button>
 <iv-button href="/storybook/">Ir a Storybook</iv-button>
+<iv-button aria-controls="filters-panel" aria-expanded="false">Filtros</iv-button>
+<iv-button aria-pressed="true" variant="secondary">Vista compacta</iv-button>
 ```
 
 ## Tokens

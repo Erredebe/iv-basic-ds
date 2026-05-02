@@ -8,6 +8,38 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface IvButton {
         /**
+          * Identificador del elemento controlado por el boton.
+         */
+        "ariaControls"?: string;
+        /**
+          * Marca un enlace como el item actual dentro de un conjunto.
+         */
+        "ariaCurrent"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+        /**
+          * Referencia al elemento que describe el control.
+         */
+        "ariaDescribedby"?: string;
+        /**
+          * Estado expandido cuando el boton controla contenido desplegable.
+         */
+        "ariaExpanded"?: boolean;
+        /**
+          * Indica si el boton abre un popup y de que tipo.
+         */
+        "ariaHaspopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
+          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
+         */
+        "ariaLabel"?: string;
+        /**
+          * Referencia al elemento que etiqueta el control.
+         */
+        "ariaLabelledby"?: string;
+        /**
+          * Estado pulsado para botones tipo toggle.
+         */
+        "ariaPressed"?: boolean | 'mixed';
+        /**
           * Deshabilita la interaccion del control.
           * @default false
          */
@@ -16,6 +48,19 @@ export namespace Components {
           * Si se informa, el componente renderiza un enlace.
          */
         "href"?: string;
+        /**
+          * Relacion del enlace cuando se usa `href`.
+         */
+        "rel"?: string;
+        /**
+          * Destino del enlace cuando se usa `href`.
+         */
+        "target"?: '_self' | '_blank' | '_parent' | '_top';
+        /**
+          * Tipo nativo del boton cuando no se renderiza como enlace.
+          * @default 'button'
+         */
+        "type": 'button' | 'submit' | 'reset';
         /**
           * Variante visual del boton.
           * @default 'primary'
@@ -37,6 +82,38 @@ declare global {
 declare namespace LocalJSX {
     interface IvButton {
         /**
+          * Identificador del elemento controlado por el boton.
+         */
+        "ariaControls"?: string;
+        /**
+          * Marca un enlace como el item actual dentro de un conjunto.
+         */
+        "ariaCurrent"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+        /**
+          * Referencia al elemento que describe el control.
+         */
+        "ariaDescribedby"?: string;
+        /**
+          * Estado expandido cuando el boton controla contenido desplegable.
+         */
+        "ariaExpanded"?: boolean;
+        /**
+          * Indica si el boton abre un popup y de que tipo.
+         */
+        "ariaHaspopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
+          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
+         */
+        "ariaLabel"?: string;
+        /**
+          * Referencia al elemento que etiqueta el control.
+         */
+        "ariaLabelledby"?: string;
+        /**
+          * Estado pulsado para botones tipo toggle.
+         */
+        "ariaPressed"?: boolean | 'mixed';
+        /**
           * Deshabilita la interaccion del control.
           * @default false
          */
@@ -46,6 +123,19 @@ declare namespace LocalJSX {
          */
         "href"?: string;
         /**
+          * Relacion del enlace cuando se usa `href`.
+         */
+        "rel"?: string;
+        /**
+          * Destino del enlace cuando se usa `href`.
+         */
+        "target"?: '_self' | '_blank' | '_parent' | '_top';
+        /**
+          * Tipo nativo del boton cuando no se renderiza como enlace.
+          * @default 'button'
+         */
+        "type"?: 'button' | 'submit' | 'reset';
+        /**
           * Variante visual del boton.
           * @default 'primary'
          */
@@ -54,8 +144,19 @@ declare namespace LocalJSX {
 
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost';
+        "type": 'button' | 'submit' | 'reset';
         "disabled": boolean;
         "href": string;
+        "target": '_self' | '_blank' | '_parent' | '_top';
+        "rel": string;
+        "ariaLabel": string;
+        "ariaLabelledby": string;
+        "ariaDescribedby": string;
+        "ariaControls": string;
+        "ariaExpanded": boolean;
+        "ariaPressed": string;
+        "ariaHaspopup": 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        "ariaCurrent": 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
     }
 
     interface IntrinsicElements {
