@@ -79,6 +79,12 @@ npm run build:netlify
 Build completo para Netlify. La carpeta final publicada es `www`.
 
 ```bash
+npm run test:spec
+```
+
+Ejecuta los tests spec de Stencil con coverage. El informe HTML queda en `coverage/lcov-report`.
+
+```bash
 npm run test:a11y
 ```
 
@@ -91,6 +97,12 @@ npm run test:a11y:build
 Ejecuta `npm run build:netlify` y despues las pruebas automatizadas de accesibilidad.
 
 ```bash
+npm run deploy:netlify
+```
+
+Flujo completo de despliegue: genera `www`, ejecuta specs con coverage, copia coverage a `www/coverage` y ejecuta Playwright/a11y generando `www/test-report`.
+
+```bash
 npm run clean
 ```
 
@@ -100,7 +112,7 @@ Elimina `www`, `dist` y `loader`.
 npm run test
 ```
 
-Ejecuta tests de Stencil. Actualmente el repo todavia no incluye specs ni e2e iniciales.
+Ejecuta specs de Stencil y pruebas a11y. Requiere que `www` exista para el paso a11y; para validacion completa usa `npm run deploy:netlify`.
 
 ## Estructura
 
@@ -192,6 +204,8 @@ Rutas esperadas despues del deploy:
 - `/demos/button.html`: demo HTML del componente Button.
 - `/demos/dialog.html`: demo HTML del componente Dialog.
 - `/storybook/`: Storybook estatico.
+- `/test-report/`: informe HTML de Playwright + axe-core.
+- `/coverage/`: informe HTML de coverage de tests spec de Stencil.
 - `/build/iv-basic-ds.esm.js`: bundle ESM para CDN.
 - `/build/iv-basic-ds.js`: bundle legacy `nomodule`.
 - `/build/iv-basic-ds.css`: estilos globales generados.
@@ -392,6 +406,7 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 - Los botones no deben ser full-width por defecto; solo pueden ocupar todo el ancho dentro de layouts o contextos de acciones, como footers de dialog o stacks de demo.
 - Stories junto al componente: `src/components/<component>/<component>.stories.ts`.
 - Estilos del componente junto al componente: `src/components/<component>/<component>.css`.
+- Specs junto al componente: `src/components/<component>/<component>.spec.tsx`.
 
 Ejemplo base de componente:
 
@@ -418,8 +433,10 @@ Validacion automatizada:
 
 - Storybook usa `@storybook/addon-a11y` para inspeccion visual con axe-core durante desarrollo.
 - Playwright usa `@axe-core/playwright` para pruebas automatizadas contra la build local en `www`.
-- Ejecuta `npm run test:a11y:build` antes de subir cambios que creen o modifiquen componentes.
-- Los tests viven en `tests/a11y/` y deben cubrir los estados principales de cada componente.
+- Ejecuta `npm run deploy:netlify` antes de subir cambios que creen o modifiquen componentes.
+- Los tests spec viven junto al componente y deben cubrir render, props, ARIA y comportamiento publico basico.
+- Los tests a11y viven en `tests/a11y/` y deben cubrir los estados principales de cada componente.
+- El informe a11y se publica en `/test-report/` y el coverage spec se publica en `/coverage/`.
 
 Consideraciones al crear componentes:
 
@@ -436,15 +453,16 @@ Consideraciones al crear componentes:
 2. Crear `<nombre>.tsx` con `shadow: false`.
 3. Crear `<nombre>.css` con clases prefijadas.
 4. Crear `<nombre>.stories.ts`.
-5. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
-6. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
-7. Ejecutar `npm run start` para revisar Stencil y Storybook.
-8. Ejecutar `npm run test:a11y:build` antes de desplegar.
+5. Crear `<nombre>.spec.tsx` junto al componente.
+6. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
+7. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
+8. Ejecutar `npm run start` para revisar Stencil y Storybook.
+9. Ejecutar `npm run deploy:netlify` antes de desplegar.
 
 ## Build Final
 
 ```bash
-npm run build:netlify
+npm run deploy:netlify
 ```
 
 Resultado:
@@ -459,6 +477,8 @@ www/
 │   ├── button.html
 │   └── dialog.html
 ├── storybook/
+├── test-report/
+├── coverage/
 └── index.html
 ```
 

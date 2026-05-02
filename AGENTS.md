@@ -10,12 +10,14 @@
 
 - Install with `npm install`.
 - Use `npm run start` for local development; it runs an initial Stencil build, then starts Stencil at `http://localhost:3333/` and Storybook at `http://localhost:6006/` in parallel.
-- Use `npm run build:netlify` as the main verification command before deploy; it cleans `www`, `dist`, and `loader`, then builds Stencil and Storybook into `www/storybook`.
-- Use `npm run test:a11y:build` before deploy when components or demos changed; it builds the Netlify output and runs Playwright + axe-core checks against `www`.
+- Use `npm run deploy:netlify` as the main verification command before deploy; it builds Netlify output, runs Stencil spec tests with coverage, copies coverage to `www/coverage`, then runs Playwright + axe-core with the HTML report in `www/test-report`.
+- Use `npm run build:netlify` only when you need generated Stencil + Storybook output without running tests.
+- Use `npm run test:spec` for Stencil spec tests with coverage; coverage is generated in `coverage/lcov-report` and copied to `www/coverage` by `npm run copy:coverage` during deploy.
+- Use `npm run test:a11y:build` before deploy only when you specifically need build + a11y without spec coverage; it builds the Netlify output and runs Playwright + axe-core checks against `www`.
 - Use `npm run test:a11y` only when `www` already exists and is up to date.
 - Use `npm run build` only for the Stencil build.
 - Use `npm run storybook` only when you want Storybook without the Stencil dev server; it still requires a Stencil build first.
-- `npm run test` is wired to `stencil test --spec --e2e`, but this repo currently has no test files.
+- `npm run test` runs Stencil spec tests and Playwright a11y tests; make sure `www` exists before the a11y step or run `npm run deploy:netlify`.
 
 ## Storybook Quirk
 
@@ -37,6 +39,7 @@
 - Output targets are `www`, `dist`, and `dist-custom-elements`; `www/build` is the runtime CDN output used by demos and consumers.
 - `www`, `dist`, and `loader` are generated and ignored by Git.
 - `src/index.html` is only the Stencil demo index and should keep visible links to `/storybook/` plus per-component demos in `src/demos/`.
+- The deployed Stencil HTML should also keep visible links to `/test-report/` for Playwright/a11y results and `/coverage/` for Stencil spec coverage.
 
 ## Component Conventions
 
@@ -47,6 +50,7 @@
 - Use global tokens from `src/global/tokens.css`; token names should use the `--iv-` prefix.
 - Design and implement components mobile-first: base CSS must target small screens and larger breakpoints should use `@media (min-width: ...)`; buttons should become full-width only inside layout/action contexts, not by default.
 - Add or update a Storybook story for component states. Put HTML demos in `src/demos/<component>.html` and link them from `src/index.html`; avoid growing `src/index.html` into a full demo page.
+- Add or update Stencil spec tests next to the component as `<component>.spec.tsx` for rendering, props, ARIA mapping, and basic public API behavior.
 - Add or update Playwright axe tests in `tests/a11y/` for each new component and its main interactive states.
 
 ## Accessibility Testing
@@ -55,6 +59,8 @@
 - Each component should have coverage in `tests/a11y/<component>.a11y.spec.ts`.
 - For interactive components, test important open/closed, disabled, labelled, keyboard, and dismissal states before running axe.
 - Storybook `@storybook/addon-a11y` is for interactive inspection; Playwright axe tests are the repeatable gate.
+- Playwright HTML reports are written to `www/test-report` during deploy so Netlify publishes them at `/test-report/`.
+- Stencil spec coverage is copied to `www/coverage` during deploy so Netlify publishes it at `/coverage/`.
 
 ## TypeScript And Stories
 

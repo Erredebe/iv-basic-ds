@@ -3,6 +3,10 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/a11y',
   timeout: 30_000,
+  reporter: [
+    ['list'],
+    ['html', { outputFolder: 'www/test-report', open: 'never' }],
+  ],
   expect: {
     timeout: 5_000,
   },

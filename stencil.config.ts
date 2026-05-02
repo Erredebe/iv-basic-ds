@@ -3,6 +3,9 @@ import { Config } from '@stencil/core';
 export const config: Config = {
   namespace: 'iv-basic-ds',
   globalStyle: 'src/global/tokens.css',
+  testing: {
+    testRegex: '(/src/.*\\.spec\\.(tsx|ts))$',
+  },
   outputTargets: [
     {
       type: 'www',

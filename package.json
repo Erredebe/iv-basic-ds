@@ -14,9 +14,12 @@
     "storybook": "npm run build && storybook dev -p 6006",
     "build:storybook": "npm run clean && npm run build && storybook build -o www/storybook",
     "build:netlify": "npm run clean && npm run build && storybook build -o www/storybook",
+    "copy:coverage": "node -e \"const fs=require('node:fs');fs.rmSync('www/coverage',{recursive:true,force:true});fs.cpSync('coverage/lcov-report','www/coverage',{recursive:true});\"",
+    "test:spec": "stencil test --spec --coverage",
     "test:a11y": "playwright test tests/a11y",
     "test:a11y:build": "npm run build:netlify && npm run test:a11y",
-    "test": "stencil test --spec --e2e"
+    "deploy:netlify": "npm run build:netlify && npm run test:spec && npm run copy:coverage && npm run test:a11y",
+    "test": "npm run test:spec && npm run test:a11y"
   },
   "dependencies": {
     "@stencil/core": "latest",
@@ -30,7 +33,10 @@
     "@storybook/addon-themes": "^10.3.6",
     "@storybook/web-components": "latest",
     "@storybook/web-components-vite": "latest",
+    "@types/jest": "^29.5.14",
     "concurrently": "latest",
+    "jest": "^29.7.0",
+    "jest-cli": "^29.7.0",
     "lit": "latest",
     "storybook": "latest",
     "storybook-addon-pseudo-states": "^10.3.6",
