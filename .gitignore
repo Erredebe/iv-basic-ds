@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+www/
+dist/
+loader/
+storybook-static/
+
+# Stencil
+.stencil/
+screenshot/
+
+# Test and coverage output
+coverage/
+junit.xml
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Netlify
+.netlify/
+
+# Editor and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
