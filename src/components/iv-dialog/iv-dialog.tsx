@@ -158,11 +158,21 @@ export class IvDialog {
       return;
     }
 
-    this.ivCancel.emit();
-
     if (!this.closeOnEscape) {
       event.preventDefault();
     }
+
+    this.ivCancel.emit();
+  }
+
+  @Listen('keydown', { capture: true })
+  protected handleKeyDown(event: KeyboardEvent) {
+    if (event.key !== 'Escape' || this.closeOnEscape || !this.dialogElement?.open) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   @Listen('close', { capture: true })
