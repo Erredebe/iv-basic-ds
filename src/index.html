@@ -14,7 +14,7 @@
         <p class="iv-demo__eyebrow">IV Basic DS</p>
         <h1>Design System base con StencilJS</h1>
         <p>
-          Esta home usa las demos HTML nativas de Stencil. Storybook queda disponible como documentación visual.
+          Esta home lista las demos HTML nativas de Stencil. Storybook queda disponible como documentación visual.
         </p>
         <div class="iv-demo__actions">
           <iv-button href="/storybook/" variant="primary">Ir a Storybook</iv-button>
@@ -22,27 +22,12 @@
         </div>
       </section>
 
-      <section class="iv-demo__panel" aria-labelledby="button-demo-title">
-        <h2 id="button-demo-title">Button</h2>
+      <section class="iv-demo__panel" aria-labelledby="demos-title">
+        <h2 id="demos-title">Demos HTML</h2>
         <div class="iv-demo__stack">
-          <iv-button variant="primary">Primary</iv-button>
-          <iv-button variant="secondary">Secondary</iv-button>
-          <iv-button variant="ghost">Ghost</iv-button>
-          <iv-button disabled>Disabled</iv-button>
+          <iv-button href="/demos/button.html" variant="primary">Button</iv-button>
+          <iv-button href="/demos/dialog.html" variant="secondary">Dialog</iv-button>
         </div>
-      </section>
-
-      <section class="iv-demo__panel" aria-labelledby="dialog-demo-title">
-        <h2 id="dialog-demo-title">Dialog</h2>
-        <iv-button aria-haspopup="dialog" aria-controls="demo-dialog" onclick="document.getElementById('demo-dialog').showModal()">Abrir dialog</iv-button>
-        <iv-dialog id="demo-dialog" aria-labelledby="demo-dialog-title" aria-describedby="demo-dialog-description">
-          <h3 slot="header" id="demo-dialog-title">Confirmar accion</h3>
-          <p id="demo-dialog-description">Este componente usa el elemento dialog nativo y se abre con showModal().</p>
-          <div slot="footer">
-            <iv-button variant="ghost" onclick="document.getElementById('demo-dialog').close('cancel')">Cancelar</iv-button>
-            <iv-button onclick="document.getElementById('demo-dialog').close('confirm')">Confirmar</iv-button>
-          </div>
-        </iv-dialog>
       </section>
     </main>
   </body>

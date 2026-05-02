@@ -1,0 +1,37 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Dialog - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Demo HTML</p>
+        <h1>Dialog</h1>
+        <p>Demo del componente `iv-dialog` usando internamente el elemento nativo `dialog`.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+          <iv-button href="/storybook/?path=/docs/components-dialog--docs" variant="secondary">Ver en Storybook</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="dialog-basic-title">
+        <h2 id="dialog-basic-title">Dialog modal</h2>
+        <iv-button aria-haspopup="dialog" aria-controls="demo-dialog" onclick="document.getElementById('demo-dialog').showModal()">Abrir dialog</iv-button>
+        <iv-dialog id="demo-dialog" aria-labelledby="demo-dialog-title" aria-describedby="demo-dialog-description">
+          <h3 slot="header" id="demo-dialog-title">Confirmar accion</h3>
+          <p id="demo-dialog-description">Este componente usa el elemento dialog nativo y se abre con showModal().</p>
+          <div slot="footer">
+            <iv-button variant="ghost" onclick="document.getElementById('demo-dialog').close('cancel')">Cancelar</iv-button>
+            <iv-button onclick="document.getElementById('demo-dialog').close('confirm')">Confirmar</iv-button>
+          </div>
+        </iv-dialog>
+      </section>
+    </main>
+  </body>
+</html>

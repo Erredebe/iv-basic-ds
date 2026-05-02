@@ -3,7 +3,7 @@
 ## Project Shape
 
 - This is a StencilJS design system distributed by CDN from Netlify, not an npm-published package for now (`private: true`).
-- Netlify publishes `www`; `/` is the Stencil HTML demo, `/storybook/` is Storybook, and `/build/iv-basic-ds.esm.js` is the CDN ESM bundle.
+- Netlify publishes `www`; `/` is the Stencil demo index, `/demos/*.html` are per-component HTML demos, `/storybook/` is Storybook, and `/build/iv-basic-ds.esm.js` is the CDN ESM bundle.
 - Components target Angular consumers first, so default to standard Web Components loaded from CDN plus Angular `CUSTOM_ELEMENTS_SCHEMA`.
 
 ## Commands
@@ -26,7 +26,7 @@
 - `stencil.config.ts` uses namespace `iv-basic-ds`; changing it changes CDN filenames referenced by `src/index.html`, README, and Storybook.
 - Output targets are `www`, `dist`, and `dist-custom-elements`; `www/build` is the runtime CDN output used by demos and consumers.
 - `www`, `dist`, and `loader` are generated and ignored by Git.
-- `src/index.html` is the Stencil demo home and should keep a visible link to `/storybook/`.
+- `src/index.html` is only the Stencil demo index and should keep visible links to `/storybook/` plus per-component demos in `src/demos/`.
 
 ## Component Conventions
 
@@ -35,7 +35,7 @@
 - Put component files under `src/components/<component>/` with the Stencil file, CSS file, and story next to each other.
 - Keep CSS class names prefixed with `iv-` because there is no Shadow DOM encapsulation.
 - Use global tokens from `src/global/tokens.css`; token names should use the `--iv-` prefix.
-- Add or update a Storybook story for component states, and add an example to `src/index.html` only when it should appear in the Stencil demo home.
+- Add or update a Storybook story for component states. Put HTML demos in `src/demos/<component>.html` and link them from `src/index.html`; avoid growing `src/index.html` into a full demo page.
 
 ## TypeScript And Stories
 

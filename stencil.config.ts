@@ -7,7 +7,10 @@ export const config: Config = {
     {
       type: 'www',
       serviceWorker: null,
-      copy: [{ src: 'assets', warn: false }],
+      copy: [
+        { src: 'assets', warn: false },
+        { src: 'demos', warn: false },
+      ],
     },
     {
       type: 'dist',

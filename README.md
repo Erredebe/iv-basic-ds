@@ -169,6 +169,8 @@ Netlify publica la carpeta `www`.
 Rutas esperadas despues del deploy:
 
 - `/`: demo HTML de Stencil.
+- `/demos/button.html`: demo HTML del componente Button.
+- `/demos/dialog.html`: demo HTML del componente Dialog.
 - `/storybook/`: Storybook estatico.
 - `/build/iv-basic-ds.esm.js`: bundle ESM para CDN.
 - `/build/iv-basic-ds.js`: bundle legacy `nomodule`.
@@ -386,7 +388,7 @@ Consideraciones al crear componentes:
 2. Crear `<nombre>.tsx` con `shadow: false`.
 3. Crear `<nombre>.css` con clases prefijadas.
 4. Crear `<nombre>.stories.ts`.
-5. Añadir ejemplo en `src/index.html` si debe aparecer en la demo Stencil.
+5. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
 6. Ejecutar `npm run start` para revisar Stencil y Storybook.
 7. Ejecutar `npm run build:netlify` antes de desplegar.
 
@@ -404,6 +406,9 @@ www/
 │   ├── iv-basic-ds.esm.js
 │   ├── iv-basic-ds.js
 │   └── iv-basic-ds.css
+├── demos/
+│   ├── button.html
+│   └── dialog.html
 ├── storybook/
 └── index.html
 ```
