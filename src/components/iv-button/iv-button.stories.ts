@@ -52,7 +52,7 @@ export const Playground: Story = {
 
 export const Variants: Story = {
   render: () => html`
-    <div style="display: flex; flex-wrap: wrap; gap: var(--iv-space-sm);">
+    <div class="iv-demo__stack">
       <iv-button variant="primary">Primary</iv-button>
       <iv-button variant="secondary">Secondary</iv-button>
       <iv-button variant="ghost">Ghost</iv-button>
@@ -63,7 +63,7 @@ export const Variants: Story = {
 
 export const AccessibilityStates: Story = {
   render: () => html`
-    <div style="display: flex; flex-wrap: wrap; gap: var(--iv-space-sm);">
+    <div class="iv-demo__stack">
       <iv-button aria-label="Guardar cambios">Guardar</iv-button>
       <iv-button aria-controls="filters-panel" aria-expanded="false">Filtros</iv-button>
       <iv-button aria-pressed="true" variant="secondary">Vista compacta</iv-button>

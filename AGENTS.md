@@ -45,6 +45,7 @@
 - Put component files under `src/components/<component>/` with the Stencil file, CSS file, and story next to each other.
 - Keep CSS class names prefixed with `iv-` because there is no Shadow DOM encapsulation.
 - Use global tokens from `src/global/tokens.css`; token names should use the `--iv-` prefix.
+- Design and implement components mobile-first: base CSS must target small screens and larger breakpoints should use `@media (min-width: ...)`; buttons should become full-width only inside layout/action contexts, not by default.
 - Add or update a Storybook story for component states. Put HTML demos in `src/demos/<component>.html` and link them from `src/index.html`; avoid growing `src/index.html` into a full demo page.
 - Add or update Playwright axe tests in `tests/a11y/` for each new component and its main interactive states.
 

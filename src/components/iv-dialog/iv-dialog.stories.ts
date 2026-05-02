@@ -185,7 +185,7 @@ export const NativeFormClose: Story = {
             <option value="phone">Telefono</option>
           </select>
         </label>
-        <div style="display: flex; justify-content: flex-end; gap: var(--iv-space-sm); margin-top: var(--iv-space-lg);">
+        <div class="iv-demo__stack iv-demo__stack--end" style="margin-top: var(--iv-space-lg);">
           <iv-button type="submit" value="cancel" variant="ghost">Cancelar</iv-button>
           <iv-button type="submit" value="save">Guardar</iv-button>
         </div>

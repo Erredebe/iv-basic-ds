@@ -37,7 +37,7 @@ body {
 .iv-demo {
   box-sizing: border-box;
   min-height: 100vh;
-  padding: clamp(1.25rem, 4vw, 4rem);
+  padding: var(--iv-space-md);
   background:
     radial-gradient(circle at top left, rgb(37 99 235 / 0.12), transparent 32rem),
     var(--iv-color-background);
@@ -51,7 +51,7 @@ body {
 }
 
 .iv-demo__hero {
-  padding: clamp(1.5rem, 5vw, 4rem);
+  padding: var(--iv-space-lg);
   border: 1px solid var(--iv-color-border);
   border-radius: 1.25rem;
   background: rgb(255 255 255 / 0.86);
@@ -61,7 +61,7 @@ body {
 .iv-demo__hero h1 {
   max-width: 42rem;
   margin: 0;
-  font-size: clamp(2.2rem, 8vw, 4.75rem);
+  font-size: clamp(2.1rem, 14vw, 3.25rem);
   line-height: 0.95;
   letter-spacing: -0.06em;
 }
@@ -89,9 +89,28 @@ body {
   gap: var(--iv-space-sm);
 }
 
+.iv-demo__actions--end,
+.iv-demo__stack--end {
+  justify-content: stretch;
+}
+
+.iv-demo__actions > iv-button,
+.iv-demo__actions > button,
+.iv-demo__stack > iv-button,
+.iv-demo__stack > button {
+  flex: 1 1 100%;
+}
+
+.iv-demo__actions > iv-button .iv-button,
+.iv-demo__actions > button,
+.iv-demo__stack > iv-button .iv-button,
+.iv-demo__stack > button {
+  width: 100%;
+}
+
 .iv-demo__panel {
   margin-top: var(--iv-space-xl);
-  padding: var(--iv-space-xl);
+  padding: var(--iv-space-lg);
   border: 1px solid var(--iv-color-border);
   border-radius: var(--iv-radius-md);
   background: var(--iv-color-surface);
@@ -99,4 +118,41 @@ body {
 
 .iv-demo__panel h2 {
   margin-top: 0;
+}
+
+@media (min-width: 40rem) {
+  .iv-demo {
+    padding: clamp(1.25rem, 4vw, 4rem);
+  }
+
+  .iv-demo__hero {
+    padding: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .iv-demo__hero h1 {
+    font-size: clamp(2.2rem, 8vw, 4.75rem);
+  }
+
+  .iv-demo__actions > iv-button,
+  .iv-demo__actions > button,
+  .iv-demo__stack > iv-button,
+  .iv-demo__stack > button {
+    flex: 0 1 auto;
+  }
+
+  .iv-demo__actions > iv-button .iv-button,
+  .iv-demo__actions > button,
+  .iv-demo__stack > iv-button .iv-button,
+  .iv-demo__stack > button {
+    width: auto;
+  }
+
+  .iv-demo__actions--end,
+  .iv-demo__stack--end {
+    justify-content: flex-end;
+  }
+
+  .iv-demo__panel {
+    padding: var(--iv-space-xl);
+  }
 }

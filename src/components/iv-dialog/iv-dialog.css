@@ -4,8 +4,8 @@ iv-dialog {
 
 .iv-dialog {
   box-sizing: border-box;
-  width: min(calc(100vw - 2rem), 36rem);
-  max-height: min(calc(100vh - 2rem), 42rem);
+  width: calc(100dvw - 1rem);
+  max-height: calc(100dvh - 1rem);
   padding: 0;
   border: 0;
   border-radius: var(--iv-radius-md);
@@ -47,7 +47,7 @@ iv-dialog {
 }
 
 .iv-dialog__header {
-  padding: var(--iv-space-lg) var(--iv-space-lg) var(--iv-space-md);
+  padding: var(--iv-space-md) var(--iv-space-md) var(--iv-space-sm);
 }
 
 .iv-dialog__header:empty,
@@ -61,7 +61,7 @@ iv-dialog {
 
 .iv-dialog__body {
   overflow: auto;
-  padding: 0 var(--iv-space-lg) var(--iv-space-lg);
+  padding: 0 var(--iv-space-md) var(--iv-space-md);
   color: var(--iv-color-text-muted);
   line-height: 1.6;
 }
@@ -77,19 +77,61 @@ iv-dialog {
 .iv-dialog__footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: stretch;
   gap: var(--iv-space-sm);
-  padding: var(--iv-space-md) var(--iv-space-lg) var(--iv-space-lg);
+  padding: var(--iv-space-md);
   border-top: 1px solid var(--iv-color-border);
 }
 
-@media (max-width: 40rem) {
+.iv-dialog__footer [slot='footer'] {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: var(--iv-space-sm);
+}
+
+.iv-dialog__footer iv-button,
+.iv-dialog__footer button {
+  flex: 1 1 100%;
+}
+
+.iv-dialog__footer iv-button .iv-button,
+.iv-dialog__footer button {
+  width: 100%;
+}
+
+@media (min-width: 40rem) {
   .iv-dialog {
-    width: calc(100vw - 1rem);
-    max-height: calc(100vh - 1rem);
+    width: min(calc(100vw - 2rem), 36rem);
+    max-height: min(calc(100vh - 2rem), 42rem);
+  }
+
+  .iv-dialog__header {
+    padding: var(--iv-space-lg) var(--iv-space-lg) var(--iv-space-md);
+  }
+
+  .iv-dialog__body {
+    padding: 0 var(--iv-space-lg) var(--iv-space-lg);
   }
 
   .iv-dialog__footer {
-    justify-content: stretch;
+    justify-content: flex-end;
+    padding: var(--iv-space-md) var(--iv-space-lg) var(--iv-space-lg);
+  }
+
+  .iv-dialog__footer [slot='footer'] {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+  }
+
+  .iv-dialog__footer iv-button,
+  .iv-dialog__footer button {
+    flex: 0 1 auto;
+  }
+
+  .iv-dialog__footer iv-button .iv-button,
+  .iv-dialog__footer button {
+    width: auto;
   }
 }

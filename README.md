@@ -388,6 +388,8 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 - Componentes sin Shadow DOM: `shadow: false`.
 - Clases CSS prefijadas con `iv-` para reducir colisiones.
 - Tokens globales con prefijo `--iv-`.
+- Diseno siempre mobile-first: la base CSS debe resolver pantallas pequenas y los ajustes para pantallas mayores deben ir con `@media (min-width: ...)`.
+- Los botones no deben ser full-width por defecto; solo pueden ocupar todo el ancho dentro de layouts o contextos de acciones, como footers de dialog o stacks de demo.
 - Stories junto al componente: `src/components/<component>/<component>.stories.ts`.
 - Estilos del componente junto al componente: `src/components/<component>/<component>.css`.
 
