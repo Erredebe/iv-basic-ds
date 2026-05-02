@@ -23,7 +23,13 @@ export async function expectNoA11yViolations(page: Page, include?: string) {
 function formatViolations(violations: Array<{ id: string; impact: string | null; help: string; nodes: Array<{ target: string[]; failureSummary?: string }> }>) {
   return violations
     .map(violation => {
-      const nodes = violation.nodes.map(node => `  - ${node.target.join(', ')}${node.failureSummary ? `: ${node.failureSummary}` : ''}`).join('\n');
+      const nodes = violation.nodes
+        .map(node => {
+          const summary = node.failureSummary ? `: ${node.failureSummary}` : '';
+
+          return `  - ${node.target.join(', ')}${summary}`;
+        })
+        .join('\n');
 
       return `${violation.id} (${violation.impact || 'unknown'}): ${violation.help}\n${nodes}`;
     })

@@ -36,25 +36,34 @@ const meta: Meta = {
 export default meta;
 
 type Story = StoryObj;
+type DialogElement = HTMLElement & {
+  close(returnValue?: string): Promise<void> | void;
+  show(): Promise<void> | void;
+  showModal(): Promise<void> | void;
+};
 
 const openDialog = (event: Event) => {
-  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector('iv-dialog');
-  void (dialog as any)?.showModal();
+  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector<DialogElement>('iv-dialog');
+
+  dialog?.showModal();
 };
 
 const closeDialog = (event: Event) => {
-  const dialog = (event.currentTarget as HTMLElement).closest('iv-dialog');
-  void (dialog as any)?.close();
+  const dialog = (event.currentTarget as HTMLElement).closest<DialogElement>('iv-dialog');
+
+  dialog?.close();
 };
 
 const closeDialogWithValue = (event: Event, returnValue: string) => {
-  const dialog = (event.currentTarget as HTMLElement).closest('iv-dialog');
-  void (dialog as any)?.close(returnValue);
+  const dialog = (event.currentTarget as HTMLElement).closest<DialogElement>('iv-dialog');
+
+  dialog?.close(returnValue);
 };
 
 const openNonModalDialog = (event: Event) => {
-  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector('iv-dialog');
-  void (dialog as any)?.show();
+  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector<DialogElement>('iv-dialog');
+
+  dialog?.show();
 };
 
 export const Playground: Story = {
