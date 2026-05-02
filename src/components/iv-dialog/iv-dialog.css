@@ -18,6 +18,16 @@ iv-dialog {
   background: rgb(16 42 67 / 0.48);
 }
 
+.iv-dialog + .backdrop {
+  background: rgb(16 42 67 / 0.48);
+}
+
+.iv-dialog.fixed {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .iv-dialog:focus-visible {
   outline: none;
   box-shadow: var(--iv-focus-ring), 0 24px 64px rgb(16 42 67 / 0.24);

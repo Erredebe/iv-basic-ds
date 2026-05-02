@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guia/Accesibilidad" />
+
+# Accesibilidad
+
+El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
+
+## Button
+
+- `iv-button` renderiza un `<button>` nativo o un `<a>` nativo si recibe `href`.
+- Usa `type="button"` por defecto para evitar submits accidentales.
+- Soporta estados ARIA comunes: `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-expanded`, `aria-pressed`, `aria-haspopup` y `aria-current`.
+- Si se usa como enlace con `target="_blank"`, el contenido debe avisar al usuario de que abre una nueva pestana.
+
+## Dialog
+
+- `iv-dialog` envuelve un `<dialog>` nativo.
+- Registra `dialog-polyfill` si el navegador no soporta `showModal()`.
+- Usar `dialog-role="alertdialog"` solo para confirmaciones criticas.
+- Preferir `aria-labelledby` cuando hay titulo visible.
+- Usar `aria-label` solo si no hay titulo visible.
+- Omitir `aria-describedby` cuando el contenido es complejo, multiparrafo o estructurado.
+- `initial-focus` y `restore-focus` son opt-in para evitar falsos focos en mobile screen readers.
+
+## Verificacion Recomendada
+
+- Chrome + NVDA.
+- Firefox + NVDA.
+- Safari macOS + VoiceOver.
+- Safari iOS + VoiceOver.
+- Android Chrome + TalkBack.

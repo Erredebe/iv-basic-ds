@@ -1,0 +1,25 @@
+.iv-storybook-theme-light {
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+}
+
+.iv-storybook-theme-dark {
+  --iv-color-background: #0f172a;
+  --iv-color-surface: #111827;
+  --iv-color-border: #334155;
+  --iv-color-text: #f8fafc;
+  --iv-color-text-muted: #cbd5e1;
+  --iv-color-primary: #60a5fa;
+  --iv-color-primary-hover: #3b82f6;
+  --iv-color-primary-text: #0f172a;
+  --iv-color-neutral: #1e293b;
+  --iv-color-neutral-hover: #334155;
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+}
+
+.iv-storybook-theme-light,
+.iv-storybook-theme-dark {
+  min-height: 100%;
+  padding: var(--iv-space-md);
+}

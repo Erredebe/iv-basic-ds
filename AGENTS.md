@@ -20,6 +20,14 @@
 - `.storybook/preview.ts` imports `../www/build/iv-basic-ds.esm.js`, so Storybook depends on `www/build` existing.
 - Do not switch Storybook back to `../loader` unless the Stencil `dist` loader output is verified; the current generated loader can reference a missing `dist/esm/loader.js` path.
 - Storybook build may warn about large chunks from Storybook/Vite; this is currently non-blocking.
+- Storybook uses MDX docs from `src/docs/*.mdx` plus addons: docs, a11y, themes, pseudo-states, and tag badges.
+
+## Dialog Accessibility
+
+- `iv-dialog` wraps a native `<dialog>` and registers `dialog-polyfill` only when `showModal` is missing.
+- Use `dialog-role="alertdialog"` for critical confirmations; do not use the global `role` attribute on `<iv-dialog>` because semantics must be applied to the internal native dialog.
+- Prefer `aria-labelledby` for visible titles, `aria-label` only when no visible title exists, and omit `aria-describedby` for complex/multiparagraph content.
+- Do not add automatic programmatic focus to `iv-dialog`; `initial-focus` and `restore-focus` are opt-in because forced focus can create false focus/scroll issues on mobile screen readers.
 
 ## Stencil And Output
 

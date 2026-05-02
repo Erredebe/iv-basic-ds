@@ -140,6 +140,14 @@ Salidas principales:
 
 Storybook esta configurado en `.storybook/main.ts` y `.storybook/preview.ts`.
 
+Addons activos:
+
+- `@storybook/addon-docs`: Autodocs y paginas MDX.
+- `@storybook/addon-a11y`: validaciones WCAG con axe-core.
+- `@storybook/addon-themes`: selector de tema claro/oscuro por clases CSS.
+- `storybook-addon-pseudo-states`: revision de estados `:hover`, `:focus`, `:active`, etc.
+- `storybook-addon-tag-badges`: badges de tags como `stable` y `a11y`.
+
 Durante el build estatico, Storybook queda dentro de:
 
 ```txt
@@ -292,9 +300,12 @@ Props:
 
 - `open`: controla si el dialog esta abierto.
 - `modal`: usa `showModal()` cuando es `true`; usa `show()` cuando es `false`.
+- `dialog-role`: `dialog` por defecto o `alertdialog` para confirmaciones criticas.
 - `close-on-backdrop`: permite cerrar haciendo click en el backdrop modal.
 - `close-on-escape`: permite cerrar con la tecla Escape.
 - `return-value`: valor de retorno del dialog al cerrar.
+- `initial-focus`: selector CSS del elemento que debe recibir foco inicial al abrir.
+- `restore-focus`: devuelve el foco al invocador al cerrar; desactivado por defecto para evitar falsos focos en mobile y lectores de pantalla.
 - `aria-label`: nombre accesible si no hay titulo visible.
 - `aria-labelledby`: referencia al titulo visible del dialog.
 - `aria-describedby`: referencia al texto descriptivo del dialog.
@@ -325,6 +336,21 @@ Ejemplo:
   </div>
 </iv-dialog>
 ```
+
+Variantes accesibles incluidas en Storybook y en `/demos/dialog.html`:
+
+- Modal etiquetado con `aria-labelledby` y `aria-describedby`.
+- Modal sin titulo visible usando `aria-label`.
+- `alertdialog` para acciones criticas.
+- Modal sin cierre accidental con `close-on-backdrop=false` y `close-on-escape=false`.
+- Dialog no modal usando `show()`.
+- Dialog con contenido largo y scroll interno.
+
+Compatibilidad:
+
+- El componente registra `dialog-polyfill` cuando el navegador no soporta `HTMLDialogElement.showModal()`.
+- El polyfill cubre navegadores antiguos modernos e IE9+, con las limitaciones propias del polyfill: evitar que el dialog viva dentro de contenedores que creen stacking context si se necesita posicionamiento modal perfecto.
+- Por defecto no se fuerza foco programatico. `initial-focus` y `restore-focus` son opt-in para casos donde se haya validado el comportamiento con teclado y tecnologias asistivas.
 
 ## Tokens
 

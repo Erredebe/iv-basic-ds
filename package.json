@@ -17,13 +17,19 @@
     "test": "stencil test --spec --e2e"
   },
   "dependencies": {
-    "@stencil/core": "latest"
+    "@stencil/core": "latest",
+    "dialog-polyfill": "^0.5.6"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.3.6",
+    "@storybook/addon-docs": "^10.3.6",
+    "@storybook/addon-themes": "^10.3.6",
     "@storybook/web-components": "latest",
     "@storybook/web-components-vite": "latest",
     "concurrently": "latest",
     "lit": "latest",
-    "storybook": "latest"
+    "storybook": "latest",
+    "storybook-addon-pseudo-states": "^10.3.6",
+    "storybook-addon-tag-badges": "^3.1.0"
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@stencil/core';
+import dialogPolyfill from 'dialog-polyfill';
 
 @Component({
   tag: 'iv-dialog',
@@ -7,12 +8,16 @@ import { Component, Event, EventEmitter, Host, Method, Prop, Watch, h } from '@s
 })
 export class IvDialog {
   private dialogElement?: HTMLDialogElement;
+  private previouslyFocusedElement?: HTMLElement;
 
   /** Controla si el dialog esta abierto. */
   @Prop({ mutable: true, reflect: true }) open = false;
 
   /** Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado. */
   @Prop({ mutable: true }) modal = true;
+
+  /** Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas. */
+  @Prop({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /** Permite cerrar haciendo click en el backdrop del dialog modal. */
   @Prop() closeOnBackdrop = true;
@@ -22,6 +27,12 @@ export class IvDialog {
 
   /** Valor opcional devuelto por el dialog al cerrar. */
   @Prop({ mutable: true }) returnValue = '';
+
+  /** Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus. */
+  @Prop() initialFocus?: string;
+
+  /** Devuelve el foco al invocador al cerrar. Desactivado por defecto para evitar falsos focos en mobile/AT. */
+  @Prop({ attribute: 'restore-focus' }) restoreFocus = false;
 
   /** Nombre accesible cuando no hay un titulo visible asociado. */
   @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
@@ -47,6 +58,7 @@ export class IvDialog {
   }
 
   componentDidLoad() {
+    this.registerDialogPolyfill();
     this.syncDialogState();
   }
 
@@ -85,7 +97,16 @@ export class IvDialog {
       'aria-labelledby': this.ariaLabelledby,
       'aria-describedby': this.ariaDescribedby,
       'aria-modal': this.modal ? 'true' : undefined,
+      role: this.dialogRole,
     };
+  }
+
+  private registerDialogPolyfill() {
+    if (!this.dialogElement || 'showModal' in this.dialogElement) {
+      return;
+    }
+
+    dialogPolyfill.registerDialog(this.dialogElement);
   }
 
   private syncDialogState() {
@@ -108,13 +129,27 @@ export class IvDialog {
       return;
     }
 
+    this.previouslyFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
+
     if (this.modal) {
       this.dialogElement.showModal();
     } else {
       this.dialogElement.show();
     }
 
+    this.applyInitialFocus();
+
     this.ivOpen.emit();
+  }
+
+  private applyInitialFocus() {
+    if (!this.dialogElement || !this.initialFocus) {
+      return;
+    }
+
+    const focusTarget = this.dialogElement.querySelector<HTMLElement>(this.initialFocus);
+
+    focusTarget?.focus();
   }
 
   private handleCancel = (event: Event) => {
@@ -130,8 +165,19 @@ export class IvDialog {
 
     this.returnValue = returnValue;
     this.open = false;
+    this.restoreFocusToInvoker();
     this.ivClose.emit({ returnValue });
   };
+
+  private restoreFocusToInvoker() {
+    if (!this.restoreFocus || !this.previouslyFocusedElement?.isConnected) {
+      this.previouslyFocusedElement = undefined;
+      return;
+    }
+
+    this.previouslyFocusedElement.focus();
+    this.previouslyFocusedElement = undefined;
+  }
 
   private handleDialogClick = (event: MouseEvent) => {
     if (!this.modal || !this.closeOnBackdrop || event.target !== this.dialogElement) {

@@ -95,6 +95,15 @@ export namespace Components {
          */
         "closeOnEscape": boolean;
         /**
+          * Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas.
+          * @default 'dialog'
+         */
+        "dialogRole": 'dialog' | 'alertdialog';
+        /**
+          * Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus.
+         */
+        "initialFocus"?: string;
+        /**
           * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
           * @default true
          */
@@ -104,6 +113,11 @@ export namespace Components {
           * @default false
          */
         "open": boolean;
+        /**
+          * Devuelve el foco al invocador al cerrar. Desactivado por defecto para evitar falsos focos en mobile/AT.
+          * @default false
+         */
+        "restoreFocus": boolean;
         /**
           * Valor opcional devuelto por el dialog al cerrar.
           * @default ''
@@ -240,6 +254,15 @@ declare namespace LocalJSX {
          */
         "closeOnEscape"?: boolean;
         /**
+          * Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas.
+          * @default 'dialog'
+         */
+        "dialogRole"?: 'dialog' | 'alertdialog';
+        /**
+          * Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus.
+         */
+        "initialFocus"?: string;
+        /**
           * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
           * @default true
          */
@@ -261,6 +284,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "open"?: boolean;
+        /**
+          * Devuelve el foco al invocador al cerrar. Desactivado por defecto para evitar falsos focos en mobile/AT.
+          * @default false
+         */
+        "restoreFocus"?: boolean;
         /**
           * Valor opcional devuelto por el dialog al cerrar.
           * @default ''
@@ -287,9 +315,12 @@ declare namespace LocalJSX {
     interface IvDialogAttributes {
         "open": boolean;
         "modal": boolean;
+        "dialogRole": 'dialog' | 'alertdialog';
         "closeOnBackdrop": boolean;
         "closeOnEscape": boolean;
         "returnValue": string;
+        "initialFocus": string;
+        "restoreFocus": boolean;
         "ariaLabel": string;
         "ariaLabelledby": string;
         "ariaDescribedby": string;
