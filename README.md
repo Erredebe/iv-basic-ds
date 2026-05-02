@@ -79,6 +79,18 @@ npm run build:netlify
 Build completo para Netlify. La carpeta final publicada es `www`.
 
 ```bash
+npm run test:a11y
+```
+
+Ejecuta las pruebas automatizadas de accesibilidad con Playwright y axe-core contra la carpeta `www`. Requiere haber generado antes `www` con `npm run build:netlify`.
+
+```bash
+npm run test:a11y:build
+```
+
+Ejecuta `npm run build:netlify` y despues las pruebas automatizadas de accesibilidad.
+
+```bash
 npm run clean
 ```
 
@@ -306,9 +318,9 @@ Props:
 - `return-value`: valor de retorno del dialog al cerrar.
 - `initial-focus`: selector CSS del elemento que debe recibir foco inicial al abrir.
 - `restore-focus`: devuelve el foco al invocador al cerrar; desactivado por defecto para evitar falsos focos en mobile y lectores de pantalla.
-- `aria-label`: nombre accesible si no hay titulo visible.
-- `aria-labelledby`: referencia al titulo visible del dialog.
-- `aria-describedby`: referencia al texto descriptivo del dialog.
+- `label`: nombre accesible si no hay titulo visible; se aplica como `aria-label` al dialog nativo interno.
+- `labelled-by`: referencia al titulo visible del dialog; se aplica como `aria-labelledby` al dialog nativo interno.
+- `described-by`: referencia al texto descriptivo del dialog; se aplica como `aria-describedby` al dialog nativo interno.
 
 Metodos:
 
@@ -327,7 +339,7 @@ Ejemplo:
 ```html
 <iv-button aria-haspopup="dialog" aria-controls="confirm-dialog">Abrir dialog</iv-button>
 
-<iv-dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+<iv-dialog id="confirm-dialog" labelled-by="confirm-title" described-by="confirm-description">
   <h2 slot="header" id="confirm-title">Confirmar accion</h2>
   <p id="confirm-description">Esta accion no se puede deshacer.</p>
   <div slot="footer">
@@ -339,8 +351,8 @@ Ejemplo:
 
 Variantes accesibles incluidas en Storybook y en `/demos/dialog.html`:
 
-- Modal etiquetado con `aria-labelledby` y `aria-describedby`.
-- Modal sin titulo visible usando `aria-label`.
+- Modal etiquetado con `labelled-by` y `described-by`.
+- Modal sin titulo visible usando `label`.
 - `alertdialog` para acciones criticas.
 - Modal sin cierre accidental con `close-on-backdrop=false` y `close-on-escape=false`.
 - Dialog no modal usando `show()`.
@@ -400,6 +412,13 @@ export class IvExample {
 
 El proyecto evita Shadow DOM por defecto para reducir fricciones con herramientas de accesibilidad, formularios, estilos globales y aplicaciones Angular consumidoras.
 
+Validacion automatizada:
+
+- Storybook usa `@storybook/addon-a11y` para inspeccion visual con axe-core durante desarrollo.
+- Playwright usa `@axe-core/playwright` para pruebas automatizadas contra la build local en `www`.
+- Ejecuta `npm run test:a11y:build` antes de subir cambios que creen o modifiquen componentes.
+- Los tests viven en `tests/a11y/` y deben cubrir los estados principales de cada componente.
+
 Consideraciones al crear componentes:
 
 - Usar elementos HTML semanticos siempre que sea posible.
@@ -407,6 +426,7 @@ Consideraciones al crear componentes:
 - Reflejar estados importantes como `disabled` cuando aplique.
 - Evitar reemplazar controles nativos si no es necesario.
 - Documentar variantes y estados en Storybook.
+- Añadir o actualizar pruebas Axe con Playwright para estados relevantes.
 
 ## Flujo Recomendado Para Nuevos Componentes
 
@@ -415,8 +435,9 @@ Consideraciones al crear componentes:
 3. Crear `<nombre>.css` con clases prefijadas.
 4. Crear `<nombre>.stories.ts`.
 5. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
-6. Ejecutar `npm run start` para revisar Stencil y Storybook.
-7. Ejecutar `npm run build:netlify` antes de desplegar.
+6. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
+7. Ejecutar `npm run start` para revisar Stencil y Storybook.
+8. Ejecutar `npm run test:a11y:build` antes de desplegar.
 
 ## Build Final
 

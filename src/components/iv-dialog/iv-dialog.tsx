@@ -34,14 +34,14 @@ export class IvDialog {
   /** Devuelve el foco al invocador al cerrar. Desactivado por defecto para evitar falsos focos en mobile/AT. */
   @Prop({ attribute: 'restore-focus' }) restoreFocus = false;
 
-  /** Nombre accesible cuando no hay un titulo visible asociado. */
-  @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
+  /** Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado. */
+  @Prop({ attribute: 'label' }) ariaLabel?: string;
 
-  /** Referencia al elemento que etiqueta el dialog. */
-  @Prop({ attribute: 'aria-labelledby' }) ariaLabelledby?: string;
+  /** Referencia al elemento que etiqueta el dialog nativo. */
+  @Prop({ attribute: 'labelled-by' }) ariaLabelledby?: string;
 
-  /** Referencia al elemento que describe el dialog. */
-  @Prop({ attribute: 'aria-describedby' }) ariaDescribedby?: string;
+  /** Referencia al elemento que describe el dialog nativo. */
+  @Prop({ attribute: 'described-by' }) ariaDescribedby?: string;
 
   /** Se emite cuando el dialog se abre mediante la API nativa. */
   @Event() ivOpen!: EventEmitter<void>;

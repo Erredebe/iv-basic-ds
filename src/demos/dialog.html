@@ -23,7 +23,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-labelled-title">
         <h2 id="dialog-labelled-title">Modal etiquetado por titulo</h2>
         <iv-button aria-haspopup="dialog" aria-controls="labelled-dialog" onclick="openDialog('labelled-dialog')">Abrir dialog</iv-button>
-        <iv-dialog id="labelled-dialog" aria-labelledby="labelled-dialog-title" aria-describedby="labelled-dialog-description">
+        <iv-dialog id="labelled-dialog" labelled-by="labelled-dialog-title" described-by="labelled-dialog-description">
           <h3 slot="header" id="labelled-dialog-title">Confirmar accion</h3>
           <p id="labelled-dialog-description">Este componente usa el elemento dialog nativo y se abre con showModal().</p>
           <div slot="footer">
@@ -34,10 +34,10 @@
       </section>
 
       <section class="iv-demo__panel" aria-labelledby="dialog-label-title">
-        <h2 id="dialog-label-title">Modal con aria-label</h2>
+        <h2 id="dialog-label-title">Modal con label</h2>
         <iv-button aria-haspopup="dialog" aria-controls="label-only-dialog" onclick="openDialog('label-only-dialog')">Abrir ayuda rapida</iv-button>
-        <iv-dialog id="label-only-dialog" aria-label="Ayuda rapida">
-          <p>Este ejemplo no tiene cabecera visible. El nombre accesible se proporciona con aria-label.</p>
+        <iv-dialog id="label-only-dialog" label="Ayuda rapida">
+          <p>Este ejemplo no tiene cabecera visible. El nombre accesible se proporciona con label y se aplica como aria-label al dialog nativo.</p>
           <div slot="footer">
             <iv-button onclick="closeDialog('label-only-dialog')">Cerrar</iv-button>
           </div>
@@ -47,7 +47,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-alert-title">
         <h2 id="dialog-alert-title">Alert dialog</h2>
         <iv-button aria-haspopup="dialog" aria-controls="alert-dialog" onclick="openDialog('alert-dialog')">Abrir alertdialog</iv-button>
-        <iv-dialog id="alert-dialog" dialog-role="alertdialog" aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <iv-dialog id="alert-dialog" dialog-role="alertdialog" labelled-by="alert-dialog-title" described-by="alert-dialog-description">
           <h3 slot="header" id="alert-dialog-title">Eliminar definitivamente</h3>
           <p id="alert-dialog-description">Esta accion elimina los datos de forma permanente y no se puede deshacer.</p>
           <div slot="footer">
@@ -60,7 +60,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-prevent-title">
         <h2 id="dialog-prevent-title">Sin cierre accidental</h2>
         <iv-button aria-haspopup="dialog" aria-controls="prevent-dismiss-dialog" onclick="openPreventDismissDialog()">Abrir revision obligatoria</iv-button>
-        <iv-dialog id="prevent-dismiss-dialog" aria-labelledby="prevent-dismiss-dialog-title" aria-describedby="prevent-dismiss-dialog-description">
+        <iv-dialog id="prevent-dismiss-dialog" labelled-by="prevent-dismiss-dialog-title" described-by="prevent-dismiss-dialog-description">
           <h3 slot="header" id="prevent-dismiss-dialog-title">Revision obligatoria</h3>
           <p id="prevent-dismiss-dialog-description">Este dialog no se cierra con Escape ni con click en el backdrop. Usa una accion explicita.</p>
           <div slot="footer">
@@ -72,7 +72,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-non-modal-title">
         <h2 id="dialog-non-modal-title">No modal</h2>
         <iv-button aria-haspopup="dialog" aria-controls="non-modal-dialog" onclick="openNonModalDialog('non-modal-dialog')">Abrir dialog no modal</iv-button>
-        <iv-dialog id="non-modal-dialog" aria-label="Informacion no modal">
+        <iv-dialog id="non-modal-dialog" label="Informacion no modal">
           <p>Este ejemplo usa show() nativo y no bloquea la interaccion con el resto de la pagina.</p>
           <div slot="footer">
             <iv-button onclick="closeDialog('non-modal-dialog')">Cerrar</iv-button>
@@ -81,9 +81,9 @@
       </section>
 
       <section class="iv-demo__panel" aria-labelledby="dialog-long-title">
-        <h2 id="dialog-long-title">Contenido largo sin aria-describedby</h2>
+        <h2 id="dialog-long-title">Contenido largo sin described-by</h2>
         <iv-button aria-haspopup="dialog" aria-controls="long-dialog" onclick="openDialog('long-dialog')">Abrir contenido largo</iv-button>
-        <iv-dialog id="long-dialog" aria-labelledby="long-dialog-title">
+        <iv-dialog id="long-dialog" labelled-by="long-dialog-title">
           <h3 slot="header" id="long-dialog-title">Terminos del servicio</h3>
           <div>
             <p>El cuerpo mantiene scroll interno para conservar visibles las acciones.</p>
@@ -91,7 +91,7 @@
             <p>Seccion 2. El foco y el backdrop los gestiona el dialog nativo.</p>
             <p>Seccion 3. El footer permanece separado visualmente del contenido.</p>
             <p>Seccion 4. El usuario puede cerrar con Escape si esta permitido.</p>
-            <p>Seccion 5. No se usa aria-describedby porque el contenido es multiparrafo.</p>
+            <p>Seccion 5. No se usa described-by porque el contenido es multiparrafo.</p>
           </div>
           <div slot="footer">
             <iv-button variant="ghost" onclick="closeDialog('long-dialog', 'cancel')">Cerrar</iv-button>
@@ -103,7 +103,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-form-title">
         <h2 id="dialog-form-title">Formulario con method="dialog"</h2>
         <iv-button aria-haspopup="dialog" aria-controls="form-dialog" onclick="openDialog('form-dialog')">Abrir formulario</iv-button>
-        <iv-dialog id="form-dialog" aria-labelledby="form-dialog-title" aria-describedby="form-dialog-description">
+        <iv-dialog id="form-dialog" labelled-by="form-dialog-title" described-by="form-dialog-description">
           <h3 slot="header" id="form-dialog-title">Preferencia de contacto</h3>
           <p id="form-dialog-description">El formulario se cierra con el mecanismo nativo method="dialog".</p>
           <form method="dialog">
@@ -126,7 +126,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-return-title">
         <h2 id="dialog-return-title">Return value</h2>
         <iv-button aria-haspopup="dialog" aria-controls="return-dialog" onclick="openDialog('return-dialog')">Abrir decision</iv-button>
-        <iv-dialog id="return-dialog" aria-labelledby="return-dialog-title" aria-describedby="return-dialog-description">
+        <iv-dialog id="return-dialog" labelled-by="return-dialog-title" described-by="return-dialog-description">
           <h3 slot="header" id="return-dialog-title">Decision con valor</h3>
           <p id="return-dialog-description">Cada boton cierra el dialog con un valor diferente.</p>
           <div slot="footer">
@@ -140,7 +140,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-focus-title">
         <h2 id="dialog-focus-title">Foco inicial opt-in</h2>
         <iv-button aria-haspopup="dialog" aria-controls="initial-focus-dialog" onclick="openDialog('initial-focus-dialog')">Abrir con initial-focus</iv-button>
-        <iv-dialog id="initial-focus-dialog" initial-focus="#initial-focus-confirm" aria-labelledby="initial-focus-dialog-title" aria-describedby="initial-focus-dialog-description">
+        <iv-dialog id="initial-focus-dialog" initial-focus="#initial-focus-confirm" labelled-by="initial-focus-dialog-title" described-by="initial-focus-dialog-description">
           <h3 slot="header" id="initial-focus-dialog-title">Foco inicial explicito</h3>
           <p id="initial-focus-dialog-description">El foco se fuerza solo porque esta demo define initial-focus.</p>
           <div slot="footer">
@@ -153,7 +153,7 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-restore-title">
         <h2 id="dialog-restore-title">Restaurar foco opt-in</h2>
         <iv-button aria-haspopup="dialog" aria-controls="restore-focus-dialog" onclick="openDialog('restore-focus-dialog')">Abrir con restore-focus</iv-button>
-        <iv-dialog id="restore-focus-dialog" restore-focus aria-labelledby="restore-focus-dialog-title" aria-describedby="restore-focus-dialog-description">
+        <iv-dialog id="restore-focus-dialog" restore-focus labelled-by="restore-focus-dialog-title" described-by="restore-focus-dialog-description">
           <h3 slot="header" id="restore-focus-dialog-title">Restauracion de foco</h3>
           <p id="restore-focus-dialog-description">Al cerrar, el foco vuelve al invocador solo porque restore-focus esta activado.</p>
           <div slot="footer">
@@ -165,9 +165,9 @@
       <section class="iv-demo__panel" aria-labelledby="dialog-complex-title">
         <h2 id="dialog-complex-title">Contenido estructurado</h2>
         <iv-button aria-haspopup="dialog" aria-controls="complex-dialog" onclick="openDialog('complex-dialog')">Abrir resumen</iv-button>
-        <iv-dialog id="complex-dialog" aria-labelledby="complex-dialog-title">
+        <iv-dialog id="complex-dialog" labelled-by="complex-dialog-title">
           <h3 slot="header" id="complex-dialog-title">Resumen de pedido</h3>
-          <p>Este ejemplo omite aria-describedby porque contiene estructura navegable.</p>
+          <p>Este ejemplo omite described-by porque contiene estructura navegable.</p>
           <ul>
             <li>Producto principal con configuracion avanzada.</li>
             <li>Servicio adicional renovable.</li>

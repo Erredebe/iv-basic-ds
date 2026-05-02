@@ -18,9 +18,9 @@ El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
 - `iv-dialog` envuelve un `<dialog>` nativo.
 - Registra `dialog-polyfill` si el navegador no soporta `showModal()`.
 - Usar `dialog-role="alertdialog"` solo para confirmaciones criticas.
-- Preferir `aria-labelledby` cuando hay titulo visible.
-- Usar `aria-label` solo si no hay titulo visible.
-- Omitir `aria-describedby` cuando el contenido es complejo, multiparrafo o estructurado.
+- En `iv-dialog`, preferir `labelled-by` cuando hay titulo visible; el componente lo aplica como `aria-labelledby` al `<dialog>` nativo interno.
+- En `iv-dialog`, usar `label` solo si no hay titulo visible; el componente lo aplica como `aria-label` al `<dialog>` nativo interno.
+- En `iv-dialog`, omitir `described-by` cuando el contenido es complejo, multiparrafo o estructurado.
 - `initial-focus` y `restore-focus` son opt-in para evitar falsos focos en mobile screen readers.
 
 ## Verificacion Recomendada

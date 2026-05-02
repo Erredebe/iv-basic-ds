@@ -9,9 +9,9 @@
 
 | Property          | Attribute           | Description                                                                                                                        | Type                        | Default     |
 | ----------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ----------- |
-| `ariaDescribedby` | `aria-describedby`  | Referencia al elemento que describe el dialog.                                                                                     | `string`                    | `undefined` |
-| `ariaLabel`       | `aria-label`        | Nombre accesible cuando no hay un titulo visible asociado.                                                                         | `string`                    | `undefined` |
-| `ariaLabelledby`  | `aria-labelledby`   | Referencia al elemento que etiqueta el dialog.                                                                                     | `string`                    | `undefined` |
+| `ariaDescribedby` | `described-by`      | Referencia al elemento que describe el dialog nativo.                                                                              | `string`                    | `undefined` |
+| `ariaLabel`       | `label`             | Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.                                               | `string`                    | `undefined` |
+| `ariaLabelledby`  | `labelled-by`       | Referencia al elemento que etiqueta el dialog nativo.                                                                              | `string`                    | `undefined` |
 | `closeOnBackdrop` | `close-on-backdrop` | Permite cerrar haciendo click en el backdrop del dialog modal.                                                                     | `boolean`                   | `true`      |
 | `closeOnEscape`   | `close-on-escape`   | Permite cerrar con la tecla Escape usando el evento `cancel` nativo.                                                               | `boolean`                   | `true`      |
 | `dialogRole`      | `dialog-role`       | Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas.                                                | `"alertdialog" \| "dialog"` | `'dialog'`  |

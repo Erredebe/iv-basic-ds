@@ -11,6 +11,8 @@
 - Install with `npm install`.
 - Use `npm run start` for local development; it runs an initial Stencil build, then starts Stencil at `http://localhost:3333/` and Storybook at `http://localhost:6006/` in parallel.
 - Use `npm run build:netlify` as the main verification command before deploy; it cleans `www`, `dist`, and `loader`, then builds Stencil and Storybook into `www/storybook`.
+- Use `npm run test:a11y:build` before deploy when components or demos changed; it builds the Netlify output and runs Playwright + axe-core checks against `www`.
+- Use `npm run test:a11y` only when `www` already exists and is up to date.
 - Use `npm run build` only for the Stencil build.
 - Use `npm run storybook` only when you want Storybook without the Stencil dev server; it still requires a Stencil build first.
 - `npm run test` is wired to `stencil test --spec --e2e`, but this repo currently has no test files.
@@ -26,7 +28,7 @@
 
 - `iv-dialog` wraps a native `<dialog>` and registers `dialog-polyfill` only when `showModal` is missing.
 - Use `dialog-role="alertdialog"` for critical confirmations; do not use the global `role` attribute on `<iv-dialog>` because semantics must be applied to the internal native dialog.
-- Prefer `aria-labelledby` for visible titles, `aria-label` only when no visible title exists, and omit `aria-describedby` for complex/multiparagraph content.
+- For `iv-dialog`, use `labelled-by` for visible titles, `label` only when no visible title exists, and omit `described-by` for complex/multiparagraph content; the component maps these to ARIA on the internal native dialog.
 - Do not add automatic programmatic focus to `iv-dialog`; `initial-focus` and `restore-focus` are opt-in because forced focus can create false focus/scroll issues on mobile screen readers.
 
 ## Stencil And Output
@@ -44,6 +46,14 @@
 - Keep CSS class names prefixed with `iv-` because there is no Shadow DOM encapsulation.
 - Use global tokens from `src/global/tokens.css`; token names should use the `--iv-` prefix.
 - Add or update a Storybook story for component states. Put HTML demos in `src/demos/<component>.html` and link them from `src/index.html`; avoid growing `src/index.html` into a full demo page.
+- Add or update Playwright axe tests in `tests/a11y/` for each new component and its main interactive states.
+
+## Accessibility Testing
+
+- Automated a11y tests use `@axe-core/playwright` and run against the generated `www` output through `playwright.config.ts`.
+- Each component should have coverage in `tests/a11y/<component>.a11y.spec.ts`.
+- For interactive components, test important open/closed, disabled, labelled, keyboard, and dismissal states before running axe.
+- Storybook `@storybook/addon-a11y` is for interactive inspection; Playwright axe tests are the repeatable gate.
 
 ## TypeScript And Stories
 

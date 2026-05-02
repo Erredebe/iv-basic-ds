@@ -69,15 +69,15 @@ export namespace Components {
     }
     interface IvDialog {
         /**
-          * Referencia al elemento que describe el dialog.
+          * Referencia al elemento que describe el dialog nativo.
          */
         "ariaDescribedby"?: string;
         /**
-          * Nombre accesible cuando no hay un titulo visible asociado.
+          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
          */
         "ariaLabel"?: string;
         /**
-          * Referencia al elemento que etiqueta el dialog.
+          * Referencia al elemento que etiqueta el dialog nativo.
          */
         "ariaLabelledby"?: string;
         /**
@@ -232,15 +232,15 @@ declare namespace LocalJSX {
     }
     interface IvDialog {
         /**
-          * Referencia al elemento que describe el dialog.
+          * Referencia al elemento que describe el dialog nativo.
          */
         "ariaDescribedby"?: string;
         /**
-          * Nombre accesible cuando no hay un titulo visible asociado.
+          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
          */
         "ariaLabel"?: string;
         /**
-          * Referencia al elemento que etiqueta el dialog.
+          * Referencia al elemento que etiqueta el dialog nativo.
          */
         "ariaLabelledby"?: string;
         /**

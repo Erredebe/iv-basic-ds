@@ -16,9 +16,9 @@ const meta: Meta = {
     closeOnBackdrop: { control: 'boolean' },
     closeOnEscape: { control: 'boolean' },
     restoreFocus: { control: 'boolean', name: 'restore-focus' },
-    ariaLabel: { control: 'text', name: 'aria-label' },
-    ariaLabelledby: { control: 'text', name: 'aria-labelledby' },
-    ariaDescribedby: { control: 'text', name: 'aria-describedby' },
+    ariaLabel: { control: 'text', name: 'label' },
+    ariaLabelledby: { control: 'text', name: 'labelled-by' },
+    ariaDescribedby: { control: 'text', name: 'described-by' },
   },
   args: {
     open: false,
@@ -68,9 +68,9 @@ export const Playground: Story = {
       .closeOnBackdrop=${closeOnBackdrop}
       .closeOnEscape=${closeOnEscape}
       .restoreFocus=${restoreFocus}
-      aria-label=${ariaLabel || undefined}
-      aria-labelledby=${ariaLabelledby || undefined}
-      aria-describedby=${ariaDescribedby || undefined}
+      label=${ariaLabel || undefined}
+      labelled-by=${ariaLabelledby || undefined}
+      described-by=${ariaDescribedby || undefined}
     >
       <h2 slot="header" id="dialog-title">Confirmar accion</h2>
       <p id="dialog-description">Este dialog usa el elemento nativo dialog y se abre con showModal().</p>
@@ -85,7 +85,7 @@ export const Playground: Story = {
 export const LabelledByTitle: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="basic-dialog" @click=${openDialog}>Abrir confirmacion</iv-button>
-    <iv-dialog id="basic-dialog" aria-labelledby="basic-dialog-title" aria-describedby="basic-dialog-description">
+    <iv-dialog id="basic-dialog" labelled-by="basic-dialog-title" described-by="basic-dialog-description">
       <h2 slot="header" id="basic-dialog-title">Eliminar elemento</h2>
       <p id="basic-dialog-description">Esta accion no se puede deshacer. Revisa la informacion antes de continuar.</p>
       <div slot="footer">
@@ -99,8 +99,8 @@ export const LabelledByTitle: Story = {
 export const LabelOnly: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="label-only-dialog" @click=${openDialog}>Abrir ayuda rapida</iv-button>
-    <iv-dialog id="label-only-dialog" aria-label="Ayuda rapida">
-      <p>Este ejemplo usa aria-label porque no hay titulo visible en el slot header.</p>
+    <iv-dialog id="label-only-dialog" label="Ayuda rapida">
+      <p>Este ejemplo usa label porque no hay titulo visible en el slot header.</p>
       <div slot="footer">
         <iv-button @click=${closeDialog}>Cerrar</iv-button>
       </div>
@@ -111,7 +111,7 @@ export const LabelOnly: Story = {
 export const AlertDialog: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="alert-dialog" @click=${openDialog}>Abrir alertdialog</iv-button>
-    <iv-dialog id="alert-dialog" dialog-role="alertdialog" aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+    <iv-dialog id="alert-dialog" dialog-role="alertdialog" labelled-by="alert-dialog-title" described-by="alert-dialog-description">
       <h2 slot="header" id="alert-dialog-title">Eliminar definitivamente</h2>
       <p id="alert-dialog-description">Esta accion elimina los datos de forma permanente y no se puede deshacer.</p>
       <div slot="footer">
@@ -129,8 +129,8 @@ export const PreventDismiss: Story = {
       id="prevent-dismiss-dialog"
       .closeOnBackdrop=${false}
       .closeOnEscape=${false}
-      aria-labelledby="prevent-dismiss-title"
-      aria-describedby="prevent-dismiss-description"
+      labelled-by="prevent-dismiss-title"
+      described-by="prevent-dismiss-description"
     >
       <h2 slot="header" id="prevent-dismiss-title">Revision obligatoria</h2>
       <p id="prevent-dismiss-description">Este dialog no se cierra con Escape ni con click en el backdrop. Usa una accion explicita.</p>
@@ -144,7 +144,7 @@ export const PreventDismiss: Story = {
 export const NonModal: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="non-modal-dialog" @click=${openNonModalDialog}>Abrir dialog no modal</iv-button>
-    <iv-dialog id="non-modal-dialog" .modal=${false} aria-label="Informacion no modal">
+    <iv-dialog id="non-modal-dialog" .modal=${false} label="Informacion no modal">
       <p>Este ejemplo usa show() nativo y no bloquea la interaccion con el resto de la pagina.</p>
       <div slot="footer">
         <iv-button @click=${closeDialog}>Cerrar</iv-button>
@@ -156,7 +156,7 @@ export const NonModal: Story = {
 export const LongContent: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="long-dialog" @click=${openDialog}>Abrir contenido largo</iv-button>
-    <iv-dialog id="long-dialog" aria-labelledby="long-dialog-title">
+    <iv-dialog id="long-dialog" labelled-by="long-dialog-title">
       <h2 slot="header" id="long-dialog-title">Terminos del servicio</h2>
       ${Array.from(
         { length: 8 },
@@ -173,7 +173,7 @@ export const LongContent: Story = {
 export const NativeFormClose: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="form-dialog" @click=${openDialog}>Abrir formulario nativo</iv-button>
-    <iv-dialog id="form-dialog" aria-labelledby="form-dialog-title" aria-describedby="form-dialog-description">
+    <iv-dialog id="form-dialog" labelled-by="form-dialog-title" described-by="form-dialog-description">
       <h2 slot="header" id="form-dialog-title">Selecciona una opcion</h2>
       <p id="form-dialog-description">El formulario usa method="dialog" para cerrar con la API nativa del elemento dialog.</p>
       <form method="dialog">
@@ -199,8 +199,8 @@ export const ReturnValue: Story = {
     <iv-button aria-haspopup="dialog" aria-controls="return-value-dialog" @click=${openDialog}>Abrir con returnValue</iv-button>
     <iv-dialog
       id="return-value-dialog"
-      aria-labelledby="return-value-title"
-      aria-describedby="return-value-description"
+      labelled-by="return-value-title"
+      described-by="return-value-description"
       @ivClose=${(event: CustomEvent<{ returnValue: string }>) => {
         const output = document.getElementById('return-value-output');
         if (output) {
@@ -222,7 +222,7 @@ export const ReturnValue: Story = {
 export const InitialFocusOptIn: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="initial-focus-dialog" @click=${openDialog}>Abrir con foco inicial opt-in</iv-button>
-    <iv-dialog id="initial-focus-dialog" initial-focus="#safe-action" aria-labelledby="initial-focus-title" aria-describedby="initial-focus-description">
+    <iv-dialog id="initial-focus-dialog" initial-focus="#safe-action" labelled-by="initial-focus-title" described-by="initial-focus-description">
       <h2 slot="header" id="initial-focus-title">Foco inicial explicito</h2>
       <p id="initial-focus-description">Este ejemplo fuerza el foco solo porque initial-focus se ha configurado expresamente.</p>
       <div slot="footer">
@@ -236,7 +236,7 @@ export const InitialFocusOptIn: Story = {
 export const RestoreFocusOptIn: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="restore-focus-dialog" @click=${openDialog}>Abrir con restore-focus</iv-button>
-    <iv-dialog id="restore-focus-dialog" restore-focus aria-labelledby="restore-focus-title" aria-describedby="restore-focus-description">
+    <iv-dialog id="restore-focus-dialog" restore-focus labelled-by="restore-focus-title" described-by="restore-focus-description">
       <h2 slot="header" id="restore-focus-title">Restauracion de foco opt-in</h2>
       <p id="restore-focus-description">Al cerrar, el foco vuelve al invocador solo porque restore-focus esta activado.</p>
       <div slot="footer">
@@ -249,9 +249,9 @@ export const RestoreFocusOptIn: Story = {
 export const ComplexContentWithoutDescription: Story = {
   render: () => html`
     <iv-button aria-haspopup="dialog" aria-controls="complex-dialog" @click=${openDialog}>Abrir contenido complejo</iv-button>
-    <iv-dialog id="complex-dialog" aria-labelledby="complex-dialog-title">
+    <iv-dialog id="complex-dialog" labelled-by="complex-dialog-title">
       <h2 slot="header" id="complex-dialog-title">Resumen de pedido</h2>
-      <p>Este ejemplo omite aria-describedby porque el contenido incluye estructura que conviene explorar por separado.</p>
+      <p>Este ejemplo omite described-by porque el contenido incluye estructura que conviene explorar por separado.</p>
       <ul>
         <li>Producto principal con configuracion avanzada.</li>
         <li>Servicio adicional renovable.</li>
