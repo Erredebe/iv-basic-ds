@@ -16,9 +16,10 @@
     "build:netlify": "npm run clean && npm run build && storybook build -o www/storybook",
     "copy:coverage": "node -e \"const fs=require('node:fs');fs.rmSync('www/coverage',{recursive:true,force:true});fs.cpSync('coverage/lcov-report','www/coverage',{recursive:true});\"",
     "test:spec": "stencil test --spec --coverage",
+    "install:playwright": "playwright install chromium",
     "test:a11y": "playwright test tests/a11y",
     "test:a11y:build": "npm run build:netlify && npm run test:a11y",
-    "deploy:netlify": "npm run build:netlify && npm run test:spec && npm run copy:coverage && npm run test:a11y",
+    "deploy:netlify": "npm run build:netlify && npm run test:spec && npm run copy:coverage && npm run install:playwright && npm run test:a11y",
     "test": "npm run test:spec && npm run test:a11y"
   },
   "dependencies": {

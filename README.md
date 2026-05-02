@@ -100,7 +100,7 @@ Ejecuta `npm run build:netlify` y despues las pruebas automatizadas de accesibil
 npm run deploy:netlify
 ```
 
-Flujo completo de despliegue: genera `www`, ejecuta specs con coverage, copia coverage a `www/coverage` y ejecuta Playwright/a11y generando `www/test-report`.
+Flujo completo de despliegue: genera `www`, ejecuta specs con coverage, copia coverage a `www/coverage`, instala Chromium para Playwright si hace falta y ejecuta Playwright/a11y generando `www/test-report`.
 
 ```bash
 npm run clean

@@ -10,7 +10,7 @@
 
 - Install with `npm install`.
 - Use `npm run start` for local development; it runs an initial Stencil build, then starts Stencil at `http://localhost:3333/` and Storybook at `http://localhost:6006/` in parallel.
-- Use `npm run deploy:netlify` as the main verification command before deploy; it builds Netlify output, runs Stencil spec tests with coverage, copies coverage to `www/coverage`, then runs Playwright + axe-core with the HTML report in `www/test-report`.
+- Use `npm run deploy:netlify` as the main verification command before deploy; it builds Netlify output, runs Stencil spec tests with coverage, copies coverage to `www/coverage`, installs the Playwright Chromium browser when needed, then runs Playwright + axe-core with the HTML report in `www/test-report`.
 - Use `npm run build:netlify` only when you need generated Stencil + Storybook output without running tests.
 - Use `npm run test:spec` for Stencil spec tests with coverage; coverage is generated in `coverage/lcov-report` and copied to `www/coverage` by `npm run copy:coverage` during deploy.
 - Use `npm run test:a11y:build` before deploy only when you specifically need build + a11y without spec coverage; it builds the Netlify output and runs Playwright + axe-core checks against `www`.
