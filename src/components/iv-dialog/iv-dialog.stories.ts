@@ -84,15 +84,24 @@ export const Playground: Story = {
 
 export const LabelledByTitle: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir confirmacion</iv-button>
-    <iv-dialog id="basic-dialog" labelled-by="basic-dialog-title" described-by="basic-dialog-description">
-      <h2 slot="header" id="basic-dialog-title">Eliminar elemento</h2>
-      <p id="basic-dialog-description">Esta accion no se puede deshacer. Revisa la informacion antes de continuar.</p>
-      <div slot="footer">
-        <iv-button variant="ghost" @click=${closeDialog}>Cancelar</iv-button>
-        <iv-button @click=${closeDialog}>Eliminar</iv-button>
+    <div class="iv-storybook-panel">
+      <p class="iv-storybook-panel__eyebrow">Dialog accesible</p>
+      <h2 class="iv-storybook-panel__title">Confirmaciones con nombre visible</h2>
+      <p class="iv-storybook-panel__description">
+        El titulo visible se conecta con el dialog mediante labelled-by. El foco automatico y la restauracion siguen siendo opt-in.
+      </p>
+      <div class="iv-storybook-actions">
+        <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir confirmacion</iv-button>
       </div>
-    </iv-dialog>
+      <iv-dialog id="basic-dialog" labelled-by="basic-dialog-title" described-by="basic-dialog-description">
+        <h2 slot="header" id="basic-dialog-title">Eliminar elemento</h2>
+        <p id="basic-dialog-description">Esta accion no se puede deshacer. Revisa la informacion antes de continuar.</p>
+        <div slot="footer">
+          <iv-button variant="ghost" @click=${closeDialog}>Cancelar</iv-button>
+          <iv-button @click=${closeDialog}>Eliminar</iv-button>
+        </div>
+      </iv-dialog>
+    </div>
   `,
 };
 
@@ -110,15 +119,24 @@ export const LabelOnly: Story = {
 
 export const AlertDialog: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir alertdialog</iv-button>
-    <iv-dialog id="alert-dialog" dialog-role="alertdialog" labelled-by="alert-dialog-title" described-by="alert-dialog-description">
-      <h2 slot="header" id="alert-dialog-title">Eliminar definitivamente</h2>
-      <p id="alert-dialog-description">Esta accion elimina los datos de forma permanente y no se puede deshacer.</p>
-      <div slot="footer">
-        <iv-button variant="ghost" @click=${closeDialog}>Cancelar</iv-button>
-        <iv-button @click=${closeDialog}>Eliminar definitivamente</iv-button>
+    <div class="iv-storybook-panel">
+      <p class="iv-storybook-panel__eyebrow">Patron critico</p>
+      <h2 class="iv-storybook-panel__title">Alertdialog solo para decisiones destructivas</h2>
+      <p class="iv-storybook-panel__description">
+        Usa dialog-role="alertdialog" cuando el contenido requiere atencion inmediata y una decision explicita.
+      </p>
+      <div class="iv-storybook-actions">
+        <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir alertdialog</iv-button>
       </div>
-    </iv-dialog>
+      <iv-dialog id="alert-dialog" dialog-role="alertdialog" labelled-by="alert-dialog-title" described-by="alert-dialog-description">
+        <h2 slot="header" id="alert-dialog-title">Eliminar definitivamente</h2>
+        <p id="alert-dialog-description">Esta accion elimina los datos de forma permanente y no se puede deshacer.</p>
+        <div slot="footer">
+          <iv-button variant="ghost" @click=${closeDialog}>Cancelar</iv-button>
+          <iv-button @click=${closeDialog}>Eliminar definitivamente</iv-button>
+        </div>
+      </iv-dialog>
+    </div>
   `,
 };
 

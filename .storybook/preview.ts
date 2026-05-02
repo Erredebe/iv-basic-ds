@@ -1,4 +1,5 @@
 import { withThemeByClassName } from '@storybook/addon-themes';
+import { ivStorybookTheme } from './theme';
 import '../www/build/iv-basic-ds.esm.js';
 import '../src/global/tokens.css';
 import './preview.css';
@@ -16,12 +17,23 @@ export const decorators = [
 export const parameters = {
   a11y: {
     context: '#storybook-root',
+    options: {
+      runOnly: {
+        type: 'tag',
+        values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'],
+      },
+    },
   },
   backgrounds: {
     options: {
-      light: { name: 'Light', value: '#ffffff' },
-      neutral: { name: 'Neutral', value: '#f8fafc' },
+      canvas: { name: 'Canvas', value: '#eef4ff' },
+      surface: { name: 'Surface', value: '#ffffff' },
       dark: { name: 'Dark', value: '#0f172a' },
+    },
+    grid: {
+      cellSize: 8,
+      cellAmount: 4,
+      opacity: 0.18,
     },
   },
   controls: {
@@ -31,11 +43,13 @@ export const parameters = {
     },
   },
   docs: {
+    theme: ivStorybookTheme,
     toc: true,
   },
+  layout: 'centered',
   options: {
     storySort: {
-      order: ['Introduccion', 'Guia', 'Components'],
+      order: ['Introduccion', 'Guia', 'Components', ['Button', 'Dialog']],
     },
   },
   viewport: {
@@ -54,4 +68,8 @@ export const parameters = {
       },
     },
   },
+};
+
+export const initialGlobals = {
+  backgrounds: { value: 'canvas' },
 };
