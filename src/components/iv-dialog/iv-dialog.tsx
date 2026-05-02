@@ -14,34 +14,34 @@ export class IvDialog {
   @Prop({ mutable: true, reflect: true }) open = false;
 
   /** Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado. */
-  @Prop({ mutable: true }) modal = true;
+  @Prop({ mutable: true, reflect: true }) modal = true;
 
   /** Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas. */
-  @Prop({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
+  @Prop({ attribute: 'dialog-role', reflect: true }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /** Permite cerrar haciendo click en el backdrop del dialog modal. */
-  @Prop() closeOnBackdrop = true;
+  @Prop({ reflect: true }) closeOnBackdrop = true;
 
   /** Permite cerrar con la tecla Escape usando el evento `cancel` nativo. */
-  @Prop() closeOnEscape = true;
+  @Prop({ reflect: true }) closeOnEscape = true;
 
   /** Valor opcional devuelto por el dialog al cerrar. */
-  @Prop({ mutable: true }) returnValue = '';
+  @Prop({ attribute: 'return-value', mutable: true, reflect: true }) returnValue = '';
 
   /** Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus. */
-  @Prop() initialFocus?: string;
+  @Prop({ attribute: 'initial-focus', reflect: true }) initialFocus?: string;
 
   /** Devuelve el foco al invocador al cerrar. Desactivado por defecto para evitar falsos focos en mobile/AT. */
-  @Prop({ attribute: 'restore-focus' }) restoreFocus = false;
+  @Prop({ attribute: 'restore-focus', reflect: true }) restoreFocus = false;
 
   /** Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado. */
-  @Prop({ attribute: 'label' }) ariaLabel?: string;
+  @Prop({ reflect: true }) label?: string;
 
   /** Referencia al elemento que etiqueta el dialog nativo. */
-  @Prop({ attribute: 'labelled-by' }) ariaLabelledby?: string;
+  @Prop({ attribute: 'labelled-by', reflect: true }) labelledBy?: string;
 
   /** Referencia al elemento que describe el dialog nativo. */
-  @Prop({ attribute: 'described-by' }) ariaDescribedby?: string;
+  @Prop({ attribute: 'described-by', reflect: true }) describedBy?: string;
 
   /** Se emite cuando el dialog se abre mediante la API nativa. */
   @Event() ivOpen!: EventEmitter<void>;
@@ -93,9 +93,9 @@ export class IvDialog {
 
   private get accessibilityAttributes() {
     return {
-      'aria-label': this.ariaLabel,
-      'aria-labelledby': this.ariaLabelledby,
-      'aria-describedby': this.ariaDescribedby,
+      'aria-label': this.label,
+      'aria-labelledby': this.labelledBy,
+      'aria-describedby': this.describedBy,
       'aria-modal': this.modal ? 'true' : undefined,
       role: this.dialogRole,
     };

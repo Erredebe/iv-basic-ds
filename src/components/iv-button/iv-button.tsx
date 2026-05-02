@@ -25,39 +25,39 @@ export class IvButton {
   @Prop() rel?: string;
 
   /** Nombre accesible cuando el contenido visible no describe suficientemente la accion. */
-  @Prop({ attribute: 'aria-label' }) ariaLabel?: string;
+  @Prop({ reflect: true }) label?: string;
 
   /** Referencia al elemento que etiqueta el control. */
-  @Prop({ attribute: 'aria-labelledby' }) ariaLabelledby?: string;
+  @Prop({ attribute: 'labelled-by', reflect: true }) labelledBy?: string;
 
   /** Referencia al elemento que describe el control. */
-  @Prop({ attribute: 'aria-describedby' }) ariaDescribedby?: string;
+  @Prop({ attribute: 'described-by', reflect: true }) describedBy?: string;
 
   /** Identificador del elemento controlado por el boton. */
-  @Prop({ attribute: 'aria-controls' }) ariaControls?: string;
+  @Prop({ reflect: true }) controls?: string;
 
   /** Estado expandido cuando el boton controla contenido desplegable. */
-  @Prop({ attribute: 'aria-expanded' }) ariaExpanded?: boolean;
+  @Prop({ reflect: true }) expanded?: boolean;
 
   /** Estado pulsado para botones tipo toggle. */
-  @Prop({ attribute: 'aria-pressed' }) ariaPressed?: boolean | 'mixed';
+  @Prop({ reflect: true }) pressed?: boolean | 'mixed';
 
   /** Indica si el boton abre un popup y de que tipo. */
-  @Prop({ attribute: 'aria-haspopup' }) ariaHaspopup?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+  @Prop({ attribute: 'has-popup', reflect: true }) hasPopup?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
 
   /** Marca un enlace como el item actual dentro de un conjunto. */
-  @Prop({ attribute: 'aria-current' }) ariaCurrent?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+  @Prop({ reflect: true }) current?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
 
   private get accessibilityAttributes() {
     return {
-      'aria-label': this.ariaLabel,
-      'aria-labelledby': this.ariaLabelledby,
-      'aria-describedby': this.ariaDescribedby,
-      'aria-controls': this.ariaControls,
-      'aria-expanded': this.toAriaValue(this.ariaExpanded),
-      'aria-pressed': this.toAriaValue(this.ariaPressed),
-      'aria-haspopup': this.ariaHaspopup,
-      'aria-current': this.ariaCurrent,
+      'aria-label': this.label,
+      'aria-labelledby': this.labelledBy,
+      'aria-describedby': this.describedBy,
+      'aria-controls': this.controls,
+      'aria-expanded': this.toAriaValue(this.expanded),
+      'aria-pressed': this.toAriaValue(this.pressed),
+      'aria-haspopup': this.hasPopup,
+      'aria-current': this.current,
     };
   }
 

@@ -82,7 +82,7 @@ Build completo para Netlify. La carpeta final publicada es `www`.
 npm run test:spec
 ```
 
-Ejecuta los tests spec de Stencil con coverage. El informe HTML queda en `coverage/lcov-report`.
+Ejecuta los tests spec con `@stencil/vitest` y coverage. El informe HTML queda en `coverage`.
 
 ```bash
 npm run test:a11y
@@ -100,7 +100,7 @@ Ejecuta `npm run build:netlify` y despues las pruebas automatizadas de accesibil
 npm run deploy:netlify
 ```
 
-Flujo completo de despliegue: genera `www`, ejecuta specs con coverage, copia coverage a `www/coverage`, instala Chromium para Playwright si hace falta y ejecuta Playwright/a11y generando `www/test-report`.
+Flujo completo de despliegue: ejecuta specs con coverage, genera `www`, copia coverage a `www/coverage`, instala Chromium para Playwright si hace falta y ejecuta Playwright/a11y generando `www/test-report`.
 
 ```bash
 npm run clean
@@ -291,14 +291,14 @@ Props:
 - `href`: si se informa, renderiza un enlace en vez de un `button`.
 - `target`: destino del enlace cuando se usa `href`.
 - `rel`: relacion del enlace cuando se usa `href`; con `target="_blank"` se usa `noreferrer` por defecto si no se informa.
-- `aria-label`: nombre accesible cuando el contenido visible no es suficiente.
-- `aria-labelledby`: referencia al elemento que etiqueta el control.
-- `aria-describedby`: referencia al elemento que describe el control.
-- `aria-controls`: identificador del elemento controlado por el boton.
-- `aria-expanded`: estado expandido para botones que controlan contenido desplegable.
-- `aria-pressed`: estado pulsado para botones tipo toggle; admite `true`, `false` o `mixed`.
-- `aria-haspopup`: indica que el boton abre un popup; admite `true`, `menu`, `listbox`, `tree`, `grid` o `dialog`.
-- `aria-current`: marca un enlace como item actual dentro de un conjunto.
+- `label`: nombre accesible cuando el contenido visible no es suficiente; se refleja en el host y se aplica como `aria-label` al control nativo interno.
+- `labelled-by`: referencia al elemento que etiqueta el control; se aplica como `aria-labelledby` al control nativo interno.
+- `described-by`: referencia al elemento que describe el control; se aplica como `aria-describedby` al control nativo interno.
+- `controls`: identificador del elemento controlado por el boton; se aplica como `aria-controls` al control nativo interno.
+- `expanded`: estado expandido para botones que controlan contenido desplegable; se aplica como `aria-expanded` al control nativo interno.
+- `pressed`: estado pulsado para botones tipo toggle; admite `true`, `false` o `mixed` y se aplica como `aria-pressed` al control nativo interno.
+- `has-popup`: indica que el boton abre un popup; admite `true`, `menu`, `listbox`, `tree`, `grid` o `dialog` y se aplica como `aria-haspopup` al control nativo interno.
+- `current`: marca un enlace como item actual dentro de un conjunto; se aplica como `aria-current` al enlace interno.
 
 Ejemplos:
 
@@ -308,8 +308,8 @@ Ejemplos:
 <iv-button variant="ghost">Ghost</iv-button>
 <iv-button disabled>Disabled</iv-button>
 <iv-button href="/storybook/">Ir a Storybook</iv-button>
-<iv-button aria-controls="filters-panel" aria-expanded="false">Filtros</iv-button>
-<iv-button aria-pressed="true" variant="secondary">Vista compacta</iv-button>
+<iv-button controls="filters-panel" expanded="false">Filtros</iv-button>
+<iv-button pressed="true" variant="secondary">Vista compacta</iv-button>
 ```
 
 ### `iv-dialog`
@@ -351,7 +351,7 @@ Eventos:
 Ejemplo:
 
 ```html
-<iv-button aria-haspopup="dialog">Abrir dialog</iv-button>
+<iv-button has-popup="dialog">Abrir dialog</iv-button>
 
 <iv-dialog id="confirm-dialog" labelled-by="confirm-title" described-by="confirm-description">
   <h2 slot="header" id="confirm-title">Confirmar accion</h2>
@@ -404,6 +404,7 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 - Tokens globales con prefijo `--iv-`.
 - Diseno siempre mobile-first: la base CSS debe resolver pantallas pequenas y los ajustes para pantallas mayores deben ir con `@media (min-width: ...)`.
 - Los botones no deben ser full-width por defecto; solo pueden ocupar todo el ancho dentro de layouts o contextos de acciones, como footers de dialog o stacks de demo.
+- Cuando un componente renderiza un control nativo interno, las props publicas deben ser semanticas y reflejadas, no atributos `aria-*` como API principal. El ARIA real debe aplicarse solo al control nativo interno para evitar duplicacion en lectores de pantalla.
 - Stories junto al componente: `src/components/<component>/<component>.stories.ts`.
 - Estilos del componente junto al componente: `src/components/<component>/<component>.css`.
 - Specs junto al componente: `src/components/<component>/<component>.spec.tsx`.

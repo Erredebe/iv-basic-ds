@@ -48,6 +48,10 @@ describe('iv-dialog', () => {
     expect(dialog.getAttribute('aria-modal')).toBe('true');
     expect(dialog.getAttribute('aria-labelledby')).toBe('dialog-title');
     expect(dialog.getAttribute('aria-describedby')).toBe('dialog-description');
+    expect(root.getAttribute('labelled-by')).toBe('dialog-title');
+    expect(root.getAttribute('described-by')).toBe('dialog-description');
+    expect(root.hasAttribute('aria-labelledby')).toBe(false);
+    expect(root.hasAttribute('aria-describedby')).toBe(false);
     expect(root.querySelector('.iv-dialog__surface')).not.toBeNull();
     expect(root.querySelector('.iv-dialog__header')).not.toBeNull();
     expect(root.querySelector('.iv-dialog__body')).not.toBeNull();
@@ -64,6 +68,8 @@ describe('iv-dialog', () => {
 
     expect(dialog.getAttribute('role')).toBe('alertdialog');
     expect(dialog.getAttribute('aria-label')).toBe('Eliminar elemento');
+    expect(root.getAttribute('label')).toBe('Eliminar elemento');
+    expect(root.hasAttribute('aria-label')).toBe(false);
   });
 
   it('opens and closes as a modal dialog through public methods', async () => {
@@ -334,34 +340,34 @@ describe('iv-dialog', () => {
     expect(root.initialFocus).toBeUndefined();
   });
 
-  it('renders with ariaLabel undefined', async () => {
+  it('renders with label undefined', async () => {
     const { root } = await renderDialog(
       <iv-dialog>
         <p>Contenido</p>
       </iv-dialog>,
     );
 
-    expect(root.ariaLabel).toBeUndefined();
+    expect(root.label).toBeUndefined();
   });
 
-  it('renders with ariaLabelledby undefined', async () => {
+  it('renders with labelledBy undefined', async () => {
     const { root } = await renderDialog(
       <iv-dialog>
         <p>Contenido</p>
       </iv-dialog>,
     );
 
-    expect(root.ariaLabelledby).toBeUndefined();
+    expect(root.labelledBy).toBeUndefined();
   });
 
-  it('renders with ariaDescribedby undefined', async () => {
+  it('renders with describedBy undefined', async () => {
     const { root } = await renderDialog(
       <iv-dialog>
         <p>Contenido</p>
       </iv-dialog>,
     );
 
-    expect(root.ariaDescribedby).toBeUndefined();
+    expect(root.describedBy).toBeUndefined();
   });
 
   it('does not call close again when dialog is already closed', async () => {

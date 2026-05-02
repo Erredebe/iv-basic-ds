@@ -10,44 +10,44 @@ export namespace Components {
         /**
           * Identificador del elemento controlado por el boton.
          */
-        "ariaControls"?: string;
+        "controls"?: string;
         /**
           * Marca un enlace como el item actual dentro de un conjunto.
          */
-        "ariaCurrent"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+        "current"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
         /**
           * Referencia al elemento que describe el control.
          */
-        "ariaDescribedby"?: string;
-        /**
-          * Estado expandido cuando el boton controla contenido desplegable.
-         */
-        "ariaExpanded"?: boolean;
-        /**
-          * Indica si el boton abre un popup y de que tipo.
-         */
-        "ariaHaspopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
-        /**
-          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
-         */
-        "ariaLabel"?: string;
-        /**
-          * Referencia al elemento que etiqueta el control.
-         */
-        "ariaLabelledby"?: string;
-        /**
-          * Estado pulsado para botones tipo toggle.
-         */
-        "ariaPressed"?: boolean | 'mixed';
+        "describedBy"?: string;
         /**
           * Deshabilita la interaccion del control.
           * @default false
          */
         "disabled": boolean;
         /**
+          * Estado expandido cuando el boton controla contenido desplegable.
+         */
+        "expanded"?: boolean;
+        /**
+          * Indica si el boton abre un popup y de que tipo.
+         */
+        "hasPopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
           * Si se informa, el componente renderiza un enlace.
          */
         "href"?: string;
+        /**
+          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
+         */
+        "label"?: string;
+        /**
+          * Referencia al elemento que etiqueta el control.
+         */
+        "labelledBy"?: string;
+        /**
+          * Estado pulsado para botones tipo toggle.
+         */
+        "pressed"?: boolean | 'mixed';
         /**
           * Relacion del enlace cuando se usa `href`.
          */
@@ -69,18 +69,6 @@ export namespace Components {
     }
     interface IvDialog {
         /**
-          * Referencia al elemento que describe el dialog nativo.
-         */
-        "ariaDescribedby"?: string;
-        /**
-          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
-         */
-        "ariaLabel"?: string;
-        /**
-          * Referencia al elemento que etiqueta el dialog nativo.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Cierra el dialog usando `close()` nativo.
          */
         "close": (returnValue?: string) => Promise<void>;
@@ -95,6 +83,10 @@ export namespace Components {
          */
         "closeOnEscape": boolean;
         /**
+          * Referencia al elemento que describe el dialog nativo.
+         */
+        "describedBy"?: string;
+        /**
           * Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas.
           * @default 'dialog'
          */
@@ -103,6 +95,14 @@ export namespace Components {
           * Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus.
          */
         "initialFocus"?: string;
+        /**
+          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
+         */
+        "label"?: string;
+        /**
+          * Referencia al elemento que etiqueta el dialog nativo.
+         */
+        "labelledBy"?: string;
         /**
           * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
           * @default true
@@ -173,44 +173,44 @@ declare namespace LocalJSX {
         /**
           * Identificador del elemento controlado por el boton.
          */
-        "ariaControls"?: string;
+        "controls"?: string;
         /**
           * Marca un enlace como el item actual dentro de un conjunto.
          */
-        "ariaCurrent"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+        "current"?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
         /**
           * Referencia al elemento que describe el control.
          */
-        "ariaDescribedby"?: string;
-        /**
-          * Estado expandido cuando el boton controla contenido desplegable.
-         */
-        "ariaExpanded"?: boolean;
-        /**
-          * Indica si el boton abre un popup y de que tipo.
-         */
-        "ariaHaspopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
-        /**
-          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
-         */
-        "ariaLabel"?: string;
-        /**
-          * Referencia al elemento que etiqueta el control.
-         */
-        "ariaLabelledby"?: string;
-        /**
-          * Estado pulsado para botones tipo toggle.
-         */
-        "ariaPressed"?: boolean | 'mixed';
+        "describedBy"?: string;
         /**
           * Deshabilita la interaccion del control.
           * @default false
          */
         "disabled"?: boolean;
         /**
+          * Estado expandido cuando el boton controla contenido desplegable.
+         */
+        "expanded"?: boolean;
+        /**
+          * Indica si el boton abre un popup y de que tipo.
+         */
+        "hasPopup"?: 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        /**
           * Si se informa, el componente renderiza un enlace.
          */
         "href"?: string;
+        /**
+          * Nombre accesible cuando el contenido visible no describe suficientemente la accion.
+         */
+        "label"?: string;
+        /**
+          * Referencia al elemento que etiqueta el control.
+         */
+        "labelledBy"?: string;
+        /**
+          * Estado pulsado para botones tipo toggle.
+         */
+        "pressed"?: boolean | 'mixed';
         /**
           * Relacion del enlace cuando se usa `href`.
          */
@@ -232,18 +232,6 @@ declare namespace LocalJSX {
     }
     interface IvDialog {
         /**
-          * Referencia al elemento que describe el dialog nativo.
-         */
-        "ariaDescribedby"?: string;
-        /**
-          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
-         */
-        "ariaLabel"?: string;
-        /**
-          * Referencia al elemento que etiqueta el dialog nativo.
-         */
-        "ariaLabelledby"?: string;
-        /**
           * Permite cerrar haciendo click en el backdrop del dialog modal.
           * @default true
          */
@@ -254,6 +242,10 @@ declare namespace LocalJSX {
          */
         "closeOnEscape"?: boolean;
         /**
+          * Referencia al elemento que describe el dialog nativo.
+         */
+        "describedBy"?: string;
+        /**
           * Rol ARIA aplicado al dialog nativo. Usa `alertdialog` para confirmaciones críticas.
           * @default 'dialog'
          */
@@ -262,6 +254,14 @@ declare namespace LocalJSX {
           * Selector CSS del elemento que debe recibir foco inicial al abrir. Si no se informa, se respeta el comportamiento nativo/autofocus.
          */
         "initialFocus"?: string;
+        /**
+          * Nombre accesible aplicado al dialog nativo cuando no hay un titulo visible asociado.
+         */
+        "label"?: string;
+        /**
+          * Referencia al elemento que etiqueta el dialog nativo.
+         */
+        "labelledBy"?: string;
         /**
           * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
           * @default true
@@ -303,14 +303,14 @@ declare namespace LocalJSX {
         "href": string;
         "target": '_self' | '_blank' | '_parent' | '_top';
         "rel": string;
-        "ariaLabel": string;
-        "ariaLabelledby": string;
-        "ariaDescribedby": string;
-        "ariaControls": string;
-        "ariaExpanded": boolean;
-        "ariaPressed": string;
-        "ariaHaspopup": 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
-        "ariaCurrent": 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
+        "label": string;
+        "labelledBy": string;
+        "describedBy": string;
+        "controls": string;
+        "expanded": boolean;
+        "pressed": string;
+        "hasPopup": 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
+        "current": 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
     }
     interface IvDialogAttributes {
         "open": boolean;
@@ -321,9 +321,9 @@ declare namespace LocalJSX {
         "returnValue": string;
         "initialFocus": string;
         "restoreFocus": boolean;
-        "ariaLabel": string;
-        "ariaLabelledby": string;
-        "ariaDescribedby": string;
+        "label": string;
+        "labelledBy": string;
+        "describedBy": string;
     }
 
     interface IntrinsicElements {

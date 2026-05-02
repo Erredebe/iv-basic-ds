@@ -16,9 +16,9 @@ const meta: Meta = {
     closeOnBackdrop: { control: 'boolean' },
     closeOnEscape: { control: 'boolean' },
     restoreFocus: { control: 'boolean', name: 'restore-focus' },
-    ariaLabel: { control: 'text', name: 'label' },
-    ariaLabelledby: { control: 'text', name: 'labelled-by' },
-    ariaDescribedby: { control: 'text', name: 'described-by' },
+    label: { control: 'text' },
+    labelledBy: { control: 'text', name: 'labelled-by' },
+    describedBy: { control: 'text', name: 'described-by' },
   },
   args: {
     open: false,
@@ -27,9 +27,9 @@ const meta: Meta = {
     closeOnBackdrop: true,
     closeOnEscape: true,
     restoreFocus: false,
-    ariaLabel: '',
-    ariaLabelledby: 'dialog-title',
-    ariaDescribedby: 'dialog-description',
+    label: '',
+    labelledBy: 'dialog-title',
+    describedBy: 'dialog-description',
   },
 };
 
@@ -67,8 +67,8 @@ const openNonModalDialog = (event: Event) => {
 };
 
 export const Playground: Story = {
-  render: ({ open, modal, dialogRole, closeOnBackdrop, closeOnEscape, restoreFocus, ariaLabel, ariaLabelledby, ariaDescribedby }) => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir dialog</iv-button>
+  render: ({ open, modal, dialogRole, closeOnBackdrop, closeOnEscape, restoreFocus, label, labelledBy, describedBy }) => html`
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir dialog</iv-button>
     <iv-dialog
       id="playground-dialog"
       .open=${open}
@@ -77,9 +77,9 @@ export const Playground: Story = {
       .closeOnBackdrop=${closeOnBackdrop}
       .closeOnEscape=${closeOnEscape}
       .restoreFocus=${restoreFocus}
-      label=${ariaLabel || undefined}
-      labelled-by=${ariaLabelledby || undefined}
-      described-by=${ariaDescribedby || undefined}
+      label=${label || undefined}
+      labelled-by=${labelledBy || undefined}
+      described-by=${describedBy || undefined}
     >
       <h2 slot="header" id="dialog-title">Confirmar accion</h2>
       <p id="dialog-description">Este dialog usa el elemento nativo dialog y se abre con showModal().</p>
@@ -100,7 +100,7 @@ export const LabelledByTitle: Story = {
         El titulo visible se conecta con el dialog mediante labelled-by. El foco automatico y la restauracion siguen siendo opt-in.
       </p>
       <div class="iv-storybook-actions">
-        <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir confirmacion</iv-button>
+        <iv-button has-popup="dialog" @click=${openDialog}>Abrir confirmacion</iv-button>
       </div>
       <iv-dialog id="basic-dialog" labelled-by="basic-dialog-title" described-by="basic-dialog-description">
         <h2 slot="header" id="basic-dialog-title">Eliminar elemento</h2>
@@ -116,7 +116,7 @@ export const LabelledByTitle: Story = {
 
 export const LabelOnly: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir ayuda rapida</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir ayuda rapida</iv-button>
     <iv-dialog id="label-only-dialog" label="Ayuda rapida">
       <p>Este ejemplo usa label porque no hay titulo visible en el slot header.</p>
       <div slot="footer">
@@ -135,7 +135,7 @@ export const AlertDialog: Story = {
         Usa dialog-role="alertdialog" cuando el contenido requiere atencion inmediata y una decision explicita.
       </p>
       <div class="iv-storybook-actions">
-        <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir alertdialog</iv-button>
+        <iv-button has-popup="dialog" @click=${openDialog}>Abrir alertdialog</iv-button>
       </div>
       <iv-dialog id="alert-dialog" dialog-role="alertdialog" labelled-by="alert-dialog-title" described-by="alert-dialog-description">
         <h2 slot="header" id="alert-dialog-title">Eliminar definitivamente</h2>
@@ -151,7 +151,7 @@ export const AlertDialog: Story = {
 
 export const PreventDismiss: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir sin cierre accidental</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir sin cierre accidental</iv-button>
     <iv-dialog
       id="prevent-dismiss-dialog"
       .closeOnBackdrop=${false}
@@ -170,7 +170,7 @@ export const PreventDismiss: Story = {
 
 export const NonModal: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openNonModalDialog}>Abrir dialog no modal</iv-button>
+    <iv-button has-popup="dialog" @click=${openNonModalDialog}>Abrir dialog no modal</iv-button>
     <iv-dialog id="non-modal-dialog" .modal=${false} label="Informacion no modal">
       <p>Este ejemplo usa show() nativo y no bloquea la interaccion con el resto de la pagina.</p>
       <div slot="footer">
@@ -182,7 +182,7 @@ export const NonModal: Story = {
 
 export const LongContent: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir contenido largo</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir contenido largo</iv-button>
     <iv-dialog id="long-dialog" labelled-by="long-dialog-title">
       <h2 slot="header" id="long-dialog-title">Terminos del servicio</h2>
       ${Array.from(
@@ -199,7 +199,7 @@ export const LongContent: Story = {
 
 export const NativeFormClose: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir formulario nativo</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir formulario nativo</iv-button>
     <iv-dialog id="form-dialog" labelled-by="form-dialog-title" described-by="form-dialog-description">
       <h2 slot="header" id="form-dialog-title">Selecciona una opcion</h2>
       <p id="form-dialog-description">El formulario usa method="dialog" para cerrar con la API nativa del elemento dialog.</p>
@@ -223,7 +223,7 @@ export const NativeFormClose: Story = {
 
 export const ReturnValue: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir con returnValue</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir con returnValue</iv-button>
     <iv-dialog
       id="return-value-dialog"
       labelled-by="return-value-title"
@@ -248,7 +248,7 @@ export const ReturnValue: Story = {
 
 export const InitialFocusOptIn: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir con foco inicial opt-in</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir con foco inicial opt-in</iv-button>
     <iv-dialog id="initial-focus-dialog" initial-focus="#safe-action" labelled-by="initial-focus-title" described-by="initial-focus-description">
       <h2 slot="header" id="initial-focus-title">Foco inicial explicito</h2>
       <p id="initial-focus-description">Este ejemplo fuerza el foco solo porque initial-focus se ha configurado expresamente.</p>
@@ -262,7 +262,7 @@ export const InitialFocusOptIn: Story = {
 
 export const RestoreFocusOptIn: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir con restore-focus</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir con restore-focus</iv-button>
     <iv-dialog id="restore-focus-dialog" restore-focus labelled-by="restore-focus-title" described-by="restore-focus-description">
       <h2 slot="header" id="restore-focus-title">Restauracion de foco opt-in</h2>
       <p id="restore-focus-description">Al cerrar, el foco vuelve al invocador solo porque restore-focus esta activado.</p>
@@ -275,7 +275,7 @@ export const RestoreFocusOptIn: Story = {
 
 export const ComplexContentWithoutDescription: Story = {
   render: () => html`
-    <iv-button aria-haspopup="dialog" @click=${openDialog}>Abrir contenido complejo</iv-button>
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir contenido complejo</iv-button>
     <iv-dialog id="complex-dialog" labelled-by="complex-dialog-title">
       <h2 slot="header" id="complex-dialog-title">Resumen de pedido</h2>
       <p>Este ejemplo omite described-by porque el contenido incluye estructura que conviene explorar por separado.</p>

@@ -10,7 +10,8 @@ El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
 
 - `iv-button` renderiza un `<button>` nativo o un `<a>` nativo si recibe `href`.
 - Usa `type="button"` por defecto para evitar submits accidentales.
-- Soporta estados ARIA comunes: `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-expanded`, `aria-pressed`, `aria-haspopup` y `aria-current`.
+- Soporta props semanticas reflejadas (`label`, `labelled-by`, `described-by`, `controls`, `expanded`, `pressed`, `has-popup` y `current`) y las aplica como ARIA solo al `<button>` o `<a>` interno.
+- No usar `aria-*` como API publica del host cuando el componente renderiza un control nativo interno, para evitar semantica duplicada.
 - Si se usa como enlace con `target="_blank"`, el contenido debe avisar al usuario de que abre una nueva pestana.
 
 ## Dialog

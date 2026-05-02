@@ -11,22 +11,22 @@ const meta: Meta = {
       options: ['primary', 'secondary', 'ghost'],
     },
     disabled: { control: 'boolean' },
-    label: { control: 'text' },
+    text: { control: 'text' },
     href: { control: 'text' },
-    ariaLabel: { control: 'text', name: 'aria-label' },
-    ariaControls: { control: 'text', name: 'aria-controls' },
-    ariaExpanded: { control: 'boolean', name: 'aria-expanded' },
-    ariaPressed: { control: 'boolean', name: 'aria-pressed' },
+    label: { control: 'text' },
+    controls: { control: 'text' },
+    expanded: { control: 'boolean' },
+    pressed: { control: 'boolean' },
   },
   args: {
     variant: 'primary',
     disabled: false,
-    label: 'Button',
+    text: 'Button',
     href: '',
-    ariaLabel: '',
-    ariaControls: '',
-    ariaExpanded: undefined,
-    ariaPressed: undefined,
+    label: '',
+    controls: '',
+    expanded: undefined,
+    pressed: undefined,
   },
 };
 
@@ -35,17 +35,17 @@ export default meta;
 type Story = StoryObj;
 
 export const Playground: Story = {
-  render: ({ variant, disabled, label, href, ariaLabel, ariaControls, ariaExpanded, ariaPressed }) => html`
+  render: ({ variant, disabled, text, href, label, controls, expanded, pressed }) => html`
     <iv-button
       variant=${variant}
       ?disabled=${disabled}
       href=${href || undefined}
-      aria-label=${ariaLabel || undefined}
-      aria-controls=${ariaControls || undefined}
-      aria-expanded=${ariaExpanded === undefined ? undefined : String(ariaExpanded)}
-      aria-pressed=${ariaPressed === undefined ? undefined : String(ariaPressed)}
+      label=${label || undefined}
+      controls=${controls || undefined}
+      .expanded=${expanded}
+      .pressed=${pressed}
     >
-      ${label}
+      ${text}
     </iv-button>
   `,
 };
@@ -107,10 +107,10 @@ export const AccessibilityStates: Story = {
       <p class="iv-storybook-panel__eyebrow">Patrones ARIA</p>
       <h2 class="iv-storybook-panel__title">Semantica explicita para casos comunes</h2>
       <div class="iv-storybook-actions">
-        <iv-button aria-label="Guardar cambios">Guardar</iv-button>
-        <iv-button aria-controls="filters-panel" aria-expanded="false">Filtros</iv-button>
-        <iv-button aria-pressed="true" variant="secondary">Vista compacta</iv-button>
-        <iv-button href="/storybook/" aria-current="page" variant="ghost">Storybook</iv-button>
+        <iv-button label="Guardar cambios">Guardar</iv-button>
+        <iv-button controls="filters-panel" expanded="false">Filtros</iv-button>
+        <iv-button pressed="true" variant="secondary">Vista compacta</iv-button>
+        <iv-button href="/storybook/" current="page" variant="ghost">Storybook</iv-button>
       </div>
     </div>
   `,
