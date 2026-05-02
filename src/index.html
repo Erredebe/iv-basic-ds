@@ -31,6 +31,19 @@
           <iv-button disabled>Disabled</iv-button>
         </div>
       </section>
+
+      <section class="iv-demo__panel" aria-labelledby="dialog-demo-title">
+        <h2 id="dialog-demo-title">Dialog</h2>
+        <iv-button aria-haspopup="dialog" aria-controls="demo-dialog" onclick="document.getElementById('demo-dialog').showModal()">Abrir dialog</iv-button>
+        <iv-dialog id="demo-dialog" aria-labelledby="demo-dialog-title" aria-describedby="demo-dialog-description">
+          <h3 slot="header" id="demo-dialog-title">Confirmar accion</h3>
+          <p id="demo-dialog-description">Este componente usa el elemento dialog nativo y se abre con showModal().</p>
+          <div slot="footer">
+            <iv-button variant="ghost" onclick="document.getElementById('demo-dialog').close('cancel')">Cancelar</iv-button>
+            <iv-button onclick="document.getElementById('demo-dialog').close('confirm')">Confirmar</iv-button>
+          </div>
+        </iv-dialog>
+      </section>
     </main>
   </body>
 </html>

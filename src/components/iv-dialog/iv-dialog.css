@@ -1,0 +1,85 @@
+iv-dialog {
+  display: contents;
+}
+
+.iv-dialog {
+  box-sizing: border-box;
+  width: min(calc(100vw - 2rem), 36rem);
+  max-height: min(calc(100vh - 2rem), 42rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--iv-radius-md);
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  box-shadow: 0 24px 64px rgb(16 42 67 / 0.24);
+}
+
+.iv-dialog::backdrop {
+  background: rgb(16 42 67 / 0.48);
+}
+
+.iv-dialog:focus-visible {
+  outline: none;
+  box-shadow: var(--iv-focus-ring), 0 24px 64px rgb(16 42 67 / 0.24);
+}
+
+.iv-dialog__surface {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: inherit;
+}
+
+.iv-dialog__header,
+.iv-dialog__body,
+.iv-dialog__footer {
+  box-sizing: border-box;
+}
+
+.iv-dialog__header {
+  padding: var(--iv-space-lg) var(--iv-space-lg) var(--iv-space-md);
+}
+
+.iv-dialog__header:empty,
+.iv-dialog__footer:empty {
+  display: none;
+}
+
+.iv-dialog__header > * {
+  margin-block: 0;
+}
+
+.iv-dialog__body {
+  overflow: auto;
+  padding: 0 var(--iv-space-lg) var(--iv-space-lg);
+  color: var(--iv-color-text-muted);
+  line-height: 1.6;
+}
+
+.iv-dialog__body > :first-child {
+  margin-top: 0;
+}
+
+.iv-dialog__body > :last-child {
+  margin-bottom: 0;
+}
+
+.iv-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--iv-space-sm);
+  padding: var(--iv-space-md) var(--iv-space-lg) var(--iv-space-lg);
+  border-top: 1px solid var(--iv-color-border);
+}
+
+@media (max-width: 40rem) {
+  .iv-dialog {
+    width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+  }
+
+  .iv-dialog__footer {
+    justify-content: stretch;
+  }
+}

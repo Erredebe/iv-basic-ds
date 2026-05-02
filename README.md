@@ -276,6 +276,54 @@ Ejemplos:
 <iv-button aria-pressed="true" variant="secondary">Vista compacta</iv-button>
 ```
 
+### `iv-dialog`
+
+Dialog accesible basado en el elemento nativo `dialog`. Usa la API nativa `showModal()`, `show()` y `close()` internamente.
+
+Slots:
+
+- `slot="header"`: cabecera o titulo visible del dialog.
+- Slot por defecto: contenido principal.
+- `slot="footer"`: acciones del dialog.
+
+Props:
+
+- `open`: controla si el dialog esta abierto.
+- `modal`: usa `showModal()` cuando es `true`; usa `show()` cuando es `false`.
+- `close-on-backdrop`: permite cerrar haciendo click en el backdrop modal.
+- `close-on-escape`: permite cerrar con la tecla Escape.
+- `return-value`: valor de retorno del dialog al cerrar.
+- `aria-label`: nombre accesible si no hay titulo visible.
+- `aria-labelledby`: referencia al titulo visible del dialog.
+- `aria-describedby`: referencia al texto descriptivo del dialog.
+
+Metodos:
+
+- `show()`: abre usando `HTMLDialogElement.show()`.
+- `showModal()`: abre usando `HTMLDialogElement.showModal()`.
+- `close(returnValue?: string)`: cierra usando `HTMLDialogElement.close()`.
+
+Eventos:
+
+- `ivOpen`: se emite al abrir.
+- `ivClose`: se emite al cerrar e incluye `{ returnValue }`.
+- `ivCancel`: se emite al recibir el evento nativo `cancel`.
+
+Ejemplo:
+
+```html
+<iv-button aria-haspopup="dialog" aria-controls="confirm-dialog">Abrir dialog</iv-button>
+
+<iv-dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-description">
+  <h2 slot="header" id="confirm-title">Confirmar accion</h2>
+  <p id="confirm-description">Esta accion no se puede deshacer.</p>
+  <div slot="footer">
+    <iv-button variant="ghost">Cancelar</iv-button>
+    <iv-button>Confirmar</iv-button>
+  </div>
+</iv-dialog>
+```
+
 ## Tokens
 
 Los tokens globales estan en `src/global/tokens.css` y se exponen como CSS Custom Properties.

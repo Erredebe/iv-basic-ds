@@ -67,6 +67,61 @@ export namespace Components {
          */
         "variant": 'primary' | 'secondary' | 'ghost';
     }
+    interface IvDialog {
+        /**
+          * Referencia al elemento que describe el dialog.
+         */
+        "ariaDescribedby"?: string;
+        /**
+          * Nombre accesible cuando no hay un titulo visible asociado.
+         */
+        "ariaLabel"?: string;
+        /**
+          * Referencia al elemento que etiqueta el dialog.
+         */
+        "ariaLabelledby"?: string;
+        /**
+          * Cierra el dialog usando `close()` nativo.
+         */
+        "close": (returnValue?: string) => Promise<void>;
+        /**
+          * Permite cerrar haciendo click en el backdrop del dialog modal.
+          * @default true
+         */
+        "closeOnBackdrop": boolean;
+        /**
+          * Permite cerrar con la tecla Escape usando el evento `cancel` nativo.
+          * @default true
+         */
+        "closeOnEscape": boolean;
+        /**
+          * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
+          * @default true
+         */
+        "modal": boolean;
+        /**
+          * Controla si el dialog esta abierto.
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Valor opcional devuelto por el dialog al cerrar.
+          * @default ''
+         */
+        "returnValue": string;
+        /**
+          * Abre el dialog usando `show()` nativo.
+         */
+        "show": () => Promise<void>;
+        /**
+          * Abre el dialog usando `showModal()` nativo.
+         */
+        "showModal": () => Promise<void>;
+    }
+}
+export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIvDialogElement;
 }
 declare global {
     interface HTMLIvButtonElement extends Components.IvButton, HTMLStencilElement {
@@ -75,8 +130,28 @@ declare global {
         prototype: HTMLIvButtonElement;
         new (): HTMLIvButtonElement;
     };
+    interface HTMLIvDialogElementEventMap {
+        "ivOpen": void;
+        "ivClose": { returnValue: string };
+        "ivCancel": void;
+    }
+    interface HTMLIvDialogElement extends Components.IvDialog, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIvDialogElementEventMap>(type: K, listener: (this: HTMLIvDialogElement, ev: IvDialogCustomEvent<HTMLIvDialogElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIvDialogElementEventMap>(type: K, listener: (this: HTMLIvDialogElement, ev: IvDialogCustomEvent<HTMLIvDialogElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIvDialogElement: {
+        prototype: HTMLIvDialogElement;
+        new (): HTMLIvDialogElement;
+    };
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
+        "iv-dialog": HTMLIvDialogElement;
     }
 }
 declare namespace LocalJSX {
@@ -141,6 +216,57 @@ declare namespace LocalJSX {
          */
         "variant"?: 'primary' | 'secondary' | 'ghost';
     }
+    interface IvDialog {
+        /**
+          * Referencia al elemento que describe el dialog.
+         */
+        "ariaDescribedby"?: string;
+        /**
+          * Nombre accesible cuando no hay un titulo visible asociado.
+         */
+        "ariaLabel"?: string;
+        /**
+          * Referencia al elemento que etiqueta el dialog.
+         */
+        "ariaLabelledby"?: string;
+        /**
+          * Permite cerrar haciendo click en el backdrop del dialog modal.
+          * @default true
+         */
+        "closeOnBackdrop"?: boolean;
+        /**
+          * Permite cerrar con la tecla Escape usando el evento `cancel` nativo.
+          * @default true
+         */
+        "closeOnEscape"?: boolean;
+        /**
+          * Usa `showModal()` cuando esta activo y `show()` cuando esta desactivado.
+          * @default true
+         */
+        "modal"?: boolean;
+        /**
+          * Se emite cuando el dialog recibe el evento nativo `cancel`.
+         */
+        "onIvCancel"?: (event: IvDialogCustomEvent<void>) => void;
+        /**
+          * Se emite cuando el dialog se cierra mediante la API nativa.
+         */
+        "onIvClose"?: (event: IvDialogCustomEvent<{ returnValue: string }>) => void;
+        /**
+          * Se emite cuando el dialog se abre mediante la API nativa.
+         */
+        "onIvOpen"?: (event: IvDialogCustomEvent<void>) => void;
+        /**
+          * Controla si el dialog esta abierto.
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Valor opcional devuelto por el dialog al cerrar.
+          * @default ''
+         */
+        "returnValue"?: string;
+    }
 
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost';
@@ -158,9 +284,20 @@ declare namespace LocalJSX {
         "ariaHaspopup": 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
         "ariaCurrent": 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
     }
+    interface IvDialogAttributes {
+        "open": boolean;
+        "modal": boolean;
+        "closeOnBackdrop": boolean;
+        "closeOnEscape": boolean;
+        "returnValue": string;
+        "ariaLabel": string;
+        "ariaLabelledby": string;
+        "ariaDescribedby": string;
+    }
 
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
+        "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
     }
 }
 export { LocalJSX as JSX };
@@ -168,6 +305,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "iv-button": LocalJSX.IntrinsicElements["iv-button"] & JSXBase.HTMLAttributes<HTMLIvButtonElement>;
+            "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
         }
     }
 }
