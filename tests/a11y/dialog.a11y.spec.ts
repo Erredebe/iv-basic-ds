@@ -11,6 +11,28 @@ test.describe('iv-dialog accessibility', () => {
     await expectNoA11yViolations(page);
   });
 
+  test('all dialog demo triggers open their dialogs', async ({ page }) => {
+    const triggers = [
+      { button: 'Abrir dialog', id: 'labelled-dialog' },
+      { button: 'Abrir ayuda rapida', id: 'label-only-dialog' },
+      { button: 'Abrir alertdialog', id: 'alert-dialog' },
+      { button: 'Abrir revision obligatoria', id: 'prevent-dismiss-dialog' },
+      { button: 'Abrir dialog no modal', id: 'non-modal-dialog' },
+      { button: 'Abrir contenido largo', id: 'long-dialog' },
+      { button: 'Abrir formulario', id: 'form-dialog' },
+      { button: 'Abrir decision', id: 'return-dialog' },
+      { button: 'Abrir con initial-focus', id: 'initial-focus-dialog' },
+      { button: 'Abrir con restore-focus', id: 'restore-focus-dialog' },
+      { button: 'Abrir resumen', id: 'complex-dialog' },
+    ];
+
+    for (const trigger of triggers) {
+      await page.getByRole('button', { name: trigger.button, exact: true }).click();
+      await expect(page.locator(`#${trigger.id} dialog`)).toHaveJSProperty('open', true);
+      await page.locator(`#${trigger.id}`).evaluate((dialog: HTMLIvDialogElement) => dialog.close('test'));
+    }
+  });
+
   test('labelled modal has no automated WCAG violations', async ({ page }) => {
     await page.getByRole('button', { name: 'Abrir dialog', exact: true }).click();
 
