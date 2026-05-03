@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { expectNoA11yViolations, waitForComponents } from './axe';
+import { expectNoA11yViolations, expectNoHorizontalOverflow, waitForComponents } from './axe';
 
 test.describe('iv-dialog accessibility', () => {
   test.beforeEach(async ({ page }) => {
@@ -8,6 +8,7 @@ test.describe('iv-dialog accessibility', () => {
   });
 
   test('dialog demo has no automated WCAG violations when closed', async ({ page }) => {
+    await expectNoHorizontalOverflow(page);
     await expectNoA11yViolations(page);
   });
 

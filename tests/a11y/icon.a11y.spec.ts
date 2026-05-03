@@ -1,11 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { expectNoA11yViolations, waitForComponents } from './axe';
+import { expectNoA11yViolations, expectNoHorizontalOverflow, waitForComponents } from './axe';
 
 test.describe('iv-icon accessibility', () => {
   test('icon demo has no automated WCAG violations', async ({ page }) => {
     await page.goto('/demos/atoms/icon.html');
     await waitForComponents(page);
 
+    await expectNoHorizontalOverflow(page);
     await expectNoA11yViolations(page);
   });
 

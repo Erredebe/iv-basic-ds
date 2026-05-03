@@ -4,8 +4,26 @@ import { expect, type Page } from '@playwright/test';
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
 
 export async function waitForComponents(page: Page) {
-  await page.waitForFunction(() => customElements.whenDefined('iv-button'));
-  await page.waitForFunction(() => customElements.whenDefined('iv-dialog').catch(() => undefined));
+  await page.waitForFunction(() =>
+    Promise.all([
+      customElements.whenDefined('iv-button').catch(() => undefined),
+      customElements.whenDefined('iv-dialog').catch(() => undefined),
+      customElements.whenDefined('iv-icon').catch(() => undefined),
+      customElements.whenDefined('iv-input').catch(() => undefined),
+      customElements.whenDefined('iv-textarea').catch(() => undefined),
+    ]),
+  );
+}
+
+export async function expectNoHorizontalOverflow(page: Page) {
+  const overflow = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: window.innerWidth,
+  }));
+
+  expect(overflow.scrollWidth, `Expected no horizontal overflow: ${overflow.scrollWidth}px > ${overflow.viewportWidth}px`).toBeLessThanOrEqual(
+    overflow.viewportWidth,
+  );
 }
 
 export async function expectNoA11yViolations(page: Page, include?: string) {
