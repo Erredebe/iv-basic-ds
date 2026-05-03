@@ -331,6 +331,24 @@ Props:
 - `has-popup`: indica que el boton abre un popup; admite `true`, `menu`, `listbox`, `tree`, `grid` o `dialog` y se aplica como `aria-haspopup` al control nativo interno.
 - `current`: marca un enlace como item actual dentro de un conjunto; se aplica como `aria-current` al enlace interno.
 
+Eventos:
+
+- Usa el evento nativo `click`; no existe un evento custom `ivClick`.
+- Cuando renderiza `<button>` o `<a>` internamente, el `click` burbujea hasta el host `<iv-button>`.
+- Si `href` esta informado y `disabled` esta activo, el componente previene la navegacion y detiene el click.
+
+Ejemplo HTML:
+
+```html
+<iv-button onclick="guardarCambios()">Guardar</iv-button>
+```
+
+Ejemplo Lit o Storybook:
+
+```ts
+html`<iv-button @click=${guardarCambios}>Guardar</iv-button>`
+```
+
 Ejemplos:
 
 ```html

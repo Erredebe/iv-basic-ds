@@ -5,6 +5,14 @@ const meta: Meta = {
   title: 'Atoms/Button',
   component: 'iv-button',
   tags: ['autodocs', 'stable', 'a11y'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'iv-button no emite un evento custom propio: usa el evento nativo click que burbujea desde el <button> o <a> interno. En HTML, Angular, Lit o Storybook escucha click directamente sobre <iv-button>.',
+      },
+    },
+  },
   argTypes: {
     variant: {
       control: 'select',
