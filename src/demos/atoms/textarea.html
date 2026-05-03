@@ -1,0 +1,59 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Textarea - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Demo HTML</p>
+        <h1>Textarea</h1>
+        <p>Campo de texto largo con textarea nativo, label visible y descripcion accesible.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+          <iv-button href="/storybook/?path=/docs/atoms-textarea--docs" variant="secondary">Ver en Storybook</iv-button>
+          <iv-button href="/test-report/" variant="secondary">Informe a11y</iv-button>
+          <iv-button href="/coverage/" variant="secondary">Coverage spec</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="textarea-basic-title">
+        <h2 id="textarea-basic-title">Estados basicos</h2>
+        <div class="iv-demo__stack">
+          <iv-textarea label="Mensaje" placeholder="Escribe tu mensaje" hint="Incluye el contexto necesario para responderte."></iv-textarea>
+          <iv-textarea label="Descripcion" value="Contenido inicial" rows="5"></iv-textarea>
+          <iv-textarea label="Notas" maxlength="200" hint="Maximo 200 caracteres."></iv-textarea>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="textarea-a11y-title">
+        <h2 id="textarea-a11y-title">Estados accesibles</h2>
+        <div class="iv-demo__stack">
+          <iv-textarea
+            label="Comentario"
+            value="Ok"
+            hint="Escribe al menos una frase completa."
+            error="El comentario es demasiado corto."
+            required
+          ></iv-textarea>
+          <iv-textarea label="Resumen interno" value="Solo lectura" readonly></iv-textarea>
+          <iv-textarea label="Comentario bloqueado" value="No editable" disabled></iv-textarea>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="textarea-form-title">
+        <h2 id="textarea-form-title">Formulario nativo</h2>
+        <form id="feedback-form" class="iv-demo__stack">
+          <iv-textarea label="Feedback de formulario" name="feedback" value="Me interesa probar el componente." rows="4"></iv-textarea>
+          <iv-button type="submit">Enviar</iv-button>
+        </form>
+        <iv-textarea label="Nota asociada externamente" name="externalNote" value="EXT-NOTE" form="feedback-form"></iv-textarea>
+      </section>
+    </main>
+  </body>
+</html>

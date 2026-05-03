@@ -212,6 +212,77 @@ export namespace Components {
          */
         "value": string;
     }
+    interface IvTextarea {
+        /**
+          * Sugerencia nativa de autocompletado.
+         */
+        "autocomplete"?: string;
+        /**
+          * Deshabilita la interaccion del campo.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Mensaje de error visible asociado al campo.
+         */
+        "error"?: string;
+        /**
+          * Identificador de formulario asociado cuando el textarea vive fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al campo.
+         */
+        "hint"?: string;
+        /**
+          * Etiqueta visible del campo.
+         */
+        "label": string;
+        /**
+          * Longitud maxima permitida por el textarea nativo.
+         */
+        "maxLength"?: number;
+        /**
+          * Longitud minima permitida por el textarea nativo.
+         */
+        "minLength"?: number;
+        /**
+          * Nombre nativo enviado en formularios.
+         */
+        "name"?: string;
+        /**
+          * Texto auxiliar cuando el campo esta vacio.
+         */
+        "placeholder"?: string;
+        /**
+          * Evita editar el valor sin deshabilitar el foco.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Marca el campo como requerido.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Numero visible de filas del textarea.
+          * @default 4
+         */
+        "rows": number;
+        /**
+          * Identificador estable del textarea nativo interno.
+         */
+        "textareaId"?: string;
+        /**
+          * Valor actual del textarea.
+          * @default ''
+         */
+        "value": string;
+        /**
+          * Estrategia nativa de ajuste de linea al enviar formularios.
+         */
+        "wrap"?: 'soft' | 'hard' | 'off';
+    }
 }
 export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -220,6 +291,10 @@ export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
 export interface IvInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIvInputElement;
+}
+export interface IvTextareaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIvTextareaElement;
 }
 declare global {
     interface HTMLIvButtonElement extends Components.IvButton, HTMLStencilElement {
@@ -270,11 +345,29 @@ declare global {
         prototype: HTMLIvInputElement;
         new (): HTMLIvInputElement;
     };
+    interface HTMLIvTextareaElementEventMap {
+        "valueChange": string;
+    }
+    interface HTMLIvTextareaElement extends Components.IvTextarea, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIvTextareaElementEventMap>(type: K, listener: (this: HTMLIvTextareaElement, ev: IvTextareaCustomEvent<HTMLIvTextareaElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIvTextareaElementEventMap>(type: K, listener: (this: HTMLIvTextareaElement, ev: IvTextareaCustomEvent<HTMLIvTextareaElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIvTextareaElement: {
+        prototype: HTMLIvTextareaElement;
+        new (): HTMLIvTextareaElement;
+    };
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
         "iv-dialog": HTMLIvDialogElement;
         "iv-icon": HTMLIvIconElement;
         "iv-input": HTMLIvInputElement;
+        "iv-textarea": HTMLIvTextareaElement;
     }
 }
 declare namespace LocalJSX {
@@ -488,6 +581,81 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface IvTextarea {
+        /**
+          * Sugerencia nativa de autocompletado.
+         */
+        "autocomplete"?: string;
+        /**
+          * Deshabilita la interaccion del campo.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Mensaje de error visible asociado al campo.
+         */
+        "error"?: string;
+        /**
+          * Identificador de formulario asociado cuando el textarea vive fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al campo.
+         */
+        "hint"?: string;
+        /**
+          * Etiqueta visible del campo.
+         */
+        "label": string;
+        /**
+          * Longitud maxima permitida por el textarea nativo.
+         */
+        "maxLength"?: number;
+        /**
+          * Longitud minima permitida por el textarea nativo.
+         */
+        "minLength"?: number;
+        /**
+          * Nombre nativo enviado en formularios.
+         */
+        "name"?: string;
+        /**
+          * Se emite cuando cambia el valor desde el textarea nativo.
+         */
+        "onValueChange"?: (event: IvTextareaCustomEvent<string>) => void;
+        /**
+          * Texto auxiliar cuando el campo esta vacio.
+         */
+        "placeholder"?: string;
+        /**
+          * Evita editar el valor sin deshabilitar el foco.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Marca el campo como requerido.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Numero visible de filas del textarea.
+          * @default 4
+         */
+        "rows"?: number;
+        /**
+          * Identificador estable del textarea nativo interno.
+         */
+        "textareaId"?: string;
+        /**
+          * Valor actual del textarea.
+          * @default ''
+         */
+        "value"?: string;
+        /**
+          * Estrategia nativa de ajuste de linea al enviar formularios.
+         */
+        "wrap"?: 'soft' | 'hard' | 'off';
+    }
 
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost';
@@ -539,12 +707,31 @@ declare namespace LocalJSX {
         "autocomplete": string;
         "inputMode": string;
     }
+    interface IvTextareaAttributes {
+        "label": string;
+        "textareaId": string;
+        "value": string;
+        "placeholder": string;
+        "hint": string;
+        "error": string;
+        "disabled": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "name": string;
+        "form": string;
+        "autocomplete": string;
+        "rows": number;
+        "maxLength": number;
+        "minLength": number;
+        "wrap": 'soft' | 'hard' | 'off';
+    }
 
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
         "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
         "iv-icon": Omit<IvIcon, keyof IvIconAttributes> & { [K in keyof IvIcon & keyof IvIconAttributes]?: IvIcon[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `attr:${K}`]?: IvIconAttributes[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `prop:${K}`]?: IvIcon[K] } & OneOf<"name", IvIcon["name"], IvIconAttributes["name"]>;
         "iv-input": Omit<IvInput, keyof IvInputAttributes> & { [K in keyof IvInput & keyof IvInputAttributes]?: IvInput[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `attr:${K}`]?: IvInputAttributes[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `prop:${K}`]?: IvInput[K] } & OneOf<"label", IvInput["label"], IvInputAttributes["label"]>;
+        "iv-textarea": Omit<IvTextarea, keyof IvTextareaAttributes> & { [K in keyof IvTextarea & keyof IvTextareaAttributes]?: IvTextarea[K] } & { [K in keyof IvTextarea & keyof IvTextareaAttributes as `attr:${K}`]?: IvTextareaAttributes[K] } & { [K in keyof IvTextarea & keyof IvTextareaAttributes as `prop:${K}`]?: IvTextarea[K] } & OneOf<"label", IvTextarea["label"], IvTextareaAttributes["label"]>;
     }
 }
 export { LocalJSX as JSX };
@@ -555,6 +742,7 @@ declare module "@stencil/core" {
             "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
             "iv-icon": LocalJSX.IntrinsicElements["iv-icon"] & JSXBase.HTMLAttributes<HTMLIvIconElement>;
             "iv-input": LocalJSX.IntrinsicElements["iv-input"] & JSXBase.HTMLAttributes<HTMLIvInputElement>;
+            "iv-textarea": LocalJSX.IntrinsicElements["iv-textarea"] & JSXBase.HTMLAttributes<HTMLIvTextareaElement>;
         }
     }
 }
