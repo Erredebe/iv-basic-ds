@@ -1,5 +1,6 @@
 import { describe, expect, h, it, render, vi } from '@stencil/vitest';
 import './iv-button';
+import '../iv-icon/iv-icon';
 
 describe('iv-button', () => {
   it('renders a primary button by default', async () => {
@@ -91,5 +92,38 @@ describe('iv-button', () => {
     expect(link?.getAttribute('tabindex')).toBe('-1');
     expect(preventDefault).toHaveBeenCalled();
     expect(stopPropagation).toHaveBeenCalled();
+  });
+
+  it('renders slotted icons and visible text inside the native button', async () => {
+    const { root } = await render(
+      <iv-button>
+        <iv-icon name="check"></iv-icon>
+        Guardar
+      </iv-button>,
+    );
+    const button = root.querySelector('button');
+    const icon = button?.querySelector('iv-icon');
+
+    expect(button).not.toBeNull();
+    expect(icon).not.toBeNull();
+    expect(icon?.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+    expect(button?.textContent?.trim()).toBe('Guardar');
+  });
+
+  it('keeps icon-only buttons named by the native control', async () => {
+    const { root } = await render(
+      <iv-button label="Cerrar" variant="ghost">
+        <iv-icon name="close"></iv-icon>
+      </iv-button>,
+    );
+    const button = root.querySelector('button');
+    const icon = button?.querySelector('iv-icon');
+
+    expect(root.getAttribute('label')).toBe('Cerrar');
+    expect(root.hasAttribute('aria-label')).toBe(false);
+    expect(button?.getAttribute('aria-label')).toBe('Cerrar');
+    expect(icon).not.toBeNull();
+    expect(icon?.hasAttribute('label')).toBe(false);
+    expect(icon?.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
   });
 });

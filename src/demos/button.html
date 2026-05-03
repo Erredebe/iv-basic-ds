@@ -41,6 +41,32 @@
           <iv-button href="/storybook/" current="page" variant="ghost">Storybook</iv-button>
         </div>
       </section>
+
+      <section class="iv-demo__panel" aria-labelledby="button-icons-title">
+        <h2 id="button-icons-title">Con iconos</h2>
+        <p>Los iconos dentro de botones son decorativos cuando el texto visible comunica la accion.</p>
+        <div class="iv-demo__stack">
+          <iv-button>
+            <iv-icon name="check"></iv-icon>
+            Guardar
+          </iv-button>
+          <iv-button variant="secondary">
+            Mas opciones
+            <iv-icon name="chevron-down"></iv-icon>
+          </iv-button>
+          <iv-button href="/storybook/" target="_blank" variant="ghost">
+            Storybook
+            <iv-icon name="external-link"></iv-icon>
+          </iv-button>
+          <iv-button label="Cerrar" variant="ghost">
+            <iv-icon name="close"></iv-icon>
+          </iv-button>
+          <iv-button disabled>
+            <iv-icon name="warning"></iv-icon>
+            No disponible
+          </iv-button>
+        </div>
+      </section>
     </main>
   </body>
 </html>

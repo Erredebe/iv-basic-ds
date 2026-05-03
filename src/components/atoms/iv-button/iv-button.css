@@ -7,6 +7,7 @@ iv-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--iv-space-sm);
   min-height: 2.5rem;
   padding: 0.625rem 1rem;
   border: 1px solid transparent;
@@ -22,6 +23,10 @@ iv-button {
     border-color 160ms ease,
     color 160ms ease,
     box-shadow 160ms ease;
+}
+
+.iv-button iv-icon {
+  font-size: 1rem;
 }
 
 .iv-button:focus-visible {

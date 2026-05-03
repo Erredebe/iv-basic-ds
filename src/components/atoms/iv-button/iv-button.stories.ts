@@ -123,3 +123,37 @@ export const AccessibilityStates: Story = {
     </div>
   `,
 };
+
+export const WithIcons: Story = {
+  render: () => html`
+    <div class="iv-storybook-panel">
+      <p class="iv-storybook-panel__eyebrow">Composicion</p>
+      <h2 class="iv-storybook-panel__title">Iconos decorativos dentro del boton</h2>
+      <p class="iv-storybook-panel__description">
+        Usa <code>iv-icon</code> dentro del slot. Si el boton solo muestra icono, el nombre accesible va en
+        <code>label</code> de <code>iv-button</code>.
+      </p>
+      <div class="iv-storybook-actions">
+        <iv-button>
+          <iv-icon name="check"></iv-icon>
+          Guardar
+        </iv-button>
+        <iv-button variant="secondary">
+          Mas opciones
+          <iv-icon name="chevron-down"></iv-icon>
+        </iv-button>
+        <iv-button href="/storybook/" target="_blank" variant="ghost">
+          Storybook
+          <iv-icon name="external-link"></iv-icon>
+        </iv-button>
+        <iv-button label="Cerrar" variant="ghost">
+          <iv-icon name="close"></iv-icon>
+        </iv-button>
+        <iv-button disabled>
+          <iv-icon name="warning"></iv-icon>
+          No disponible
+        </iv-button>
+      </div>
+    </div>
+  `,
+};
