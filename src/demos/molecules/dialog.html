@@ -109,14 +109,13 @@
           <h3 slot="header" id="form-dialog-title">Preferencia de contacto</h3>
           <p id="form-dialog-description">El formulario se cierra con el mecanismo nativo method="dialog".</p>
           <form method="dialog">
-            <label>
-              Canal preferido
-              <select name="contact-channel">
-                <option value="email">Email</option>
-                <option value="sms">SMS</option>
-                <option value="phone">Telefono</option>
-              </select>
-            </label>
+            <iv-input
+              label="Canal preferido"
+              name="contact-channel"
+              value="email"
+              hint="Ejemplo: email, sms o telefono."
+              autocomplete="off"
+            ></iv-input>
             <div class="iv-demo__stack iv-demo__stack--end" style="margin-top: var(--iv-space-lg);">
               <button class="iv-button iv-button--ghost" type="submit" value="cancel">Cancelar</button>
               <button class="iv-button iv-button--primary" type="submit" value="save">Guardar</button>
