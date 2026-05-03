@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IvIconName } from "./components/atoms/iv-icon/iv-icon";
+export { IvIconName } from "./components/atoms/iv-icon/iv-icon";
 export namespace Components {
     interface IvButton {
         /**
@@ -132,6 +134,21 @@ export namespace Components {
          */
         "showModal": () => Promise<void>;
     }
+    interface IvIcon {
+        /**
+          * Nombre accesible cuando el icono transmite significado por si mismo.
+         */
+        "label"?: string;
+        /**
+          * Nombre del icono a renderizar.
+         */
+        "name": IvIconName;
+        /**
+          * Tamano visual del icono.
+          * @default 'md'
+         */
+        "size": 'sm' | 'md' | 'lg';
+    }
 }
 export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -163,12 +180,21 @@ declare global {
         prototype: HTMLIvDialogElement;
         new (): HTMLIvDialogElement;
     };
+    interface HTMLIvIconElement extends Components.IvIcon, HTMLStencilElement {
+    }
+    var HTMLIvIconElement: {
+        prototype: HTMLIvIconElement;
+        new (): HTMLIvIconElement;
+    };
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
         "iv-dialog": HTMLIvDialogElement;
+        "iv-icon": HTMLIvIconElement;
     }
 }
 declare namespace LocalJSX {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}` | `prop:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K | `prop:${K}`]?: never } | { [P in `prop:${K}`]: PropT } & { [P in K | `attr:${K}`]?: never };
+
     interface IvButton {
         /**
           * Identificador del elemento controlado por el boton.
@@ -295,6 +321,21 @@ declare namespace LocalJSX {
          */
         "returnValue"?: string;
     }
+    interface IvIcon {
+        /**
+          * Nombre accesible cuando el icono transmite significado por si mismo.
+         */
+        "label"?: string;
+        /**
+          * Nombre del icono a renderizar.
+         */
+        "name": IvIconName;
+        /**
+          * Tamano visual del icono.
+          * @default 'md'
+         */
+        "size"?: 'sm' | 'md' | 'lg';
+    }
 
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost';
@@ -325,10 +366,16 @@ declare namespace LocalJSX {
         "labelledBy": string;
         "describedBy": string;
     }
+    interface IvIconAttributes {
+        "name": IvIconName;
+        "size": 'sm' | 'md' | 'lg';
+        "label": string;
+    }
 
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
         "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
+        "iv-icon": Omit<IvIcon, keyof IvIconAttributes> & { [K in keyof IvIcon & keyof IvIconAttributes]?: IvIcon[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `attr:${K}`]?: IvIconAttributes[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `prop:${K}`]?: IvIcon[K] } & OneOf<"name", IvIcon["name"], IvIconAttributes["name"]>;
     }
 }
 export { LocalJSX as JSX };
@@ -337,6 +384,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "iv-button": LocalJSX.IntrinsicElements["iv-button"] & JSXBase.HTMLAttributes<HTMLIvButtonElement>;
             "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
+            "iv-icon": LocalJSX.IntrinsicElements["iv-icon"] & JSXBase.HTMLAttributes<HTMLIvIconElement>;
         }
     }
 }

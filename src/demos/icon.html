@@ -1,0 +1,47 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Icon - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Demo HTML</p>
+        <h1>Icon</h1>
+        <p>Iconos SVG inline que heredan color y son decorativos por defecto.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+          <iv-button href="/storybook/?path=/docs/atoms-icon--docs" variant="secondary">Ver en Storybook</iv-button>
+          <iv-button href="/test-report/" variant="secondary">Informe a11y</iv-button>
+          <iv-button href="/coverage/" variant="secondary">Coverage spec</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="icon-set-title">
+        <h2 id="icon-set-title">Set inicial</h2>
+        <div class="iv-demo__stack" aria-label="Iconos disponibles">
+          <span><iv-icon name="check" size="lg"></iv-icon> Check</span>
+          <span><iv-icon name="close" size="lg"></iv-icon> Close</span>
+          <span><iv-icon name="info" size="lg"></iv-icon> Info</span>
+          <span><iv-icon name="warning" size="lg"></iv-icon> Warning</span>
+          <span><iv-icon name="chevron-down" size="lg"></iv-icon> Chevron down</span>
+          <span><iv-icon name="external-link" size="lg"></iv-icon> External link</span>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="icon-a11y-title">
+        <h2 id="icon-a11y-title">Accesibilidad</h2>
+        <p><iv-icon name="check"></iv-icon> Este icono es decorativo porque el texto visible comunica el significado.</p>
+        <p>
+          <iv-icon name="warning" label="Advertencia"></iv-icon>
+          <span>Revisar antes de continuar.</span>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
