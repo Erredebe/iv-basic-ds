@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
-  title: 'Components/Dialog',
+  title: 'Molecules/Dialog',
   component: 'iv-dialog',
   tags: ['autodocs', 'stable', 'a11y'],
   argTypes: {

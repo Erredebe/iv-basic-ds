@@ -6,7 +6,9 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
 
-## Button
+## Atoms
+
+### Button
 
 - `iv-button` renderiza un `<button>` nativo o un `<a>` nativo si recibe `href`.
 - Usa `type="button"` por defecto para evitar submits accidentales.
@@ -14,7 +16,9 @@ El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
 - No usar `aria-*` como API publica del host cuando el componente renderiza un control nativo interno, para evitar semantica duplicada.
 - Si se usa como enlace con `target="_blank"`, el contenido debe avisar al usuario de que abre una nueva pestana.
 
-## Dialog
+## Molecules
+
+### Dialog
 
 - `iv-dialog` envuelve un `<dialog>` nativo.
 - Registra `dialog-polyfill` si el navegador no soporta `showModal()`.

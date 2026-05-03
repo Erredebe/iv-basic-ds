@@ -44,9 +44,13 @@
 ## Component Conventions
 
 - Use the `iv-` tag prefix for all components.
+- Components follow Atomic Design physically under `src/components/<atomic-level>/<component>/`, where `<atomic-level>` is `atoms`, `molecules`, `organisms`, or `templates`.
+- Classify every new component before implementation; current published components are `atoms/iv-button` and `molecules/iv-dialog`.
+- Public tags must not include the atomic level: use `iv-button`, not `iv-atom-button`.
+- Storybook titles should reflect the atomic level, such as `Atoms/Button` and `Molecules/Dialog`.
 - Set `shadow: false` on components unless the user explicitly changes the accessibility/integration strategy.
 - When a component renders a native interactive/semantic element internally, expose semantic reflected props on the host rather than public `aria-*` props, and map those props to ARIA only on the internal native element to avoid duplicate accessibility semantics.
-- Put component files under `src/components/<component>/` with the Stencil file, CSS file, and story next to each other.
+- Put component files under `src/components/<atomic-level>/<component>/` with the Stencil file, CSS file, spec, and story next to each other.
 - Keep CSS class names prefixed with `iv-` because there is no Shadow DOM encapsulation.
 - Use global tokens from `src/global/tokens.css`; token names should use the `--iv-` prefix.
 - Design and implement components mobile-first: base CSS must target small screens and larger breakpoints should use `@media (min-width: ...)`; buttons should become full-width only inside layout/action contexts, not by default.

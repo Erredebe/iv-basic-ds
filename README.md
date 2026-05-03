@@ -22,6 +22,19 @@ Los componentes se crean sin Shadow DOM por defecto para facilitar integracion, 
 - Lit solo para escribir templates en stories.
 - Netlify como hosting estatico/CDN.
 
+## Modelo Atomico
+
+El DS se gestiona con Atomic Design para clasificar alcance y composicion antes de implementar componentes.
+
+- Foundations: tokens y reglas globales, como `src/global/tokens.css`.
+- Atoms: componentes minimos, por ahora `iv-button`.
+- Molecules: composiciones pequenas con comportamiento propio, por ahora `iv-dialog`.
+- Organisms: bloques complejos de UI; sin componentes publicados todavia.
+- Templates: estructuras de layout reutilizables; sin componentes publicados todavia.
+- Pages: demos y pantallas de validacion, ubicadas en `src/demos/` o documentacion.
+
+La clasificacion atomica no cambia la API publica: los tags mantienen el prefijo `iv-` sin incluir el nivel, por ejemplo `iv-button` e `iv-dialog`.
+
 ## Requisitos
 
 - Node.js `20` o superior recomendado.
@@ -123,10 +136,26 @@ Ejecuta specs de Stencil y pruebas a11y. Requiere que `www` exista para el paso 
 │   └── preview.ts
 ├── src/
 │   ├── components/
-│   │   └── iv-button/
-│   │       ├── iv-button.css
-│   │       ├── iv-button.stories.ts
-│   │       └── iv-button.tsx
+│   │   ├── atoms/
+│   │   │   └── iv-button/
+│   │   │       ├── iv-button.css
+│   │   │       ├── iv-button.spec.tsx
+│   │   │       ├── iv-button.stories.ts
+│   │   │       └── iv-button.tsx
+│   │   ├── molecules/
+│   │   │   └── iv-dialog/
+│   │   │       ├── iv-dialog.css
+│   │   │       ├── iv-dialog.spec.tsx
+│   │   │       ├── iv-dialog.stories.ts
+│   │   │       └── iv-dialog.tsx
+│   │   ├── organisms/
+│   │   └── templates/
+│   ├── demos/
+│   │   ├── button.html
+│   │   └── dialog.html
+│   ├── docs/
+│   │   ├── atomic-design.mdx
+│   │   └── introduccion.mdx
 │   ├── global/
 │   │   └── tokens.css
 │   ├── components.d.ts
@@ -279,7 +308,9 @@ Uso en templates Angular:
 
 ## Componentes
 
-### `iv-button`
+### Atoms
+
+#### `iv-button`
 
 Primer componente del DS.
 
@@ -312,7 +343,9 @@ Ejemplos:
 <iv-button pressed="true" variant="secondary">Vista compacta</iv-button>
 ```
 
-### `iv-dialog`
+### Molecules
+
+#### `iv-dialog`
 
 Dialog accesible basado en el elemento nativo `dialog`. Usa la API nativa `showModal()`, `show()` y `close()` internamente.
 
@@ -399,15 +432,19 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 ## Convenciones
 
 - Prefijo de componentes: `iv-`.
+- Modelo atomico obligatorio para componentes nuevos: `atoms`, `molecules`, `organisms` o `templates`.
+- Ubicacion de componentes: `src/components/<atomic-level>/<component>/`.
+- Los tags publicos no incluyen el nivel atomico: usar `iv-dialog`, no `iv-molecule-dialog`.
+- Los titulos de Storybook si reflejan el nivel: `Atoms/Button`, `Molecules/Dialog`, etc.
 - Componentes sin Shadow DOM: `shadow: false`.
 - Clases CSS prefijadas con `iv-` para reducir colisiones.
 - Tokens globales con prefijo `--iv-`.
 - Diseno siempre mobile-first: la base CSS debe resolver pantallas pequenas y los ajustes para pantallas mayores deben ir con `@media (min-width: ...)`.
 - Los botones no deben ser full-width por defecto; solo pueden ocupar todo el ancho dentro de layouts o contextos de acciones, como footers de dialog o stacks de demo.
 - Cuando un componente renderiza un control nativo interno, las props publicas deben ser semanticas y reflejadas, no atributos `aria-*` como API principal. El ARIA real debe aplicarse solo al control nativo interno para evitar duplicacion en lectores de pantalla.
-- Stories junto al componente: `src/components/<component>/<component>.stories.ts`.
-- Estilos del componente junto al componente: `src/components/<component>/<component>.css`.
-- Specs junto al componente: `src/components/<component>/<component>.spec.tsx`.
+- Stories junto al componente: `src/components/<atomic-level>/<component>/<component>.stories.ts`.
+- Estilos del componente junto al componente: `src/components/<atomic-level>/<component>/<component>.css`.
+- Specs junto al componente: `src/components/<atomic-level>/<component>/<component>.spec.tsx`.
 
 Ejemplo base de componente:
 
@@ -450,15 +487,16 @@ Consideraciones al crear componentes:
 
 ## Flujo Recomendado Para Nuevos Componentes
 
-1. Crear carpeta en `src/components/<nombre>`.
-2. Crear `<nombre>.tsx` con `shadow: false`.
-3. Crear `<nombre>.css` con clases prefijadas.
-4. Crear `<nombre>.stories.ts`.
-5. Crear `<nombre>.spec.tsx` junto al componente.
-6. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
-7. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
-8. Ejecutar `npm run start` para revisar Stencil y Storybook.
-9. Ejecutar `npm run deploy:netlify` antes de desplegar.
+1. Clasificar el componente como atom, molecule, organism o template.
+2. Crear carpeta en `src/components/<atomic-level>/<nombre>`.
+3. Crear `<nombre>.tsx` con `shadow: false`.
+4. Crear `<nombre>.css` con clases prefijadas.
+5. Crear `<nombre>.stories.ts` con titulo Storybook acorde al nivel atomico.
+6. Crear `<nombre>.spec.tsx` junto al componente.
+7. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
+8. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
+9. Ejecutar `npm run start` para revisar Stencil y Storybook.
+10. Ejecutar `npm run deploy:netlify` antes de desplegar.
 
 ## Build Final
 
