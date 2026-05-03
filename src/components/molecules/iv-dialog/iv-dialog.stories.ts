@@ -42,8 +42,11 @@ type DialogElement = HTMLElement & {
   showModal(): Promise<void> | void;
 };
 
+const findStoryDialog = (trigger: HTMLElement) =>
+  trigger.closest('.iv-storybook-panel')?.querySelector<DialogElement>('iv-dialog') || trigger.parentElement?.querySelector<DialogElement>('iv-dialog');
+
 const openDialog = (event: Event) => {
-  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector<DialogElement>('iv-dialog');
+  const dialog = findStoryDialog(event.currentTarget as HTMLElement);
 
   dialog?.showModal();
 };
@@ -61,7 +64,7 @@ const closeDialogWithValue = (event: Event, returnValue: string) => {
 };
 
 const openNonModalDialog = (event: Event) => {
-  const dialog = (event.currentTarget as HTMLElement).parentElement?.querySelector<DialogElement>('iv-dialog');
+  const dialog = findStoryDialog(event.currentTarget as HTMLElement);
 
   dialog?.show();
 };

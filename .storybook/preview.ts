@@ -49,7 +49,7 @@ export const parameters = {
   layout: 'centered',
   options: {
     storySort: {
-      order: ['Introduccion', 'Guia', 'Components', ['Button', 'Dialog']],
+      order: ['Introduccion', 'Guia', 'Atoms', ['Button'], 'Molecules', ['Dialog'], 'Organisms', 'Templates'],
     },
   },
   viewport: {
