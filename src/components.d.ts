@@ -149,10 +149,77 @@ export namespace Components {
          */
         "size": 'sm' | 'md' | 'lg';
     }
+    interface IvInput {
+        /**
+          * Sugerencia nativa de autocompletado.
+         */
+        "autocomplete"?: string;
+        /**
+          * Deshabilita la interaccion del campo.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Mensaje de error visible asociado al campo.
+         */
+        "error"?: string;
+        /**
+          * Identificador de formulario asociado cuando el input vive fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al campo.
+         */
+        "hint"?: string;
+        /**
+          * Identificador estable del input nativo interno.
+         */
+        "inputId"?: string;
+        /**
+          * Sugerencia nativa de teclado virtual.
+         */
+        "inputMode"?: string;
+        /**
+          * Etiqueta visible del campo.
+         */
+        "label": string;
+        /**
+          * Nombre nativo enviado en formularios.
+         */
+        "name"?: string;
+        /**
+          * Texto auxiliar cuando el campo esta vacio.
+         */
+        "placeholder"?: string;
+        /**
+          * Evita editar el valor sin deshabilitar el foco.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Marca el campo como requerido.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Tipo nativo del input.
+          * @default 'text'
+         */
+        "type": 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        /**
+          * Valor actual del input.
+          * @default ''
+         */
+        "value": string;
+    }
 }
 export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIvDialogElement;
+}
+export interface IvInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIvInputElement;
 }
 declare global {
     interface HTMLIvButtonElement extends Components.IvButton, HTMLStencilElement {
@@ -186,10 +253,28 @@ declare global {
         prototype: HTMLIvIconElement;
         new (): HTMLIvIconElement;
     };
+    interface HTMLIvInputElementEventMap {
+        "valueChange": string;
+    }
+    interface HTMLIvInputElement extends Components.IvInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIvInputElementEventMap>(type: K, listener: (this: HTMLIvInputElement, ev: IvInputCustomEvent<HTMLIvInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIvInputElementEventMap>(type: K, listener: (this: HTMLIvInputElement, ev: IvInputCustomEvent<HTMLIvInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIvInputElement: {
+        prototype: HTMLIvInputElement;
+        new (): HTMLIvInputElement;
+    };
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
         "iv-dialog": HTMLIvDialogElement;
         "iv-icon": HTMLIvIconElement;
+        "iv-input": HTMLIvInputElement;
     }
 }
 declare namespace LocalJSX {
@@ -336,6 +421,73 @@ declare namespace LocalJSX {
          */
         "size"?: 'sm' | 'md' | 'lg';
     }
+    interface IvInput {
+        /**
+          * Sugerencia nativa de autocompletado.
+         */
+        "autocomplete"?: string;
+        /**
+          * Deshabilita la interaccion del campo.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Mensaje de error visible asociado al campo.
+         */
+        "error"?: string;
+        /**
+          * Identificador de formulario asociado cuando el input vive fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al campo.
+         */
+        "hint"?: string;
+        /**
+          * Identificador estable del input nativo interno.
+         */
+        "inputId"?: string;
+        /**
+          * Sugerencia nativa de teclado virtual.
+         */
+        "inputMode"?: string;
+        /**
+          * Etiqueta visible del campo.
+         */
+        "label": string;
+        /**
+          * Nombre nativo enviado en formularios.
+         */
+        "name"?: string;
+        /**
+          * Se emite cuando cambia el valor desde el input nativo.
+         */
+        "onValueChange"?: (event: IvInputCustomEvent<string>) => void;
+        /**
+          * Texto auxiliar cuando el campo esta vacio.
+         */
+        "placeholder"?: string;
+        /**
+          * Evita editar el valor sin deshabilitar el foco.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Marca el campo como requerido.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Tipo nativo del input.
+          * @default 'text'
+         */
+        "type"?: 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        /**
+          * Valor actual del input.
+          * @default ''
+         */
+        "value"?: string;
+    }
 
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost';
@@ -371,11 +523,28 @@ declare namespace LocalJSX {
         "size": 'sm' | 'md' | 'lg';
         "label": string;
     }
+    interface IvInputAttributes {
+        "label": string;
+        "inputId": string;
+        "value": string;
+        "type": 'text' | 'email' | 'password' | 'search' | 'tel' | 'url';
+        "placeholder": string;
+        "hint": string;
+        "error": string;
+        "disabled": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "name": string;
+        "form": string;
+        "autocomplete": string;
+        "inputMode": string;
+    }
 
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
         "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
         "iv-icon": Omit<IvIcon, keyof IvIconAttributes> & { [K in keyof IvIcon & keyof IvIconAttributes]?: IvIcon[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `attr:${K}`]?: IvIconAttributes[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `prop:${K}`]?: IvIcon[K] } & OneOf<"name", IvIcon["name"], IvIconAttributes["name"]>;
+        "iv-input": Omit<IvInput, keyof IvInputAttributes> & { [K in keyof IvInput & keyof IvInputAttributes]?: IvInput[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `attr:${K}`]?: IvInputAttributes[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `prop:${K}`]?: IvInput[K] } & OneOf<"label", IvInput["label"], IvInputAttributes["label"]>;
     }
 }
 export { LocalJSX as JSX };
@@ -385,6 +554,7 @@ declare module "@stencil/core" {
             "iv-button": LocalJSX.IntrinsicElements["iv-button"] & JSXBase.HTMLAttributes<HTMLIvButtonElement>;
             "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
             "iv-icon": LocalJSX.IntrinsicElements["iv-icon"] & JSXBase.HTMLAttributes<HTMLIvIconElement>;
+            "iv-input": LocalJSX.IntrinsicElements["iv-input"] & JSXBase.HTMLAttributes<HTMLIvInputElement>;
         }
     }
 }

@@ -1,0 +1,61 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Input - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Demo HTML</p>
+        <h1>Input</h1>
+        <p>Campo de formulario con input nativo, label visible y descripcion accesible.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+          <iv-button href="/storybook/?path=/docs/atoms-input--docs" variant="secondary">Ver en Storybook</iv-button>
+          <iv-button href="/test-report/" variant="secondary">Informe a11y</iv-button>
+          <iv-button href="/coverage/" variant="secondary">Coverage spec</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="input-basic-title">
+        <h2 id="input-basic-title">Estados basicos</h2>
+        <div class="iv-demo__stack">
+          <iv-input label="Nombre" placeholder="Ada Lovelace" autocomplete="name"></iv-input>
+          <iv-input label="Email" type="email" hint="Usa tu correo corporativo." autocomplete="email"></iv-input>
+          <iv-input label="Contrasena" type="password" required hint="Minimo 8 caracteres."></iv-input>
+          <iv-input label="Buscar" type="search" placeholder="Button, dialog, input" autocomplete="off"></iv-input>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="input-a11y-title">
+        <h2 id="input-a11y-title">Estados accesibles</h2>
+        <div class="iv-demo__stack">
+          <iv-input
+            label="Usuario"
+            value="ada"
+            hint="Debe tener entre 3 y 20 caracteres."
+            error="Este usuario ya existe."
+            required
+          ></iv-input>
+          <iv-input label="ID interno" value="USR-1024" readonly></iv-input>
+          <iv-input label="Codigo bloqueado" value="LOCKED" disabled></iv-input>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="input-form-title">
+        <h2 id="input-form-title">Formulario nativo</h2>
+        <form id="profile-form" class="iv-demo__stack">
+          <iv-input label="Nombre de formulario" name="profileName" value="Ada" autocomplete="name"></iv-input>
+          <iv-input label="Email de formulario" type="email" name="profileEmail" value="ada@example.com" autocomplete="email"></iv-input>
+          <iv-button type="submit">Enviar</iv-button>
+        </form>
+        <iv-input label="Campo asociado externamente" name="externalCode" value="EXT-1" form="profile-form"></iv-input>
+      </section>
+    </main>
+  </body>
+</html>

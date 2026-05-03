@@ -1,0 +1,88 @@
+iv-input {
+  display: block;
+}
+
+.iv-input {
+  display: grid;
+  gap: var(--iv-space-xs);
+  color: var(--iv-color-text);
+  font: inherit;
+}
+
+.iv-input__label {
+  display: inline-flex;
+  gap: var(--iv-space-xs);
+  align-items: baseline;
+  color: var(--iv-color-text);
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.iv-input__required {
+  color: var(--iv-color-primary);
+}
+
+.iv-input__control {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  font: inherit;
+  font-size: var(--iv-font-size-md);
+  line-height: 1.4;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.iv-input__control::placeholder {
+  color: var(--iv-color-text-muted);
+  opacity: 1;
+}
+
+.iv-input__control:hover:not(:disabled) {
+  border-color: var(--iv-color-primary);
+}
+
+.iv-input__control:focus-visible {
+  border-color: var(--iv-color-primary);
+  outline: none;
+  box-shadow: var(--iv-focus-ring);
+}
+
+.iv-input__control:disabled {
+  color: var(--iv-color-text-muted);
+  background: var(--iv-color-surface);
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.iv-input__control:read-only:not(:disabled) {
+  background: var(--iv-color-surface);
+}
+
+.iv-input--invalid .iv-input__control {
+  border-color: #b42318;
+}
+
+.iv-input__hint,
+.iv-input__error {
+  margin: 0;
+  font-size: var(--iv-font-size-sm);
+  line-height: 1.45;
+}
+
+.iv-input__hint {
+  color: var(--iv-color-text-muted);
+}
+
+.iv-input__error {
+  color: #b42318;
+  font-weight: 700;
+}
