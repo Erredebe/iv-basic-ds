@@ -3,14 +3,14 @@ import { expectNoA11yViolations, waitForComponents } from './axe';
 
 test.describe('iv-input accessibility', () => {
   test('input demo has no automated WCAG violations', async ({ page }) => {
-    await page.goto('/demos/input.html');
+    await page.goto('/demos/atoms/input.html');
     await waitForComponents(page);
 
     await expectNoA11yViolations(page);
   });
 
   test('labels and descriptions are exposed from the native input only', async ({ page }) => {
-    await page.goto('/demos/input.html');
+    await page.goto('/demos/atoms/input.html');
     await waitForComponents(page);
 
     const email = page.getByLabel('Email', { exact: true });
@@ -27,7 +27,7 @@ test.describe('iv-input accessibility', () => {
   });
 
   test('required, readonly and disabled states stay on the native input', async ({ page }) => {
-    await page.goto('/demos/input.html');
+    await page.goto('/demos/atoms/input.html');
     await waitForComponents(page);
 
     await expect(page.getByLabel('Contrasena')).toHaveAttribute('required', '');
@@ -36,7 +36,7 @@ test.describe('iv-input accessibility', () => {
   });
 
   test('named native inputs participate in FormData, including external form ownership', async ({ page }) => {
-    await page.goto('/demos/input.html');
+    await page.goto('/demos/atoms/input.html');
     await waitForComponents(page);
 
     const formData = await page.locator('#profile-form').evaluate(form => {

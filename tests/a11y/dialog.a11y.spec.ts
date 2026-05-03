@@ -3,7 +3,7 @@ import { expectNoA11yViolations, waitForComponents } from './axe';
 
 test.describe('iv-dialog accessibility', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/demos/dialog.html');
+    await page.goto('/demos/molecules/dialog.html');
     await waitForComponents(page);
   });
 

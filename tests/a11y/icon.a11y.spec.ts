@@ -3,14 +3,14 @@ import { expectNoA11yViolations, waitForComponents } from './axe';
 
 test.describe('iv-icon accessibility', () => {
   test('icon demo has no automated WCAG violations', async ({ page }) => {
-    await page.goto('/demos/icon.html');
+    await page.goto('/demos/atoms/icon.html');
     await waitForComponents(page);
 
     await expectNoA11yViolations(page);
   });
 
   test('decorative and meaningful icons expose the expected ARIA semantics', async ({ page }) => {
-    await page.goto('/demos/icon.html');
+    await page.goto('/demos/atoms/icon.html');
     await waitForComponents(page);
 
     const decorativeSvg = page.locator('iv-icon[name="check"]').first().locator('svg');

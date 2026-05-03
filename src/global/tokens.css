@@ -120,6 +120,38 @@ body {
   margin-top: 0;
 }
 
+.iv-demo__levels {
+  display: grid;
+  gap: var(--iv-space-md);
+}
+
+.iv-demo__level {
+  padding: var(--iv-space-md);
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  background: var(--iv-color-background);
+}
+
+.iv-demo__level-eyebrow {
+  margin: 0 0 var(--iv-space-xs);
+  color: var(--iv-color-primary);
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.iv-demo__level h3 {
+  margin: 0;
+  font-size: var(--iv-font-size-lg);
+}
+
+.iv-demo__level p:not(.iv-demo__level-eyebrow) {
+  margin: var(--iv-space-xs) 0 var(--iv-space-md);
+  color: var(--iv-color-text-muted);
+  line-height: 1.5;
+}
+
 @media (min-width: 40rem) {
   .iv-demo {
     padding: clamp(1.25rem, 4vw, 4rem);
@@ -154,5 +186,9 @@ body {
 
   .iv-demo__panel {
     padding: var(--iv-space-xl);
+  }
+
+  .iv-demo__levels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
