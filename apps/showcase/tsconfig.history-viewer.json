@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/history-viewer",
+    "types": []
+  },
+  "files": ["src/history-viewer/main.ts"],
+  "include": ["src/**/*.d.ts"]
+}

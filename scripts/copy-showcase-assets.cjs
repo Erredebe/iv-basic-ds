@@ -6,6 +6,9 @@ const showcaseRoot = path.join(root, 'apps/showcase');
 const showcaseDist = path.join(showcaseRoot, 'dist/showcase');
 const showcaseBrowserDist = path.join(showcaseDist, 'browser');
 const distRoot = fs.existsSync(showcaseBrowserDist) ? showcaseBrowserDist : showcaseDist;
+const historyViewerDist = path.join(showcaseRoot, 'dist/history-viewer');
+const historyViewerBrowserDist = path.join(historyViewerDist, 'browser');
+const historyViewerRoot = fs.existsSync(historyViewerBrowserDist) ? historyViewerBrowserDist : historyViewerDist;
 
 function copyDirectory(source, target) {
   if (!fs.existsSync(source)) {
@@ -17,4 +20,4 @@ function copyDirectory(source, target) {
 }
 
 copyDirectory(path.join(root, 'apps/docs/www/build'), path.join(distRoot, 'assets/iv-basic-ds/build'));
-copyDirectory(path.join(showcaseRoot, 'src/history'), path.join(distRoot, 'history'));
+copyDirectory(historyViewerRoot, path.join(distRoot, 'history-viewer'));
