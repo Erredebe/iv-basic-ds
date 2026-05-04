@@ -4,6 +4,7 @@ const { execFileSync } = require('node:child_process');
 
 const root = process.cwd();
 const docsWww = path.join(root, 'apps/docs/www');
+const showcaseDist = path.join(root, 'apps/showcase/dist/showcase');
 const rootWww = path.join(root, 'www');
 const versionFixtures = path.join(root, 'version-fixtures/components');
 const packages = [
@@ -42,3 +43,10 @@ for (const { atomicLevel, name: packageName } of packages) {
 
   copyDirectory(source, target);
 }
+
+run('npm', ['run', 'build:netlify', '--workspace', '@iv-basic-ds/showcase']);
+
+const showcaseBrowserDist = path.join(showcaseDist, 'browser');
+const showcaseSource = fs.existsSync(showcaseBrowserDist) ? showcaseBrowserDist : showcaseDist;
+
+copyDirectory(showcaseSource, path.join(rootWww, 'showcase'));
