@@ -42,6 +42,22 @@ export default meta;
 
 type Story = StoryObj;
 
+const getDemoUrl = (path: string) => {
+  if (globalThis.location?.port === '6006') {
+    return `http://${globalThis.location.hostname}:3333${path}`;
+  }
+
+  return path;
+};
+
+const renderVersionFrame = (path: string, title: string) => html`
+  <iframe
+    title=${title}
+    src=${getDemoUrl(path)}
+    style="width: min(100%, 68rem); min-height: 44rem; border: 1px solid var(--iv-color-border); border-radius: var(--iv-radius-md); background: var(--iv-color-background);"
+  ></iframe>
+`;
+
 export const Playground: Story = {
   render: ({ variant, disabled, text, href, label, controls, expanded, pressed }) => html`
     <iv-button
@@ -161,4 +177,43 @@ export const WithIcons: Story = {
       </div>
     </div>
   `,
+};
+
+export const VersionsComparison: Story = {
+  name: 'Versions',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Compara versiones CDN de iv-button mediante iframes aislados para evitar registrar el mismo custom element dos veces.',
+      },
+    },
+    layout: 'fullscreen',
+  },
+  render: () => renderVersionFrame('/demos/atoms/button-versions.html', 'Button versions comparison'),
+};
+
+export const Version001: Story = {
+  name: 'Version 0.0.1',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Carga el bundle historico /components/iv-button/0.0.1/build/iv-button.esm.js dentro de una demo aislada.',
+      },
+    },
+    layout: 'fullscreen',
+  },
+  render: () => renderVersionFrame('/demos/atoms/button-001.html', 'Button 0.0.1 demo'),
+};
+
+export const Version002: Story = {
+  name: 'Version 0.0.2',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Carga el bundle actual /components/iv-button/0.0.2/build/iv-button.esm.js, incluyendo variant="danger".',
+      },
+    },
+    layout: 'fullscreen',
+  },
+  render: () => renderVersionFrame('/demos/atoms/button-002.html', 'Button 0.0.2 demo'),
 };
