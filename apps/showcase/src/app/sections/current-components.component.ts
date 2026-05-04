@@ -10,8 +10,9 @@ import { currentComponents } from '../data/showcase.data';
   template: `
     <section class="showcase-section" aria-labelledby="current-components-title">
       <div class="showcase-section__header">
-        <p class="showcase-kicker">Componentes actuales</p>
-        <h2 id="current-components-title">Catalogo cargado desde el bundle agregado</h2>
+        <p class="showcase-kicker">Bundle actual</p>
+        <h2 id="current-components-title">Componentes disponibles</h2>
+        <p>Referencia rapida de los tags registrados por el bundle agregado que consume la app.</p>
       </div>
       <div class="showcase-card-grid">
         <article class="showcase-card" *ngFor="let component of components">

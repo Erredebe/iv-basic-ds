@@ -12,8 +12,9 @@ import { IconUsageComponent } from '../demos/icon-usage.component';
   template: `
     <section id="angular-usage" class="showcase-section" aria-labelledby="angular-usage-title">
       <div class="showcase-section__header">
-        <p class="showcase-kicker">Uso Angular</p>
-        <h2 id="angular-usage-title">Bindings, eventos y metodos publicos</h2>
+        <p class="showcase-kicker">Casos de uso</p>
+        <h2 id="angular-usage-title">Patrones habituales en Angular</h2>
+        <p>Escenarios pequenos para validar como se integran propiedades, eventos y metodos publicos.</p>
       </div>
 
       <div class="showcase-demo-grid">
