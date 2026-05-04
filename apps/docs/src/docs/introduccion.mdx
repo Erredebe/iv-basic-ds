@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduccion/Overview" />
+
+# IV Basic DS
+
+Design System construido con StencilJS y distribuido por CDN desde Netlify.
+
+## Produccion
+
+- Sitio: https://iv-basic-ds.netlify.app/
+- Storybook: https://iv-basic-ds.netlify.app/storybook/
+- CDN ESM: https://iv-basic-ds.netlify.app/build/iv-basic-ds.esm.js
+- CDN versionado Button: https://iv-basic-ds.netlify.app/components/iv-button/0.0.1/build/iv-button.esm.js
+- CDN versionado Button actual: https://iv-basic-ds.netlify.app/components/iv-button/0.0.2/build/iv-button.esm.js
+
+## Principios
+
+- Web Components estandar, pensados principalmente para Angular.
+- Componentes sin Shadow DOM por defecto para facilitar integracion, estilos y accesibilidad.
+- Tokens CSS globales con prefijo `--iv-`.
+- Organizacion Atomic Design para clasificar alcance y composicion.
+- Demos HTML separadas por nivel Atomic Design en `/demos/atoms/*.html`, `/demos/molecules/*.html`, etc.
+- Storybook como documentacion visual y banco de pruebas.
+
+## Componentes actuales
+
+- Atoms: `iv-button`, `iv-icon`, `iv-input`, `iv-textarea`.
+- Molecules: `iv-dialog`.
+- Organisms: sin componentes publicados todavia.
+- Templates: sin componentes publicados todavia.

@@ -1,0 +1,9 @@
+{
+  "name": "@iv-basic-ds/tokens",
+  "version": "0.0.1",
+  "description": "Tokens CSS compartidos de IV Basic DS.",
+  "private": true,
+  "files": [
+    "src"
+  ]
+}

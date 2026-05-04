@@ -1,0 +1,26 @@
+iv-icon {
+  display: inline-flex;
+  flex: none;
+  line-height: 0;
+  color: currentColor;
+  vertical-align: middle;
+}
+
+.iv-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.iv-icon--sm {
+  font-size: 1rem;
+}
+
+.iv-icon--md {
+  font-size: 1.25rem;
+}
+
+.iv-icon--lg {
+  font-size: 1.5rem;
+}

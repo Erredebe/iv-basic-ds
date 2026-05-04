@@ -7,7 +7,26 @@ const complexityLimit = 12;
 
 export default tseslint.config(
   {
-    ignores: ['coverage/**', 'dist/**', 'loader/**', 'node_modules/**', 'www/**'],
+    ignores: [
+      'coverage/**',
+      'dist/**',
+      'loader/**',
+      'node_modules/**',
+      'www/**',
+      'apps/*/coverage/**',
+      'apps/*/dist/**',
+      'apps/*/loader/**',
+      'apps/*/www/**',
+      'packages/*/coverage/**',
+      'packages/*/dist/**',
+      'packages/*/loader/**',
+      'packages/*/www/**',
+      'packages/*/*/coverage/**',
+      'packages/*/*/dist/**',
+      'packages/*/*/loader/**',
+      'packages/*/*/www/**',
+      'version-fixtures/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

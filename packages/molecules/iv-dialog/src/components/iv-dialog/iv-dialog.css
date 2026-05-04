@@ -1,0 +1,137 @@
+iv-dialog {
+  display: contents;
+}
+
+.iv-dialog {
+  box-sizing: border-box;
+  width: calc(100dvw - 1rem);
+  max-height: calc(100dvh - 1rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--iv-radius-md);
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  box-shadow: 0 24px 64px rgb(16 42 67 / 0.24);
+}
+
+.iv-dialog::backdrop {
+  background: rgb(16 42 67 / 0.48);
+}
+
+.iv-dialog + .backdrop {
+  background: rgb(16 42 67 / 0.48);
+}
+
+.iv-dialog.fixed {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.iv-dialog:focus-visible {
+  outline: none;
+  box-shadow: var(--iv-focus-ring), 0 24px 64px rgb(16 42 67 / 0.24);
+}
+
+.iv-dialog__surface {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  max-height: inherit;
+}
+
+.iv-dialog__header,
+.iv-dialog__body,
+.iv-dialog__footer {
+  box-sizing: border-box;
+}
+
+.iv-dialog__header {
+  padding: var(--iv-space-md) var(--iv-space-md) var(--iv-space-sm);
+}
+
+.iv-dialog__header:empty,
+.iv-dialog__footer:empty {
+  display: none;
+}
+
+.iv-dialog__header > * {
+  margin-block: 0;
+}
+
+.iv-dialog__body {
+  overflow: auto;
+  padding: 0 var(--iv-space-md) var(--iv-space-md);
+  color: var(--iv-color-text-muted);
+  line-height: 1.6;
+}
+
+.iv-dialog__body > :first-child {
+  margin-top: 0;
+}
+
+.iv-dialog__body > :last-child {
+  margin-bottom: 0;
+}
+
+.iv-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: var(--iv-space-sm);
+  padding: var(--iv-space-md);
+  border-top: 1px solid var(--iv-color-border);
+}
+
+.iv-dialog__footer [slot='footer'] {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  gap: var(--iv-space-sm);
+}
+
+.iv-dialog__footer iv-button,
+.iv-dialog__footer button {
+  flex: 1 1 100%;
+}
+
+.iv-dialog__footer iv-button .iv-button,
+.iv-dialog__footer button {
+  width: 100%;
+}
+
+@media (min-width: 40rem) {
+  .iv-dialog {
+    width: min(calc(100vw - 2rem), 36rem);
+    max-height: min(calc(100vh - 2rem), 42rem);
+  }
+
+  .iv-dialog__header {
+    padding: var(--iv-space-lg) var(--iv-space-lg) var(--iv-space-md);
+  }
+
+  .iv-dialog__body {
+    padding: 0 var(--iv-space-lg) var(--iv-space-lg);
+  }
+
+  .iv-dialog__footer {
+    justify-content: flex-end;
+    padding: var(--iv-space-md) var(--iv-space-lg) var(--iv-space-lg);
+  }
+
+  .iv-dialog__footer [slot='footer'] {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+  }
+
+  .iv-dialog__footer iv-button,
+  .iv-dialog__footer button {
+    flex: 0 1 auto;
+  }
+
+  .iv-dialog__footer iv-button .iv-button,
+  .iv-dialog__footer button {
+    width: auto;
+  }
+}

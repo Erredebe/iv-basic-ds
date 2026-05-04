@@ -1,0 +1,78 @@
+iv-button {
+  display: inline-flex;
+}
+
+.iv-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--iv-space-sm);
+  min-height: 2.5rem;
+  padding: 0.625rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--iv-radius-md);
+  font: inherit;
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.iv-button iv-icon {
+  font-size: 1rem;
+}
+
+.iv-button:focus-visible {
+  outline: none;
+  box-shadow: var(--iv-focus-ring);
+}
+
+.iv-button--primary {
+  color: var(--iv-color-primary-text);
+  background: var(--iv-color-primary);
+}
+
+.iv-button--primary:hover {
+  background: var(--iv-color-primary-hover);
+}
+
+.iv-button--secondary {
+  color: var(--iv-color-text);
+  border-color: var(--iv-color-border);
+  background: var(--iv-color-neutral);
+}
+
+.iv-button--secondary:hover {
+  background: var(--iv-color-neutral-hover);
+}
+
+.iv-button--ghost {
+  color: var(--iv-color-primary);
+  background: transparent;
+}
+
+.iv-button--ghost:hover {
+  background: rgb(37 99 235 / 0.08);
+}
+
+.iv-button--danger {
+  color: var(--iv-color-danger-text);
+  background: var(--iv-color-danger);
+}
+
+.iv-button--danger:hover {
+  background: var(--iv-color-danger-hover);
+}
+
+.iv-button:disabled,
+.iv-button[aria-disabled='true'] {
+  opacity: 0.52;
+  cursor: not-allowed;
+}

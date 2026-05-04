@@ -1,0 +1,47 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Button Versions - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+    <style>
+      .iv-version-frame {
+        width: 100%;
+        min-height: 34rem;
+        border: 1px solid var(--iv-color-border);
+        border-radius: var(--iv-radius-md);
+        background: var(--iv-color-background);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Versiones CDN</p>
+        <h1>Button 0.0.1 vs 0.0.2</h1>
+        <p>
+          Cada version se renderiza en un iframe aislado porque dos bundles con el mismo tag
+          <code>iv-button</code> no pueden registrarse en el mismo documento.
+        </p>
+        <div class="iv-demo__actions">
+          <iv-button href="/demos/atoms/button-001.html" variant="secondary">Ver 0.0.1</iv-button>
+          <iv-button href="/demos/atoms/button-002.html" variant="secondary">Ver 0.0.2</iv-button>
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="button-versions-001-title">
+        <h2 id="button-versions-001-title">Button 0.0.1</h2>
+        <iframe class="iv-version-frame" title="Demo Button 0.0.1" src="/demos/atoms/button-001.html"></iframe>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="button-versions-002-title">
+        <h2 id="button-versions-002-title">Button 0.0.2</h2>
+        <iframe class="iv-version-frame" title="Demo Button 0.0.2" src="/demos/atoms/button-002.html"></iframe>
+      </section>
+    </main>
+  </body>
+</html>

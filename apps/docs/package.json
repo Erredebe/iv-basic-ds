@@ -1,0 +1,24 @@
+{
+  "name": "@iv-basic-ds/docs",
+  "version": "0.0.1",
+  "description": "Docs, demos y bundle agregado de IV Basic DS.",
+  "private": true,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('www',{recursive:true,force:true});require('node:fs').rmSync('dist',{recursive:true,force:true});require('node:fs').rmSync('loader',{recursive:true,force:true})\"",
+    "start": "npm run build && concurrently -n stencil,storybook -c blue,magenta \"stencil build --dev --watch --serve\" \"storybook dev -p 6006\"",
+    "build": "stencil build --docs",
+    "storybook": "npm run build && storybook dev -p 6006",
+    "build:storybook": "npm run clean && npm run build && storybook build -o www/storybook",
+    "build:netlify": "npm run clean && npm run build && storybook build -o www/storybook",
+    "test:spec": "stencil-test --project spec --coverage",
+    "test:a11y": "playwright test tests/a11y"
+  },
+  "dependencies": {
+    "@stencil/core": "latest",
+    "dialog-polyfill": "^0.5.6"
+  }
+}
