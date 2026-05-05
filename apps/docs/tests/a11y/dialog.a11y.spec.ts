@@ -82,6 +82,15 @@ test.describe('iv-dialog accessibility', () => {
     await expectNoA11yViolations(page, '#form-dialog');
   });
 
+  test('companion close actions close with return value', async ({ page }) => {
+    await page.getByRole('button', { name: 'Abrir decision' }).click();
+
+    await page.locator('#return-dialog').getByRole('button', { name: 'Confirmar' }).click();
+
+    await expect(page.locator('#return-dialog dialog')).toHaveJSProperty('open', false);
+    await expect(page.locator('#return-output')).toHaveText('confirm');
+  });
+
   test('normal dialogs close with Escape and backdrop click', async ({ page }) => {
     await page.getByRole('button', { name: 'Abrir dialog', exact: true }).click();
     await page.keyboard.press('Escape');

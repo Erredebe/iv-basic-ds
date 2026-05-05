@@ -23,11 +23,15 @@ import type { FeedbackState, IvDialogElement } from '../models/showcase.models';
       >
         <h4 id="feedback-dialog-title" slot="header">Enviar feedback</h4>
         <p id="feedback-dialog-description">
-          Este modal se abre desde Angular con <code>showModal()</code> y se cierra con <code>close(returnValue)</code>.
+          Este modal se abre desde Angular con <code>showModal()</code> y sus acciones slotted se cierran con <code>iv-dialog-close</code>.
         </p>
         <div slot="footer" class="showcase-inline-actions showcase-inline-actions--end">
-          <iv-button id="feedback-cancel" variant="secondary" (click)="closeFeedbackDialog('cancelled')">Cancelar</iv-button>
-          <iv-button variant="primary" (click)="closeFeedbackDialog('sent')">Enviar</iv-button>
+          <iv-dialog-close id="feedback-cancel" return-value="cancelled">
+            <iv-button variant="secondary">Cancelar</iv-button>
+          </iv-dialog-close>
+          <iv-dialog-close return-value="sent">
+            <iv-button variant="primary">Enviar</iv-button>
+          </iv-dialog-close>
         </div>
       </iv-dialog>
       <p class="showcase-status">
@@ -44,10 +48,6 @@ export class DialogUsageComponent {
 
   protected openFeedbackDialog() {
     this.feedbackDialog?.nativeElement.showModal();
-  }
-
-  protected closeFeedbackDialog(returnValue: FeedbackState) {
-    this.feedbackDialog?.nativeElement.close(returnValue);
   }
 
   protected handleDialogClose(event: Event) {

@@ -30,7 +30,7 @@ El DS se gestiona con Atomic Design para clasificar alcance y composicion antes 
 
 - Foundations: tokens y reglas globales, como `packages/foundations/tokens/src/tokens.css`.
 - Atoms: componentes minimos, por ahora `iv-button`.
-- Molecules: composiciones pequenas con comportamiento propio, por ahora `iv-dialog`.
+- Molecules: composiciones pequenas con comportamiento propio, por ahora `iv-dialog` y su companion `iv-dialog-close`.
 - Organisms: bloques complejos de UI; sin componentes publicados todavia.
 - Templates: estructuras de layout reutilizables; sin componentes publicados todavia.
 - Pages: demos y pantallas de validacion, ubicadas en `src/demos/` o documentacion.
@@ -55,7 +55,7 @@ El repositorio usa `npm workspaces`:
 - `apps/docs`: sitio publicado en Netlify, demos HTML, Storybook, pruebas a11y y bundle agregado `iv-basic-ds`.
 - `packages/foundations/tokens`: tokens CSS compartidos.
 - `packages/atoms/iv-button`, `packages/atoms/iv-icon`, `packages/atoms/iv-input`, `packages/atoms/iv-textarea`: atoms versionados por componente.
-- `packages/molecules/iv-dialog`: molecule versionada por componente.
+- `packages/molecules/iv-dialog`: molecule versionada por componente; incluye el companion `iv-dialog-close`.
 
 Cada componente tiene su propio `package.json` y `version`. Las rutas versionadas de Netlify se generan leyendo esa version.
 
@@ -465,6 +465,11 @@ Eventos:
 - `ivClose`: se emite al cerrar e incluye `{ returnValue }`.
 - `ivCancel`: se emite al recibir el evento nativo `cancel`.
 
+Companion:
+
+- `iv-dialog-close`: wrapper opcional para acciones slotted. Emite `ivDialogCloseRequest` al hacer click y `iv-dialog` lo convierte en `close(returnValue)` si el evento no fue cancelado.
+- `return-value`: valor enviado al cerrar.
+
 Ejemplo:
 
 ```html
@@ -474,13 +479,17 @@ Ejemplo:
   <h2 slot="header" id="confirm-title">Confirmar accion</h2>
   <p id="confirm-description">Esta accion no se puede deshacer.</p>
   <div slot="footer">
-    <iv-button variant="ghost">Cancelar</iv-button>
-    <iv-button>Confirmar</iv-button>
+    <iv-dialog-close return-value="cancel">
+      <iv-button variant="ghost">Cancelar</iv-button>
+    </iv-dialog-close>
+    <iv-dialog-close return-value="confirm">
+      <iv-button>Confirmar</iv-button>
+    </iv-dialog-close>
   </div>
 </iv-dialog>
 ```
 
-Variantes accesibles incluidas en Storybook y en `/demos/dialog.html`:
+Variantes accesibles incluidas en Storybook y en `/demos/molecules/dialog.html`:
 
 - Modal etiquetado con `labelled-by` y `described-by`.
 - Modal sin titulo visible usando `label`.

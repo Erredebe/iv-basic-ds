@@ -29,8 +29,12 @@
           <h3 slot="header" id="labelled-dialog-title">Confirmar accion</h3>
           <p id="labelled-dialog-description">Este componente usa el elemento dialog nativo y se abre con showModal().</p>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="labelled-dialog" data-dialog-return-value="cancel">Cancelar</iv-button>
-            <iv-button data-dialog-close="labelled-dialog" data-dialog-return-value="confirm">Confirmar</iv-button>
+            <iv-dialog-close return-value="cancel">
+              <iv-button variant="ghost">Cancelar</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close return-value="confirm">
+              <iv-button>Confirmar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -41,7 +45,9 @@
         <iv-dialog id="label-only-dialog" label="Ayuda rapida">
           <p>Este ejemplo no tiene cabecera visible. El nombre accesible se proporciona con label y se aplica como aria-label al dialog nativo.</p>
           <div slot="footer">
-            <iv-button data-dialog-close="label-only-dialog">Cerrar</iv-button>
+            <iv-dialog-close>
+              <iv-button>Cerrar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -53,8 +59,12 @@
           <h3 slot="header" id="alert-dialog-title">Eliminar definitivamente</h3>
           <p id="alert-dialog-description">Esta accion elimina los datos de forma permanente y no se puede deshacer.</p>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="alert-dialog" data-dialog-return-value="cancel">Cancelar</iv-button>
-            <iv-button data-dialog-close="alert-dialog" data-dialog-return-value="delete">Eliminar definitivamente</iv-button>
+            <iv-dialog-close return-value="cancel">
+              <iv-button variant="ghost">Cancelar</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close return-value="delete">
+              <iv-button>Eliminar definitivamente</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -66,7 +76,9 @@
           <h3 slot="header" id="prevent-dismiss-dialog-title">Revision obligatoria</h3>
           <p id="prevent-dismiss-dialog-description">Este dialog no se cierra con Escape ni con click en el backdrop. Usa una accion explicita.</p>
           <div slot="footer">
-            <iv-button data-dialog-close="prevent-dismiss-dialog" data-dialog-return-value="acknowledged">Entendido</iv-button>
+            <iv-dialog-close return-value="acknowledged">
+              <iv-button>Entendido</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -77,7 +89,9 @@
         <iv-dialog id="non-modal-dialog" label="Informacion no modal">
           <p>Este ejemplo usa show() nativo y no bloquea la interaccion con el resto de la pagina.</p>
           <div slot="footer">
-            <iv-button data-dialog-close="non-modal-dialog">Cerrar</iv-button>
+            <iv-dialog-close>
+              <iv-button>Cerrar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -96,8 +110,12 @@
             <p>Seccion 5. No se usa described-by porque el contenido es multiparrafo.</p>
           </div>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="long-dialog" data-dialog-return-value="cancel">Cerrar</iv-button>
-            <iv-button data-dialog-close="long-dialog" data-dialog-return-value="accept">Aceptar</iv-button>
+            <iv-dialog-close return-value="cancel">
+              <iv-button variant="ghost">Cerrar</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close return-value="accept">
+              <iv-button>Aceptar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -131,8 +149,12 @@
           <h3 slot="header" id="return-dialog-title">Decision con valor</h3>
           <p id="return-dialog-description">Cada boton cierra el dialog con un valor diferente.</p>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="return-dialog" data-dialog-return-value="cancel">Cancelar</iv-button>
-            <iv-button data-dialog-close="return-dialog" data-dialog-return-value="confirm">Confirmar</iv-button>
+            <iv-dialog-close return-value="cancel">
+              <iv-button variant="ghost">Cancelar</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close return-value="confirm">
+              <iv-button>Confirmar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
         <p>Ultimo valor: <output id="return-output">sin valor</output></p>
@@ -145,8 +167,12 @@
           <h3 slot="header" id="initial-focus-dialog-title">Foco inicial explicito</h3>
           <p id="initial-focus-dialog-description">El foco se fuerza solo porque esta demo define initial-focus.</p>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="initial-focus-dialog" data-dialog-return-value="cancel">Cancelar</iv-button>
-            <iv-button id="initial-focus-confirm" data-dialog-close="initial-focus-dialog" data-dialog-return-value="confirm">Continuar</iv-button>
+            <iv-dialog-close return-value="cancel">
+              <iv-button variant="ghost">Cancelar</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close id="initial-focus-confirm" return-value="confirm">
+              <iv-button>Continuar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -158,7 +184,9 @@
           <h3 slot="header" id="restore-focus-dialog-title">Restauracion de foco</h3>
           <p id="restore-focus-dialog-description">Al cerrar, el foco vuelve al invocador solo porque restore-focus esta activado.</p>
           <div slot="footer">
-            <iv-button data-dialog-close="restore-focus-dialog">Cerrar</iv-button>
+            <iv-dialog-close>
+              <iv-button>Cerrar</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -175,8 +203,12 @@
             <li>Descuento aplicado durante el primer periodo.</li>
           </ul>
           <div slot="footer">
-            <iv-button variant="ghost" data-dialog-close="complex-dialog" data-dialog-return-value="later">Revisar despues</iv-button>
-            <iv-button data-dialog-close="complex-dialog" data-dialog-return-value="accept">Aceptar pedido</iv-button>
+            <iv-dialog-close return-value="later">
+              <iv-button variant="ghost">Revisar despues</iv-button>
+            </iv-dialog-close>
+            <iv-dialog-close return-value="accept">
+              <iv-button>Aceptar pedido</iv-button>
+            </iv-dialog-close>
           </div>
         </iv-dialog>
       </section>
@@ -224,14 +256,6 @@
 
           await dialog.showModal();
           return;
-        }
-
-        const closeButton = getDialogActionElement(event, 'data-dialog-close');
-
-        if (closeButton) {
-          const dialog = await getReadyDialog(closeButton.dataset.dialogClose);
-
-          await dialog?.close(closeButton.dataset.dialogReturnValue || '');
         }
       });
 

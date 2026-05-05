@@ -57,12 +57,6 @@ const closeDialog = (event: Event) => {
   dialog?.close();
 };
 
-const closeDialogWithValue = (event: Event, returnValue: string) => {
-  const dialog = (event.currentTarget as HTMLElement).closest<DialogElement>('iv-dialog');
-
-  dialog?.close(returnValue);
-};
-
 const openNonModalDialog = (event: Event) => {
   const dialog = findStoryDialog(event.currentTarget as HTMLElement);
 
@@ -87,10 +81,45 @@ export const Playground: Story = {
       <h2 slot="header" id="dialog-title">Confirmar accion</h2>
       <p id="dialog-description">Este dialog usa el elemento nativo dialog y se abre con showModal().</p>
       <div slot="footer">
-        <iv-button variant="ghost" @click=${closeDialog}>Cancelar</iv-button>
-        <iv-button @click=${closeDialog}>Confirmar</iv-button>
+        <iv-dialog-close return-value="cancel">
+          <iv-button variant="ghost">Cancelar</iv-button>
+        </iv-dialog-close>
+        <iv-dialog-close return-value="confirm">
+          <iv-button>Confirmar</iv-button>
+        </iv-dialog-close>
       </div>
     </iv-dialog>
+  `,
+};
+
+export const CompanionCloseAction: Story = {
+  render: () => html`
+    <iv-button has-popup="dialog" @click=${openDialog}>Abrir accion companion</iv-button>
+    <iv-dialog
+      id="companion-close-dialog"
+      labelled-by="companion-close-title"
+      described-by="companion-close-description"
+      @ivClose=${(event: CustomEvent<{ returnValue: string }>) => {
+        const output = document.getElementById('companion-close-output');
+        if (output) {
+          output.textContent = event.detail.returnValue || 'sin valor';
+        }
+      }}
+    >
+      <h2 slot="header" id="companion-close-title">Cierre desacoplado</h2>
+      <p id="companion-close-description">
+        iv-dialog-close vive en el slot footer y solicita el cierre sin que iv-button ni el consumidor llamen manualmente a close().
+      </p>
+      <div slot="footer">
+        <iv-dialog-close return-value="cancel">
+          <iv-button variant="ghost">Cancelar</iv-button>
+        </iv-dialog-close>
+        <iv-dialog-close return-value="confirm">
+          <iv-button>Confirmar</iv-button>
+        </iv-dialog-close>
+      </div>
+    </iv-dialog>
+    <p>Ultimo valor companion: <output id="companion-close-output">sin valor</output></p>
   `,
 };
 
@@ -241,8 +270,12 @@ export const ReturnValue: Story = {
       <h2 slot="header" id="return-value-title">Decision con valor de cierre</h2>
       <p id="return-value-description">Cada accion cierra el dialog con un returnValue distinto.</p>
       <div slot="footer">
-        <iv-button variant="ghost" @click=${(event: Event) => closeDialogWithValue(event, 'cancel')}>Cancelar</iv-button>
-        <iv-button @click=${(event: Event) => closeDialogWithValue(event, 'confirm')}>Confirmar</iv-button>
+        <iv-dialog-close return-value="cancel">
+          <iv-button variant="ghost">Cancelar</iv-button>
+        </iv-dialog-close>
+        <iv-dialog-close return-value="confirm">
+          <iv-button>Confirmar</iv-button>
+        </iv-dialog-close>
       </div>
     </iv-dialog>
     <p>Ultimo valor: <output id="return-value-output">sin valor</output></p>

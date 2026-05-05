@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Element as StencilElement, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
 import dialogPolyfill from 'dialog-polyfill';
 
 const focusableSelector = [
@@ -16,6 +16,8 @@ const focusableSelector = [
   shadow: false,
 })
 export class IvDialog {
+  @StencilElement() private hostElement!: HTMLElement;
+
   private dialogElement?: HTMLDialogElement;
   private previouslyFocusedElement?: HTMLElement;
   private suppressNextCloseEvent = false;
@@ -102,6 +104,7 @@ export class IvDialog {
 
     if (this.dialogElement?.open) {
       this.dialogElement.close(returnValue);
+      this.open = false;
       return;
     }
 
@@ -289,6 +292,22 @@ export class IvDialog {
     this.open = false;
     this.restoreFocusToInvoker();
     this.ivClose.emit({ returnValue });
+  }
+
+  @Listen('ivDialogCloseRequest')
+  protected handleDialogCloseRequest(event: CustomEvent<{ returnValue?: string }>) {
+    if (event.defaultPrevented || !this.isOwnCloseRequest(event)) {
+      return;
+    }
+
+    event.stopPropagation();
+    this.close(event.detail?.returnValue || '');
+  }
+
+  private isOwnCloseRequest(event: Event) {
+    const target = event.target as HTMLElement | null;
+
+    return typeof target?.closest === 'function' && target.closest('iv-dialog') === this.hostElement;
   }
 
   private restoreFocusToInvoker() {

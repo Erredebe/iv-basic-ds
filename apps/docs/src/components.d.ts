@@ -5,7 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IvDialogCloseRequestDetail } from "./components/molecules/iv-dialog-close/iv-dialog-close";
 import { IvIconName } from "./components/atoms/iv-icon/iv-icon";
+export { IvDialogCloseRequestDetail } from "./components/molecules/iv-dialog-close/iv-dialog-close";
 export { IvIconName } from "./components/atoms/iv-icon/iv-icon";
 export namespace Components {
     interface IvButton {
@@ -137,6 +139,13 @@ export namespace Components {
           * Abre el dialog usando `showModal()` nativo.
          */
         "showModal": () => Promise<void>;
+    }
+    interface IvDialogClose {
+        /**
+          * Valor enviado al dialog cuando se solicita el cierre.
+          * @default ''
+         */
+        "returnValue": string;
     }
     interface IvIcon {
         /**
@@ -292,6 +301,10 @@ export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIvDialogElement;
 }
+export interface IvDialogCloseCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIvDialogCloseElement;
+}
 export interface IvInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIvInputElement;
@@ -325,6 +338,23 @@ declare global {
     var HTMLIvDialogElement: {
         prototype: HTMLIvDialogElement;
         new (): HTMLIvDialogElement;
+    };
+    interface HTMLIvDialogCloseElementEventMap {
+        "ivDialogCloseRequest": IvDialogCloseRequestDetail;
+    }
+    interface HTMLIvDialogCloseElement extends Components.IvDialogClose, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIvDialogCloseElementEventMap>(type: K, listener: (this: HTMLIvDialogCloseElement, ev: IvDialogCloseCustomEvent<HTMLIvDialogCloseElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIvDialogCloseElementEventMap>(type: K, listener: (this: HTMLIvDialogCloseElement, ev: IvDialogCloseCustomEvent<HTMLIvDialogCloseElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIvDialogCloseElement: {
+        prototype: HTMLIvDialogCloseElement;
+        new (): HTMLIvDialogCloseElement;
     };
     interface HTMLIvIconElement extends Components.IvIcon, HTMLStencilElement {
     }
@@ -369,6 +399,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
         "iv-dialog": HTMLIvDialogElement;
+        "iv-dialog-close": HTMLIvDialogCloseElement;
         "iv-icon": HTMLIvIconElement;
         "iv-input": HTMLIvInputElement;
         "iv-textarea": HTMLIvTextareaElement;
@@ -503,6 +534,17 @@ declare namespace LocalJSX {
         "restoreFocus"?: boolean;
         /**
           * Valor opcional devuelto por el dialog al cerrar.
+          * @default ''
+         */
+        "returnValue"?: string;
+    }
+    interface IvDialogClose {
+        /**
+          * Se emite cuando el contenido slotted solicita cerrar el dialog ancestro.
+         */
+        "onIvDialogCloseRequest"?: (event: IvDialogCloseCustomEvent<IvDialogCloseRequestDetail>) => void;
+        /**
+          * Valor enviado al dialog cuando se solicita el cierre.
           * @default ''
          */
         "returnValue"?: string;
@@ -695,6 +737,9 @@ declare namespace LocalJSX {
         "labelledBy": string;
         "describedBy": string;
     }
+    interface IvDialogCloseAttributes {
+        "returnValue": string;
+    }
     interface IvIconAttributes {
         "name": IvIconName;
         "size": 'sm' | 'md' | 'lg';
@@ -738,6 +783,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
         "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
+        "iv-dialog-close": Omit<IvDialogClose, keyof IvDialogCloseAttributes> & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes]?: IvDialogClose[K] } & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes as `attr:${K}`]?: IvDialogCloseAttributes[K] } & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes as `prop:${K}`]?: IvDialogClose[K] };
         "iv-icon": Omit<IvIcon, keyof IvIconAttributes> & { [K in keyof IvIcon & keyof IvIconAttributes]?: IvIcon[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `attr:${K}`]?: IvIconAttributes[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `prop:${K}`]?: IvIcon[K] } & OneOf<"name", IvIcon["name"], IvIconAttributes["name"]>;
         "iv-input": Omit<IvInput, keyof IvInputAttributes> & { [K in keyof IvInput & keyof IvInputAttributes]?: IvInput[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `attr:${K}`]?: IvInputAttributes[K] } & { [K in keyof IvInput & keyof IvInputAttributes as `prop:${K}`]?: IvInput[K] } & OneOf<"label", IvInput["label"], IvInputAttributes["label"]>;
         "iv-textarea": Omit<IvTextarea, keyof IvTextareaAttributes> & { [K in keyof IvTextarea & keyof IvTextareaAttributes]?: IvTextarea[K] } & { [K in keyof IvTextarea & keyof IvTextareaAttributes as `attr:${K}`]?: IvTextareaAttributes[K] } & { [K in keyof IvTextarea & keyof IvTextareaAttributes as `prop:${K}`]?: IvTextarea[K] } & OneOf<"label", IvTextarea["label"], IvTextareaAttributes["label"]>;
@@ -749,6 +795,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "iv-button": LocalJSX.IntrinsicElements["iv-button"] & JSXBase.HTMLAttributes<HTMLIvButtonElement>;
             "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
+            "iv-dialog-close": LocalJSX.IntrinsicElements["iv-dialog-close"] & JSXBase.HTMLAttributes<HTMLIvDialogCloseElement>;
             "iv-icon": LocalJSX.IntrinsicElements["iv-icon"] & JSXBase.HTMLAttributes<HTMLIvIconElement>;
             "iv-input": LocalJSX.IntrinsicElements["iv-input"] & JSXBase.HTMLAttributes<HTMLIvInputElement>;
             "iv-textarea": LocalJSX.IntrinsicElements["iv-textarea"] & JSXBase.HTMLAttributes<HTMLIvTextareaElement>;
