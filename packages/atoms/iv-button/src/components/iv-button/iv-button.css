@@ -39,7 +39,7 @@ iv-button {
   background: var(--iv-color-primary);
 }
 
-.iv-button--primary:hover {
+.iv-button--primary:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--iv-color-primary-hover);
 }
 
@@ -49,7 +49,7 @@ iv-button {
   background: var(--iv-color-neutral);
 }
 
-.iv-button--secondary:hover {
+.iv-button--secondary:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--iv-color-neutral-hover);
 }
 
@@ -58,7 +58,7 @@ iv-button {
   background: transparent;
 }
 
-.iv-button--ghost:hover {
+.iv-button--ghost:hover:not(:disabled):not([aria-disabled='true']) {
   background: rgb(37 99 235 / 0.08);
 }
 
@@ -67,7 +67,7 @@ iv-button {
   background: var(--iv-color-danger);
 }
 
-.iv-button--danger:hover {
+.iv-button--danger:hover:not(:disabled):not([aria-disabled='true']) {
   background: var(--iv-color-danger-hover);
 }
 

@@ -1,5 +1,14 @@
-import { Component, Event, EventEmitter, Host, Listen, Method, Prop, Watch, h } from '@stencil/core';
+import { Component, Event, EventEmitter, Host, Listen, Method, Prop, State, Watch, h } from '@stencil/core';
 import dialogPolyfill from 'dialog-polyfill';
+
+const focusableSelector = [
+  'button:not(:disabled)',
+  'a[href]:not([aria-disabled="true"])',
+  'input:not(:disabled)',
+  'select:not(:disabled)',
+  'textarea:not(:disabled)',
+  '[tabindex]:not([tabindex="-1"]):not([aria-disabled="true"])',
+].join(',');
 
 @Component({
   tag: 'iv-dialog',
@@ -9,6 +18,9 @@ import dialogPolyfill from 'dialog-polyfill';
 export class IvDialog {
   private dialogElement?: HTMLDialogElement;
   private previouslyFocusedElement?: HTMLElement;
+  private suppressNextCloseEvent = false;
+
+  @State() private activeModal?: boolean;
 
   /** Controla si el dialog esta abierto. */
   @Prop({ mutable: true, reflect: true }) open = false;
@@ -57,6 +69,11 @@ export class IvDialog {
     this.syncDialogState();
   }
 
+  @Watch('modal')
+  protected handleModalChange() {
+    this.syncDialogState();
+  }
+
   componentDidLoad() {
     this.registerDialogPolyfill();
     this.syncDialogState();
@@ -96,7 +113,7 @@ export class IvDialog {
       'aria-label': this.label,
       'aria-labelledby': this.labelledBy,
       'aria-describedby': this.describedBy,
-      'aria-modal': this.modal ? 'true' : undefined,
+      'aria-modal': (this.activeModal ?? this.modal) ? 'true' : undefined,
       role: this.dialogRole,
     };
   }
@@ -119,27 +136,69 @@ export class IvDialog {
       return;
     }
 
+    if (this.open && this.dialogElement.open) {
+      if (this.activeModal !== this.modal) {
+        this.reopenNativeDialog();
+      }
+
+      return;
+    }
+
     if (!this.open && this.dialogElement.open) {
       this.dialogElement.close(this.returnValue);
     }
   }
 
-  private openNativeDialog() {
+  private reopenNativeDialog() {
     if (!this.dialogElement) {
       return;
     }
 
-    this.previouslyFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
+    this.suppressNextCloseEvent = true;
+    this.dialogElement.close(this.returnValue);
+    this.openNativeDialog(true);
+  }
 
-    if (this.modal) {
+  private openNativeDialog(preservePreviouslyFocusedElement = false) {
+    if (!this.dialogElement) {
+      return;
+    }
+
+    if (!preservePreviouslyFocusedElement) {
+      this.previouslyFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
+    }
+
+    const openAsModal = this.modal;
+
+    if (openAsModal) {
       this.dialogElement.showModal();
     } else {
       this.dialogElement.show();
     }
 
+    this.activeModal = openAsModal;
+    this.syncAriaModalAttribute(openAsModal);
+    this.warnIfMissingAccessibleName();
     this.applyInitialFocus();
 
     this.ivOpen.emit();
+  }
+
+  private syncAriaModalAttribute(isModal: boolean) {
+    if (isModal) {
+      this.dialogElement?.setAttribute('aria-modal', 'true');
+      return;
+    }
+
+    this.dialogElement?.removeAttribute('aria-modal');
+  }
+
+  private warnIfMissingAccessibleName() {
+    if (this.label || this.labelledBy) {
+      return;
+    }
+
+    console.warn('[iv-dialog] Provide label or labelled-by before opening so the native dialog has an accessible name.');
   }
 
   private applyInitialFocus() {
@@ -147,9 +206,46 @@ export class IvDialog {
       return;
     }
 
-    const focusTarget = this.dialogElement.querySelector<HTMLElement>(this.initialFocus);
+    const requestedTarget = this.dialogElement.querySelector<HTMLElement>(this.initialFocus);
+    const focusTarget = this.getFocusableTarget(requestedTarget);
 
     focusTarget?.focus();
+  }
+
+  private getFocusableTarget(element?: HTMLElement | null) {
+    if (!element) {
+      return undefined;
+    }
+
+    if (this.isFocusable(element)) {
+      return element;
+    }
+
+    return Array.from(element.querySelectorAll<HTMLElement>(focusableSelector)).find(child => this.isFocusable(child));
+  }
+
+  private isFocusable(element: HTMLElement) {
+    if (element.hidden || element.hasAttribute('disabled') || element.getAttribute('aria-disabled') === 'true') {
+      return false;
+    }
+
+    const style = globalThis.getComputedStyle?.(element);
+
+    if (style && (style.display === 'none' || style.visibility === 'hidden')) {
+      return false;
+    }
+
+    if (element.hasAttribute('tabindex')) {
+      return element.tabIndex >= -1;
+    }
+
+    const tagName = element.tagName.toLowerCase();
+
+    if (tagName === 'a' || tagName === 'area') {
+      return element.hasAttribute('href');
+    }
+
+    return ['button', 'input', 'select', 'textarea', 'summary'].includes(tagName) || element.isContentEditable;
   }
 
   @Listen('cancel', { capture: true })
@@ -181,8 +277,14 @@ export class IvDialog {
       return;
     }
 
+    if (this.suppressNextCloseEvent) {
+      this.suppressNextCloseEvent = false;
+      return;
+    }
+
     const returnValue = this.dialogElement?.returnValue || '';
 
+    this.activeModal = undefined;
     this.returnValue = returnValue;
     this.open = false;
     this.restoreFocusToInvoker();
@@ -201,7 +303,7 @@ export class IvDialog {
 
   @Listen('click')
   protected handleDialogClick(event: MouseEvent) {
-    if (!this.modal || !this.closeOnBackdrop || event.target !== this.dialogElement) {
+    if (!(this.activeModal ?? this.modal) || !this.closeOnBackdrop || event.target !== this.dialogElement) {
       return;
     }
 

@@ -26,7 +26,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
           (valueChange)="updateMessage($event)"
         ></iv-textarea>
       </div>
-      <div class="showcase-summary" aria-live="polite">
+      <div class="showcase-summary">
         <strong>Resumen Angular</strong>
         <span>{{ email }}</span>
         <span>{{ message }}</span>

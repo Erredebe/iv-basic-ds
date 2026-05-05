@@ -22,6 +22,7 @@
 | `rel`         | `rel`          | Relacion del enlace cuando se usa `href`.                                           | `string`                                                                  | `undefined` |
 | `target`      | `target`       | Destino del enlace cuando se usa `href`.                                            | `"_blank" \| "_parent" \| "_self" \| "_top"`                              | `undefined` |
 | `type`        | `type`         | Tipo nativo del boton cuando no se renderiza como enlace.                           | `"button" \| "reset" \| "submit"`                                         | `'button'`  |
+| `value`       | `value`        | Valor nativo del boton para formularios y dialog method="dialog".                   | `string`                                                                  | `undefined` |
 | `variant`     | `variant`      | Variante visual del boton.                                                          | `"danger" \| "ghost" \| "primary" \| "secondary"`                         | `'primary'` |
 
 

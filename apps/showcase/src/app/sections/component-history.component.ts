@@ -19,11 +19,11 @@ import type { ComponentHistory } from '../models/showcase.models';
         </p>
       </div>
 
-      <div class="showcase-history-nav" aria-label="Componentes con historico">
+      <nav class="showcase-history-nav" aria-label="Componentes con historico">
         <iv-button *ngFor="let history of histories" [href]="'#' + historyAnchor(history)" variant="secondary">
           {{ history.name }}
         </iv-button>
-      </div>
+      </nav>
 
       <article class="showcase-history" *ngFor="let history of histories" [id]="historyAnchor(history)">
         <div class="showcase-history__heading">
@@ -48,10 +48,10 @@ import type { ComponentHistory } from '../models/showcase.models';
               <p class="showcase-code-label">CDN</p>
               <code>{{ version.cdnUrl }}</code>
               <div class="showcase-inline-actions">
-                <iv-button [href]="version.demoUrl" variant="secondary" target="_blank">Abrir demo aislada</iv-button>
+                <iv-button [href]="version.demoUrl" variant="secondary" target="_blank">Abrir demo aislada en nueva pestana</iv-button>
               </div>
             </div>
-            <iframe class="showcase-version__frame" [title]="history.tag + ' ' + version.version" [attr.src]="version.demoUrl"></iframe>
+            <iframe class="showcase-version__frame" [title]="'Demo Angular aislada de ' + history.tag + ' version ' + version.version" [attr.src]="version.demoUrl"></iframe>
           </section>
         </div>
       </article>

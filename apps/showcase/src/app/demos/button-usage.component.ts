@@ -15,7 +15,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
         <iv-button variant="secondary" href="/storybook/">Abrir docs</iv-button>
         <iv-button variant="danger" [disabled]="!notificationsEnabled">Accion critica</iv-button>
       </div>
-      <p class="showcase-status">
+      <p class="showcase-status" aria-live="polite" aria-atomic="true">
         Estado Angular: <strong>{{ notificationsEnabled ? 'avisos activos' : 'avisos pausados' }}</strong>
       </p>
     </article>

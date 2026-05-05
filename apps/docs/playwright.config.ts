@@ -28,5 +28,14 @@ export default defineConfig({
       name: 'mobile-chrome',
       use: { ...devices['Pixel 5'] },
     },
+    {
+      name: 'mobile-320',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 320, height: 800 },
+        isMobile: true,
+        hasTouch: true,
+      },
+    },
   ],
 });

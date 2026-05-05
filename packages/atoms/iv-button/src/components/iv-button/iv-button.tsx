@@ -12,6 +12,9 @@ export class IvButton {
   /** Tipo nativo del boton cuando no se renderiza como enlace. */
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
 
+  /** Valor nativo del boton para formularios y dialog method="dialog". */
+  @Prop() value?: string;
+
   /** Deshabilita la interaccion del control. */
   @Prop({ reflect: true }) disabled = false;
 
@@ -48,14 +51,14 @@ export class IvButton {
   /** Marca un enlace como el item actual dentro de un conjunto. */
   @Prop({ reflect: true }) current?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
 
-  private get accessibilityAttributes() {
+  private getAccessibilityAttributes(includePressed = true) {
     return {
       'aria-label': this.label,
       'aria-labelledby': this.labelledBy,
       'aria-describedby': this.describedBy,
       'aria-controls': this.controls,
       'aria-expanded': this.toAriaValue(this.expanded),
-      'aria-pressed': this.toAriaValue(this.pressed),
+      'aria-pressed': includePressed ? this.toAriaValue(this.pressed) : undefined,
       'aria-haspopup': this.hasPopup,
       'aria-current': this.current,
     };
@@ -80,11 +83,11 @@ export class IvButton {
         class={className}
         href={this.disabled ? undefined : this.href}
         target={this.target}
-        rel={this.rel || (this.target === '_blank' ? 'noreferrer' : undefined)}
+        rel={this.rel || (this.target === '_blank' ? 'noopener noreferrer' : undefined)}
         aria-disabled={this.disabled ? 'true' : undefined}
         tabIndex={this.disabled ? -1 : undefined}
         onClick={this.handleLinkClick}
-        {...this.accessibilityAttributes}
+        {...this.getAccessibilityAttributes(false)}
       >
         <slot />
       </a>
@@ -93,7 +96,7 @@ export class IvButton {
 
   private renderButton(className: string) {
     return (
-      <button class={className} type={this.type} disabled={this.disabled} {...this.accessibilityAttributes}>
+      <button class={className} type={this.type} value={this.value} disabled={this.disabled} {...this.getAccessibilityAttributes()}>
         <slot />
       </button>
     );

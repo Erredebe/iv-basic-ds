@@ -108,6 +108,29 @@ describe('iv-dialog', () => {
     expect(root.open).toBe(true);
     expect(root.modal).toBe(false);
     expect(show).toHaveBeenCalled();
+    expect(dialog.getAttribute('aria-modal')).toBeNull();
+  });
+
+  it('reopens the native dialog when switching from non-modal to modal while open', async () => {
+    const { root, waitForChanges } = await renderDialog(
+      <iv-dialog label="Cambio de modo">
+        <p>Contenido</p>
+      </iv-dialog>,
+    );
+    const dialog = getNativeDialog(root);
+    const show = vi.spyOn(dialog, 'show');
+    const showModal = vi.spyOn(dialog, 'showModal');
+    const close = vi.spyOn(dialog, 'close');
+
+    await root.show();
+    await root.showModal();
+    await waitForChanges();
+
+    expect(show).toHaveBeenCalled();
+    expect(close).toHaveBeenCalledWith('');
+    expect(showModal).toHaveBeenCalled();
+    expect(root.open).toBe(true);
+    expect(dialog.getAttribute('aria-modal')).toBe('true');
   });
 
   it('controls close on backdrop click when modal and closeOnBackdrop are enabled', async () => {
@@ -174,6 +197,40 @@ describe('iv-dialog', () => {
     await root.showModal();
 
     expect(focusBtn.focus).toHaveBeenCalled();
+  });
+
+  it('moves initialFocus to the first focusable descendant when the selector points to a wrapper', async () => {
+    const { root } = await renderDialog(
+      <iv-dialog initial-focus="#confirm-wrapper">
+        <p>Contenido</p>
+        <div id="confirm-wrapper">
+          <button>Confirmar</button>
+        </div>
+      </iv-dialog>,
+    );
+    const focusBtn = root.querySelector('#confirm-wrapper button') as HTMLButtonElement;
+    focusBtn.focus = vi.fn();
+
+    await root.showModal();
+
+    expect(focusBtn.focus).toHaveBeenCalled();
+  });
+
+  it('does not focus disabled initialFocus targets', async () => {
+    const { root } = await renderDialog(
+      <iv-dialog initial-focus="#disabled-btn">
+        <p>Contenido</p>
+        <button id="disabled-btn" disabled>
+          Confirmar
+        </button>
+      </iv-dialog>,
+    );
+    const disabledButton = root.querySelector('#disabled-btn') as HTMLButtonElement;
+    disabledButton.focus = vi.fn();
+
+    await root.showModal();
+
+    expect(disabledButton.focus).not.toHaveBeenCalled();
   });
 
   it('renders with no label when neither label nor labelled-by is provided', async () => {

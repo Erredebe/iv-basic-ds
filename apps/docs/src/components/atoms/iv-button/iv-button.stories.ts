@@ -139,8 +139,10 @@ export const AccessibilityStates: Story = {
         <iv-button label="Guardar cambios">Guardar</iv-button>
         <iv-button controls="filters-panel" expanded="false">Filtros</iv-button>
         <iv-button pressed="true" variant="secondary">Vista compacta</iv-button>
-        <iv-button href="/storybook/" current="page" variant="ghost">Storybook</iv-button>
+        <iv-button href="#current-step" current="step" variant="ghost">Paso actual</iv-button>
       </div>
+      <p id="current-step" hidden>Paso actual del flujo de ejemplo.</p>
+      <div id="filters-panel" hidden>Panel de filtros contraido para el ejemplo.</div>
     </div>
   `,
 };
@@ -164,7 +166,7 @@ export const WithIcons: Story = {
           <iv-icon name="chevron-down"></iv-icon>
         </iv-button>
         <iv-button href="/storybook/" target="_blank" variant="ghost">
-          Storybook
+          Storybook (nueva pestana)
           <iv-icon name="external-link"></iv-icon>
         </iv-button>
         <iv-button label="Cerrar" variant="ghost">

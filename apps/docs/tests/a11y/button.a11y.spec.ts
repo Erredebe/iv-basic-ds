@@ -39,4 +39,18 @@ test.describe('iv-button accessibility', () => {
     await expect(iconOnlyButton.locator('iv-icon')).not.toHaveAttribute('label');
     await expect(iconOnlyButton.locator('svg')).toHaveAttribute('aria-hidden', 'true');
   });
+
+  test('ARIA examples reference real targets and external links disclose new tabs', async ({ page }) => {
+    await page.goto('/demos/atoms/button.html');
+    await waitForComponents(page);
+
+    await expect(page.locator('#filters-panel')).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Filtros' })).toHaveAttribute('aria-controls', 'filters-panel');
+    await expect(page.getByRole('link', { name: 'Pagina actual' })).toHaveAttribute('aria-current', 'page');
+
+    const externalStorybook = page.getByRole('link', { name: 'Storybook (nueva pestana)' });
+
+    await expect(externalStorybook).toHaveAttribute('target', '_blank');
+    await expect(externalStorybook).toHaveAttribute('rel', 'noopener noreferrer');
+  });
 });

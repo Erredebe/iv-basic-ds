@@ -51,6 +51,15 @@ describe('iv-textarea', () => {
     expect(textarea?.hasAttribute('readonly')).toBe(true);
   });
 
+  it('does not expose disabled textareas as invalid even when error text is rendered', async () => {
+    const { root } = await render(<iv-textarea label="Comentario" disabled={true} error="No se puede validar ahora."></iv-textarea>);
+    const textarea = root.querySelector('textarea');
+
+    expect(root.querySelector('.iv-textarea')?.classList.contains('iv-textarea--invalid')).toBe(false);
+    expect(root.querySelector('.iv-textarea__error')?.textContent).toBe('No se puede validar ahora.');
+    expect(textarea?.hasAttribute('aria-invalid')).toBe(false);
+  });
+
   it('maps textarea-specific attributes to the native textarea', async () => {
     const { root } = await render(
       <iv-textarea label="Notas" placeholder="Escribe notas" rows={6} maxlength={200} minlength={10} wrap="hard"></iv-textarea>,

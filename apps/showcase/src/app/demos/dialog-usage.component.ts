@@ -11,7 +11,7 @@ import type { FeedbackState, IvDialogElement } from '../models/showcase.models';
       <h3 id="dialog-title">Dialog con API publica</h3>
       <p>El template usa una referencia Angular y el componente invoca los metodos publicos del custom element.</p>
       <iv-button variant="primary" (click)="openFeedbackDialog()">Abrir dialog</iv-button>
-      <p class="showcase-status">
+      <p class="showcase-status" aria-live="polite" aria-atomic="true">
         Ultimo cierre: <strong>{{ lastDialogReturnValue }}</strong>
       </p>
       <iv-dialog
@@ -43,11 +43,11 @@ export class DialogUsageComponent {
   protected lastDialogReturnValue = 'Sin interacciones todavia';
 
   protected openFeedbackDialog() {
-    void this.feedbackDialog?.nativeElement.showModal();
+    this.feedbackDialog?.nativeElement.showModal();
   }
 
   protected closeFeedbackDialog(returnValue: FeedbackState) {
-    void this.feedbackDialog?.nativeElement.close(returnValue);
+    this.feedbackDialog?.nativeElement.close(returnValue);
   }
 
   protected handleDialogClose(event: Event) {

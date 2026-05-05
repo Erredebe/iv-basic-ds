@@ -83,7 +83,7 @@ export class IvTextarea {
   };
 
   render() {
-    const hasError = Boolean(this.error);
+    const hasError = Boolean(this.error) && !this.disabled;
 
     return (
       <Host>

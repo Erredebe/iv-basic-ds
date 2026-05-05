@@ -6,7 +6,7 @@ const params = new URLSearchParams(window.location.search);
 const component = params.get('component') || '';
 const version = params.get('version') || '';
 
-void loadVersionedAssets(component, version).finally(() => {
+loadVersionedAssets(component, version).finally(() => {
   bootstrapApplication(HistoryViewerComponent).catch(error => console.error(error));
 });
 

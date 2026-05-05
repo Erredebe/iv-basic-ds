@@ -15,7 +15,7 @@ describe('iv-button', () => {
 
   it('renders configured variant, type and aria state attributes', async () => {
     const { root } = await render(
-      <iv-button variant="secondary" type="submit" controls="filters" expanded={true} pressed="mixed">
+      <iv-button variant="secondary" type="submit" value="apply" controls="filters" expanded={true} pressed="mixed">
         Filtros
       </iv-button>,
     );
@@ -23,6 +23,7 @@ describe('iv-button', () => {
 
     expect(button?.className).toBe('iv-button iv-button--secondary');
     expect(button?.type).toBe('submit');
+    expect(button?.getAttribute('value')).toBe('apply');
     expect(button?.getAttribute('aria-controls')).toBe('filters');
     expect(button?.getAttribute('aria-expanded')).toBe('true');
     expect(button?.getAttribute('aria-pressed')).toBe('mixed');
@@ -66,7 +67,7 @@ describe('iv-button', () => {
 
   it('renders links when href is provided', async () => {
     const { root } = await render(
-      <iv-button href="/storybook/" target="_blank" current="page">
+      <iv-button href="/storybook/" target="_blank" current="page" pressed={true}>
         Storybook
       </iv-button>,
     );
@@ -76,8 +77,9 @@ describe('iv-button', () => {
     expect(link?.className).toBe('iv-button iv-button--primary');
     expect(link?.getAttribute('href')).toBe('/storybook/');
     expect(link?.getAttribute('target')).toBe('_blank');
-    expect(link?.getAttribute('rel')).toBe('noreferrer');
+    expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
     expect(link?.getAttribute('aria-current')).toBe('page');
+    expect(link?.hasAttribute('aria-pressed')).toBe(false);
     expect(root.getAttribute('current')).toBe('page');
     expect(root.hasAttribute('aria-current')).toBe(false);
   });

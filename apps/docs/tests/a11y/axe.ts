@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, type Page } from '@playwright/test';
 
-const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22aa'];
 
 export async function waitForComponents(page: Page) {
   await page.waitForFunction(() => {
@@ -24,15 +24,35 @@ export async function expectNoHorizontalOverflow(page: Page) {
 }
 
 export async function expectNoA11yViolations(page: Page, include?: string) {
-  const builder = new AxeBuilder({ page }).withTags(wcagTags);
-
-  if (include) {
-    builder.include(include);
-  }
-
-  const results = await builder.analyze();
+  const results = await analyzeWithRetry(page, include);
 
   expect(results.violations, formatViolations(results.violations)).toEqual([]);
+}
+
+async function analyzeWithRetry(page: Page, include?: string) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const builder = new AxeBuilder({ page }).withTags(wcagTags);
+
+      if (include) {
+        builder.include(include);
+      }
+
+      return await builder.analyze();
+    } catch (error) {
+      if (!isAxeAlreadyRunningError(error) || attempt === 3) {
+        throw error;
+      }
+
+      await page.waitForTimeout(500 * attempt);
+    }
+  }
+
+  throw new Error('Axe analysis did not complete.');
+}
+
+function isAxeAlreadyRunningError(error: unknown) {
+  return error instanceof Error && error.message.includes('Axe is already running');
 }
 
 function formatViolations(violations: Array<{ id: string; impact: string | null; help: string; nodes: Array<{ target: string[]; failureSummary?: string }> }>) {

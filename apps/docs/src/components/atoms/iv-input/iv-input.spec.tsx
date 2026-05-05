@@ -51,6 +51,15 @@ describe('iv-input', () => {
     expect(input?.value).toBe('LOCKED');
   });
 
+  it('does not expose disabled fields as invalid even when error text is rendered', async () => {
+    const { root } = await render(<iv-input label="Codigo" disabled={true} error="No se puede validar ahora."></iv-input>);
+    const input = root.querySelector('input');
+
+    expect(root.querySelector('.iv-input')?.classList.contains('iv-input--invalid')).toBe(false);
+    expect(root.querySelector('.iv-input__error')?.textContent).toBe('No se puede validar ahora.');
+    expect(input?.hasAttribute('aria-invalid')).toBe(false);
+  });
+
   it('maps placeholder and inputmode to the native input', async () => {
     const { root } = await render(
       <iv-input label="Telefono" type="tel" placeholder="600 000 000" inputmode="tel"></iv-input>,

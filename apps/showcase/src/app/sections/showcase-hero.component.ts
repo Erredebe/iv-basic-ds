@@ -11,11 +11,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
       <p>
         Ejemplos reales de consumo de Web Components Stencil desde Angular: bindings, eventos, formularios, dialog y versionado.
       </p>
-      <div class="showcase-actions">
+      <nav class="showcase-actions" aria-label="Navegacion principal del showcase">
         <iv-button href="#angular-usage" variant="primary">Ver casos de uso</iv-button>
         <iv-button href="#component-history" variant="secondary">Ver historico</iv-button>
         <iv-button href="/storybook/" variant="ghost">Storybook</iv-button>
-      </div>
+      </nav>
     </section>
   `,
 })

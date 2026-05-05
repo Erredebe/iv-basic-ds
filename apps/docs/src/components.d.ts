@@ -64,6 +64,10 @@ export namespace Components {
          */
         "type": 'button' | 'submit' | 'reset';
         /**
+          * Valor nativo del boton para formularios y dialog method="dialog".
+         */
+        "value"?: string;
+        /**
           * Variante visual del boton.
           * @default 'primary'
          */
@@ -429,6 +433,10 @@ declare namespace LocalJSX {
          */
         "type"?: 'button' | 'submit' | 'reset';
         /**
+          * Valor nativo del boton para formularios y dialog method="dialog".
+         */
+        "value"?: string;
+        /**
           * Variante visual del boton.
           * @default 'primary'
          */
@@ -660,6 +668,7 @@ declare namespace LocalJSX {
     interface IvButtonAttributes {
         "variant": 'primary' | 'secondary' | 'ghost' | 'danger';
         "type": 'button' | 'submit' | 'reset';
+        "value": string;
         "disabled": boolean;
         "href": string;
         "target": '_self' | '_blank' | '_parent' | '_top';

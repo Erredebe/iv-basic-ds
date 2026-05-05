@@ -16,7 +16,7 @@ const meta: Meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'ghost'],
+      options: ['primary', 'secondary', 'ghost', 'danger'],
     },
     disabled: { control: 'boolean' },
     text: { control: 'text' },
@@ -70,6 +70,7 @@ export const Variants: Story = {
         <iv-button variant="primary">Primary</iv-button>
         <iv-button variant="secondary">Secondary</iv-button>
         <iv-button variant="ghost">Ghost</iv-button>
+        <iv-button variant="danger">Danger</iv-button>
         <iv-button disabled>Disabled</iv-button>
       </div>
     </div>
@@ -101,6 +102,10 @@ export const InteractionStates: Story = {
           <iv-button variant="ghost">Cancelar</iv-button>
         </div>
         <div class="iv-storybook-swatch">
+          <span class="iv-storybook-swatch__label">Danger</span>
+          <iv-button variant="danger">Eliminar</iv-button>
+        </div>
+        <div class="iv-storybook-swatch">
           <span class="iv-storybook-swatch__label">Disabled</span>
           <iv-button disabled>No disponible</iv-button>
         </div>
@@ -118,8 +123,10 @@ export const AccessibilityStates: Story = {
         <iv-button label="Guardar cambios">Guardar</iv-button>
         <iv-button controls="filters-panel" expanded="false">Filtros</iv-button>
         <iv-button pressed="true" variant="secondary">Vista compacta</iv-button>
-        <iv-button href="/storybook/" current="page" variant="ghost">Storybook</iv-button>
+        <iv-button href="#current-step" current="step" variant="ghost">Paso actual</iv-button>
       </div>
+      <p id="current-step" hidden>Paso actual del flujo de ejemplo.</p>
+      <div id="filters-panel" hidden>Panel de filtros contraido para el ejemplo.</div>
     </div>
   `,
 };
@@ -143,7 +150,7 @@ export const WithIcons: Story = {
           <iv-icon name="chevron-down"></iv-icon>
         </iv-button>
         <iv-button href="/storybook/" target="_blank" variant="ghost">
-          Storybook
+          Storybook (nueva pestana)
           <iv-icon name="external-link"></iv-icon>
         </iv-button>
         <iv-button label="Cerrar" variant="ghost">

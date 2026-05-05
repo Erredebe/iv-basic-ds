@@ -29,6 +29,12 @@ test.describe('demo pages layout and accessibility', () => {
     await page.goto('/');
     await waitForComponents(page);
 
+    await expect(page.getByRole('link', { name: 'Ir a Storybook' })).toHaveAttribute('href', '/storybook/');
+    await expect(page.getByRole('link', { name: 'Showcase Angular' })).toHaveAttribute('href', '/showcase/');
+    await expect(page.getByRole('link', { name: 'Historico de componentes' })).toHaveAttribute('href', '/showcase/#component-history');
+    await expect(page.getByRole('link', { name: 'Informe a11y' })).toHaveAttribute('href', '/test-report/');
+    await expect(page.getByRole('link', { name: 'Coverage spec' })).toHaveAttribute('href', '/coverage/');
+    await expect(page.getByRole('link', { name: 'Ver repositorio' })).toHaveAttribute('href', 'https://github.com/Erredebe/iv-basic-ds');
     await expect(page.getByRole('heading', { name: 'Piezas base', level: 3 })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Composiciones con comportamiento', level: 3 })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Button', exact: true })).toHaveAttribute('href', '/demos/atoms/button.html');
