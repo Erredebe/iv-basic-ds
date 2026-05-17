@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guia/Accesibilidad" />
+
+# Accesibilidad
+
+El DS prioriza elementos HTML nativos y evita Shadow DOM por defecto.
+
+## Atoms
+
+### Button
+
+- `iv-button` renderiza un `<button>` nativo o un `<a>` nativo si recibe `href`.
+- Usa `type="button"` por defecto para evitar submits accidentales.
+- Propaga `value` al `<button>` nativo para formularios y `method="dialog"`.
+- Usa el evento nativo `click`; no emite `ivClick` ni otro evento custom porque el `click` del `<button>` o `<a>` interno burbujea hasta el host.
+- Soporta props semanticas reflejadas (`label`, `labelled-by`, `described-by`, `controls`, `expanded`, `pressed`, `has-popup` y `current`) y las aplica como ARIA solo al `<button>` o `<a>` interno.
+- `pressed` solo se mapea a `aria-pressed` cuando el componente renderiza `<button>`; no se aplica a enlaces.
+- No usar `aria-*` como API publica del host cuando el componente renderiza un control nativo interno, para evitar semantica duplicada.
+- Si se usa como enlace con `target="_blank"`, el contenido debe avisar al usuario de que abre una nueva pestana.
+
+## Molecules
+
+### Dialog
+
+- `iv-dialog` envuelve un `<dialog>` nativo.
+- Registra `dialog-polyfill` si el navegador no soporta `showModal()`.
+- Usar `dialog-role="alertdialog"` solo para confirmaciones criticas.
+- En `iv-dialog`, preferir `labelled-by` cuando hay titulo visible; el componente lo aplica como `aria-labelledby` al `<dialog>` nativo interno.
+- En `iv-dialog`, usar `label` solo si no hay titulo visible; el componente lo aplica como `aria-label` al `<dialog>` nativo interno.
+- Todo dialog abierto debe tener nombre accesible mediante `labelled-by` o `label`.
+- En `iv-dialog`, omitir `described-by` cuando el contenido es complejo, multiparrafo o estructurado.
+- `initial-focus` y `restore-focus` son opt-in para evitar falsos focos en mobile screen readers; si `initial-focus` apunta a un wrapper, el componente enfoca el primer descendiente enfocable.
+
+## Verificacion Recomendada
+
+- Chrome + NVDA.
+- Firefox + NVDA.
+- Safari macOS + VoiceOver.
+- Safari iOS + VoiceOver.
+- Android Chrome + TalkBack.
+- Playwright + axe-core cubre WCAG 2.0, 2.1 y 2.2 A/AA en desktop, mobile y 320 px.

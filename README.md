@@ -1,6 +1,6 @@
 # IV Basic DS
 
-Design System base construido con StencilJS para distribuir Web Components por CDN y documentarlos con Storybook.
+Design System base construido con StencilJS en formato monorepo para distribuir Web Components por CDN y documentarlos con Storybook.
 
 Produccion: https://iv-basic-ds.netlify.app/
 
@@ -10,7 +10,9 @@ El proyecto esta preparado para publicar un sitio estatico en Netlify donde:
 
 - `/` es la demo HTML nativa de Stencil.
 - `/storybook/` es la documentacion visual de componentes.
-- `/build/iv-basic-ds.esm.js` y `/build/iv-basic-ds.js` son los bundles consumibles por CDN.
+- `/build/iv-basic-ds.esm.js` y `/build/iv-basic-ds.js` son los bundles agregados consumibles por CDN.
+- `/components/<component>/<version>/build/<component>.esm.js` son los bundles CDN versionados por componente.
+- `version-fixtures/components` conserva builds historicos que deben seguir publicados aunque el paquete fuente avance de version.
 
 Los componentes se crean sin Shadow DOM por defecto para facilitar integracion, accesibilidad y estilado desde aplicaciones consumidoras, especialmente Angular.
 
@@ -26,9 +28,9 @@ Los componentes se crean sin Shadow DOM por defecto para facilitar integracion, 
 
 El DS se gestiona con Atomic Design para clasificar alcance y composicion antes de implementar componentes.
 
-- Foundations: tokens y reglas globales, como `src/global/tokens.css`.
+- Foundations: tokens y reglas globales, como `packages/foundations/tokens/src/tokens.css`.
 - Atoms: componentes minimos, por ahora `iv-button`.
-- Molecules: composiciones pequenas con comportamiento propio, por ahora `iv-dialog`.
+- Molecules: composiciones pequenas con comportamiento propio, por ahora `iv-dialog` y su companion `iv-dialog-close`.
 - Organisms: bloques complejos de UI; sin componentes publicados todavia.
 - Templates: estructuras de layout reutilizables; sin componentes publicados todavia.
 - Pages: demos y pantallas de validacion, ubicadas en `src/demos/` o documentacion.
@@ -45,6 +47,17 @@ La clasificacion atomica no cambia la API publica: los tags mantienen el prefijo
 ```bash
 npm install
 ```
+
+## Monorepo
+
+El repositorio usa `npm workspaces`:
+
+- `apps/docs`: sitio publicado en Netlify, demos HTML, Storybook, pruebas a11y y bundle agregado `iv-basic-ds`.
+- `packages/foundations/tokens`: tokens CSS compartidos.
+- `packages/atoms/iv-button`, `packages/atoms/iv-icon`, `packages/atoms/iv-input`, `packages/atoms/iv-textarea`: atoms versionados por componente.
+- `packages/molecules/iv-dialog`: molecule versionada por componente; incluye el companion `iv-dialog-close`.
+
+Cada componente tiene su propio `package.json` y `version`. Las rutas versionadas de Netlify se generan leyendo esa version.
 
 ## Desarrollo
 
@@ -77,7 +90,7 @@ Levanta solo Storybook en `http://localhost:6006/` despues de generar el build d
 npm run build
 ```
 
-Genera el build de Stencil y la documentacion tecnica de componentes.
+Genera los builds de los workspaces que exponen script `build`.
 
 ```bash
 npm run build:storybook
@@ -89,7 +102,7 @@ Limpia artefactos previos, genera Stencil y compila Storybook en `www/storybook`
 npm run build:netlify
 ```
 
-Build completo para Netlify. La carpeta final publicada es `www`.
+Build completo para Netlify. Genera `www` con el sitio de docs, Storybook, el bundle agregado y los bundles versionados por componente.
 
 ```bash
 npm run test:spec
@@ -131,6 +144,43 @@ Ejecuta specs de Stencil y pruebas a11y. Requiere que `www` exista para el paso 
 
 ```txt
 .
+├── apps/
+│   └── docs/
+│       ├── .storybook/
+│       ├── src/
+│       ├── tests/a11y/
+│       ├── package.json
+│       └── stencil.config.ts
+├── packages/
+│   ├── foundations/
+│   │   └── tokens/
+│   │       └── src/tokens.css
+│   ├── atoms/
+│   │   ├── iv-button/
+│   │   ├── iv-icon/
+│   │   ├── iv-input/
+│   │   └── iv-textarea/
+│   └── molecules/
+│       └── iv-dialog/
+├── scripts/
+│   ├── build-netlify.cjs
+│   ├── clean.cjs
+│   └── copy-coverage.cjs
+├── version-fixtures/
+│   └── components/
+│       └── iv-button/
+│           └── 0.0.1/
+│               └── build/
+├── package.json
+├── package-lock.json
+├── netlify.toml
+└── tsconfig.json
+```
+
+La app de docs conserva la estructura Stencil original para el bundle agregado:
+
+```txt
+apps/docs/
 ├── .storybook/
 │   ├── main.ts
 │   └── preview.ts
@@ -160,7 +210,6 @@ Ejecuta specs de Stencil y pruebas a11y. Requiere que `www` exista para el paso 
 │   │   └── tokens.css
 │   ├── components.d.ts
 │   └── index.html
-├── netlify.toml
 ├── package.json
 ├── stencil.config.ts
 └── tsconfig.json
@@ -168,7 +217,7 @@ Ejecuta specs de Stencil y pruebas a11y. Requiere que `www` exista para el paso 
 
 ## Stencil
 
-La configuracion principal esta en `stencil.config.ts`.
+La configuracion del bundle agregado esta en `apps/docs/stencil.config.ts`. Cada paquete de componente tiene tambien su propio `stencil.config.ts`.
 
 ```ts
 export const config = {
@@ -185,7 +234,8 @@ export const config = {
 Salidas principales:
 
 - `www`: sitio estatico para Netlify.
-- `www/build`: bundle CDN usado por la demo y consumidores externos.
+- `www/build`: bundle CDN agregado usado por la demo y consumidores externos.
+- `www/components/<component>/<version>/build`: bundle CDN versionado de cada componente.
 - `dist`: salida de libreria Stencil.
 - `dist-custom-elements`: custom elements individuales.
 
@@ -238,6 +288,8 @@ Rutas esperadas despues del deploy:
 - `/build/iv-basic-ds.esm.js`: bundle ESM para CDN.
 - `/build/iv-basic-ds.js`: bundle legacy `nomodule`.
 - `/build/iv-basic-ds.css`: estilos globales generados.
+- `/components/iv-button/0.0.1/build/iv-button.esm.js`: bundle ESM versionado de Button.
+- `/components/iv-button/0.0.2/build/iv-button.esm.js`: bundle ESM actual de Button con `variant="danger"`.
 
 Los assets de `/build/*` tienen cache largo configurado:
 
@@ -253,6 +305,20 @@ Uso recomendado desde HTML:
 <script type="module" src="https://iv-basic-ds.netlify.app/build/iv-basic-ds.esm.js"></script>
 <script nomodule src="https://iv-basic-ds.netlify.app/build/iv-basic-ds.js"></script>
 ```
+
+Uso versionado por componente:
+
+```html
+<link rel="stylesheet" href="https://iv-basic-ds.netlify.app/components/iv-button/0.0.1/build/iv-button.css" />
+<script type="module" src="https://iv-basic-ds.netlify.app/components/iv-button/0.0.1/build/iv-button.esm.js"></script>
+<script nomodule src="https://iv-basic-ds.netlify.app/components/iv-button/0.0.1/build/iv-button.js"></script>
+```
+
+Comparativa de versiones de Button:
+
+- `/demos/atoms/button-001.html`: carga `iv-button@0.0.1`.
+- `/demos/atoms/button-002.html`: carga `iv-button@0.0.2`.
+- `/demos/atoms/button-versions.html`: muestra ambas demos en iframes aislados.
 
 Ejemplo:
 
@@ -399,6 +465,11 @@ Eventos:
 - `ivClose`: se emite al cerrar e incluye `{ returnValue }`.
 - `ivCancel`: se emite al recibir el evento nativo `cancel`.
 
+Companion:
+
+- `iv-dialog-close`: wrapper opcional para acciones slotted. Emite `ivDialogCloseRequest` al hacer click y `iv-dialog` lo convierte en `close(returnValue)` si el evento no fue cancelado.
+- `return-value`: valor enviado al cerrar.
+
 Ejemplo:
 
 ```html
@@ -408,13 +479,17 @@ Ejemplo:
   <h2 slot="header" id="confirm-title">Confirmar accion</h2>
   <p id="confirm-description">Esta accion no se puede deshacer.</p>
   <div slot="footer">
-    <iv-button variant="ghost">Cancelar</iv-button>
-    <iv-button>Confirmar</iv-button>
+    <iv-dialog-close return-value="cancel">
+      <iv-button variant="ghost">Cancelar</iv-button>
+    </iv-dialog-close>
+    <iv-dialog-close return-value="confirm">
+      <iv-button>Confirmar</iv-button>
+    </iv-dialog-close>
   </div>
 </iv-dialog>
 ```
 
-Variantes accesibles incluidas en Storybook y en `/demos/dialog.html`:
+Variantes accesibles incluidas en Storybook y en `/demos/molecules/dialog.html`:
 
 - Modal etiquetado con `labelled-by` y `described-by`.
 - Modal sin titulo visible usando `label`.
@@ -431,7 +506,7 @@ Compatibilidad:
 
 ## Tokens
 
-Los tokens globales estan en `src/global/tokens.css` y se exponen como CSS Custom Properties.
+Los tokens compartidos estan en `packages/foundations/tokens/src/tokens.css`. La app de docs mantiene una copia en `apps/docs/src/global/tokens.css` para el bundle agregado.
 
 Ejemplos:
 
@@ -451,7 +526,8 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 
 - Prefijo de componentes: `iv-`.
 - Modelo atomico obligatorio para componentes nuevos: `atoms`, `molecules`, `organisms` o `templates`.
-- Ubicacion de componentes: `src/components/<atomic-level>/<component>/`.
+- Ubicacion de componentes versionados: `packages/<atomic-level>/<component>/src/components/<component>/`.
+- Ubicacion del bundle agregado/docs: `apps/docs/src/components/<atomic-level>/<component>/`.
 - Los tags publicos no incluyen el nivel atomico: usar `iv-dialog`, no `iv-molecule-dialog`.
 - Los titulos de Storybook si reflejan el nivel: `Atoms/Button`, `Molecules/Dialog`, etc.
 - Componentes sin Shadow DOM: `shadow: false`.
@@ -460,9 +536,8 @@ Los componentes consumen estos tokens con `var(...)`, por lo que una aplicacion 
 - Diseno siempre mobile-first: la base CSS debe resolver pantallas pequenas y los ajustes para pantallas mayores deben ir con `@media (min-width: ...)`.
 - Los botones no deben ser full-width por defecto; solo pueden ocupar todo el ancho dentro de layouts o contextos de acciones, como footers de dialog o stacks de demo.
 - Cuando un componente renderiza un control nativo interno, las props publicas deben ser semanticas y reflejadas, no atributos `aria-*` como API principal. El ARIA real debe aplicarse solo al control nativo interno para evitar duplicacion en lectores de pantalla.
-- Stories junto al componente: `src/components/<atomic-level>/<component>/<component>.stories.ts`.
-- Estilos del componente junto al componente: `src/components/<atomic-level>/<component>/<component>.css`.
-- Specs junto al componente: `src/components/<atomic-level>/<component>/<component>.spec.tsx`.
+- Stories del sitio junto al componente agregado: `apps/docs/src/components/<atomic-level>/<component>/<component>.stories.ts`.
+- Estilos y specs versionados junto al componente: `packages/<atomic-level>/<component>/src/components/<component>/`.
 
 Ejemplo base de componente:
 
@@ -491,7 +566,7 @@ Validacion automatizada:
 - Playwright usa `@axe-core/playwright` para pruebas automatizadas contra la build local en `www`.
 - Ejecuta `npm run deploy:netlify` antes de subir cambios que creen o modifiquen componentes.
 - Los tests spec viven junto al componente y deben cubrir render, props, ARIA y comportamiento publico basico.
-- Los tests a11y viven en `tests/a11y/` y deben cubrir los estados principales de cada componente.
+- Los tests a11y viven en `apps/docs/tests/a11y/` y deben cubrir los estados principales de cada componente.
 - El informe a11y se publica en `/test-report/` y el coverage spec se publica en `/coverage/`.
 
 Consideraciones al crear componentes:
@@ -506,13 +581,13 @@ Consideraciones al crear componentes:
 ## Flujo Recomendado Para Nuevos Componentes
 
 1. Clasificar el componente como atom, molecule, organism o template.
-2. Crear carpeta en `src/components/<atomic-level>/<nombre>`.
+2. Crear paquete en `packages/<atomic-level>/<nombre>` y agregarlo a `scripts/build-netlify.cjs`.
 3. Crear `<nombre>.tsx` con `shadow: false`.
 4. Crear `<nombre>.css` con clases prefijadas.
 5. Crear `<nombre>.stories.ts` con titulo Storybook acorde al nivel atomico.
 6. Crear `<nombre>.spec.tsx` junto al componente.
 7. Crear o actualizar una demo HTML en `src/demos/` y enlazarla desde `src/index.html`.
-8. Crear o actualizar tests en `tests/a11y/` para la demo y estados interactivos principales.
+8. Crear o actualizar tests en `apps/docs/tests/a11y/` para la demo y estados interactivos principales.
 9. Ejecutar `npm run start` para revisar Stencil y Storybook.
 10. Ejecutar `npm run deploy:netlify` antes de desplegar.
 

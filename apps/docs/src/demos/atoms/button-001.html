@@ -1,0 +1,41 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Button 0.0.1 - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <link rel="stylesheet" href="/components/iv-button/0.0.1/build/iv-button.css" />
+    <script type="module" src="/components/iv-button/0.0.1/build/iv-button.esm.js"></script>
+    <script nomodule src="/components/iv-button/0.0.1/build/iv-button.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Version CDN · 0.0.1</p>
+        <h1>Button 0.0.1</h1>
+        <p>Demo aislada del bundle versionado inicial de <code>iv-button</code>.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/demos/atoms/button-versions.html" variant="ghost">Comparar versiones</iv-button>
+          <iv-button href="/" variant="secondary">Volver al indice</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="button-001-variants-title">
+        <h2 id="button-001-variants-title">Variantes disponibles</h2>
+        <p>La version 0.0.1 incluye las variantes publicas iniciales.</p>
+        <div class="iv-demo__stack">
+          <iv-button variant="primary">Primary</iv-button>
+          <iv-button variant="secondary">Secondary</iv-button>
+          <iv-button variant="ghost">Ghost</iv-button>
+          <iv-button disabled>Disabled</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="button-001-cdn-title">
+        <h2 id="button-001-cdn-title">CDN usado</h2>
+        <p><code>/components/iv-button/0.0.1/build/iv-button.esm.js</code></p>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,401 @@
+iv-date-range-picker {
+  display: block;
+}
+
+.iv-date-range-picker {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--iv-space-md);
+  min-width: 0;
+  margin: 0;
+  padding: var(--iv-space-md);
+  border: 1px solid var(--iv-color-border);
+  border-radius: 1rem;
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  font: inherit;
+}
+
+.iv-date-range-picker__legend {
+  display: inline-flex;
+  gap: var(--iv-space-xs);
+  align-items: baseline;
+  padding: 0;
+  color: var(--iv-color-text);
+  font-size: var(--iv-font-size-lg);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.iv-date-range-picker__required {
+  color: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__hint,
+.iv-date-range-picker__error,
+.iv-date-range-picker__dialog-description,
+.iv-date-range-picker__instruction,
+.iv-date-range-picker__summary {
+  margin: 0;
+  font-size: var(--iv-font-size-sm);
+  line-height: 1.5;
+}
+
+.iv-date-range-picker__hint,
+.iv-date-range-picker__dialog-description,
+.iv-date-range-picker__instruction,
+.iv-date-range-picker__summary {
+  color: var(--iv-color-text-muted);
+}
+
+.iv-date-range-picker__error {
+  color: var(--iv-color-danger);
+  font-weight: 700;
+}
+
+.iv-date-range-picker__fields {
+  display: grid;
+  gap: var(--iv-space-sm);
+}
+
+.iv-date-range-picker__field {
+  display: grid;
+  gap: var(--iv-space-xs);
+}
+
+.iv-date-range-picker__field-label {
+  color: var(--iv-color-text);
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+}
+
+.iv-date-range-picker__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  font: inherit;
+  font-size: var(--iv-font-size-md);
+  line-height: 1.4;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.iv-date-range-picker__input:hover:not(:disabled) {
+  border-color: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__input:focus-visible,
+.iv-date-range-picker__trigger:focus-visible,
+.iv-date-range-picker__nav-button:focus-visible,
+.iv-date-range-picker__day:focus-visible,
+.iv-date-range-picker__close:focus-visible,
+.iv-date-range-picker__button:focus-visible,
+.iv-date-range-picker__segment:focus-visible,
+.iv-date-range-picker__presets button:focus-visible {
+  outline: none;
+  box-shadow: var(--iv-focus-ring);
+}
+
+.iv-date-range-picker__input:disabled {
+  color: var(--iv-color-text-muted);
+  background: var(--iv-color-surface);
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.iv-date-range-picker__input:read-only:not(:disabled) {
+  background: var(--iv-color-surface);
+}
+
+.iv-date-range-picker__input[aria-invalid='true'] {
+  border-color: var(--iv-color-danger);
+}
+
+.iv-date-range-picker__trigger,
+.iv-date-range-picker__button,
+.iv-date-range-picker__nav-button,
+.iv-date-range-picker__close,
+.iv-date-range-picker__segment,
+.iv-date-range-picker__presets button {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--iv-radius-md);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.iv-date-range-picker__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--iv-space-sm);
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  color: var(--iv-color-primary-text);
+  background: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__trigger:hover:not(:disabled) {
+  background: var(--iv-color-primary-hover);
+}
+
+.iv-date-range-picker__trigger:disabled,
+.iv-date-range-picker__button:disabled,
+.iv-date-range-picker__nav-button:disabled,
+.iv-date-range-picker__close:disabled,
+.iv-date-range-picker__segment:disabled,
+.iv-date-range-picker__presets button:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.iv-date-range-picker__trigger-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.iv-date-range-picker__dialog {
+  box-sizing: border-box;
+  width: min(calc(100% - 1rem), 34rem);
+  max-height: calc(100dvh - 1rem);
+  margin: auto auto 0;
+  padding: 0;
+  border: 1px solid var(--iv-color-border);
+  border-radius: 1.25rem 1.25rem 0 0;
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+  box-shadow: 0 -1rem 3rem rgb(16 42 67 / 0.22);
+}
+
+.iv-date-range-picker__dialog::backdrop {
+  background: rgb(16 42 67 / 0.42);
+}
+
+.iv-date-range-picker__sheet,
+.iv-date-range-picker__compact-panel {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--iv-space-md);
+}
+
+.iv-date-range-picker__sheet {
+  max-height: calc(100dvh - 1rem);
+  overflow: auto;
+  padding: var(--iv-space-md);
+}
+
+.iv-date-range-picker__compact-panel {
+  padding: var(--iv-space-md);
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  background: var(--iv-color-surface);
+}
+
+.iv-date-range-picker__dialog-header,
+.iv-date-range-picker__calendar-header,
+.iv-date-range-picker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--iv-space-sm);
+}
+
+.iv-date-range-picker__dialog-header h2,
+.iv-date-range-picker__month {
+  margin: 0;
+  font-size: var(--iv-font-size-lg);
+  line-height: 1.25;
+}
+
+.iv-date-range-picker__close,
+.iv-date-range-picker__nav-button {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0;
+  color: var(--iv-color-text);
+  background: var(--iv-color-surface);
+}
+
+.iv-date-range-picker__close:hover,
+.iv-date-range-picker__nav-button:hover {
+  background: var(--iv-color-neutral-hover);
+}
+
+.iv-date-range-picker__steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--iv-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.iv-date-range-picker__step,
+.iv-date-range-picker__segment,
+.iv-date-range-picker__presets button {
+  padding: 0.625rem 0.75rem;
+  border-color: var(--iv-color-border);
+  color: var(--iv-color-text);
+  background: var(--iv-color-surface);
+  text-align: center;
+}
+
+.iv-date-range-picker__step--active,
+.iv-date-range-picker__segment--active {
+  border-color: var(--iv-color-primary);
+  color: var(--iv-color-primary-hover);
+  background: rgb(37 99 235 / 0.08);
+}
+
+.iv-date-range-picker__segments,
+.iv-date-range-picker__presets {
+  display: grid;
+  gap: var(--iv-space-sm);
+}
+
+.iv-date-range-picker__segments {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.iv-date-range-picker__presets {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.iv-date-range-picker__calendar {
+  display: grid;
+  gap: var(--iv-space-sm);
+  min-width: 0;
+}
+
+.iv-date-range-picker__grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.iv-date-range-picker__grid th {
+  padding: 0 0 0.35rem;
+  color: var(--iv-color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.iv-date-range-picker__grid td {
+  padding: 0.125rem;
+}
+
+.iv-date-range-picker__day {
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  min-width: 2.5rem;
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--iv-color-text);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.iv-date-range-picker__day:hover:not(:disabled) {
+  border-color: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__day--muted:not(.iv-date-range-picker__day--range):not(.iv-date-range-picker__day--start):not(.iv-date-range-picker__day--end) {
+  color: var(--iv-color-text-muted);
+}
+
+.iv-date-range-picker__day--range {
+  border-radius: var(--iv-radius-sm);
+  background: rgb(37 99 235 / 0.12);
+}
+
+.iv-date-range-picker__day--start,
+.iv-date-range-picker__day--end {
+  border-color: var(--iv-color-primary);
+  color: var(--iv-color-primary-text);
+  background: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__day:disabled {
+  color: var(--iv-color-text-muted);
+  text-decoration: line-through;
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.iv-date-range-picker__footer {
+  padding-top: var(--iv-space-sm);
+}
+
+.iv-date-range-picker__button {
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  color: var(--iv-color-primary-text);
+  background: var(--iv-color-primary);
+}
+
+.iv-date-range-picker__button--ghost {
+  color: var(--iv-color-primary);
+  background: transparent;
+}
+
+.iv-date-range-picker--native {
+  background: var(--iv-color-surface);
+}
+
+.iv-date-range-picker--compact {
+  padding: var(--iv-space-sm);
+}
+
+@media (min-width: 40rem) {
+  .iv-date-range-picker {
+    padding: var(--iv-space-lg);
+  }
+
+  .iv-date-range-picker__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .iv-date-range-picker__trigger,
+  .iv-date-range-picker__button {
+    justify-self: start;
+  }
+
+  .iv-date-range-picker__dialog {
+    margin: auto;
+    border-radius: 1.25rem;
+    box-shadow: 0 1rem 3rem rgb(16 42 67 / 0.2);
+  }
+
+  .iv-date-range-picker__sheet {
+    padding: var(--iv-space-lg);
+  }
+}
+
+@media (forced-colors: active) {
+  .iv-date-range-picker__day--range,
+  .iv-date-range-picker__step--active,
+  .iv-date-range-picker__segment--active {
+    border: 1px solid Highlight;
+  }
+
+  .iv-date-range-picker__day--start,
+  .iv-date-range-picker__day--end {
+    color: HighlightText;
+    background: Highlight;
+  }
+}

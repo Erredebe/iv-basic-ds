@@ -6,6 +6,7 @@ www/
 dist/
 loader/
 storybook-static/
+.angular/
 
 # Stencil
 .stencil/

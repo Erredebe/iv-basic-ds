@@ -1,0 +1,197 @@
+:root {
+  --iv-color-background: #ffffff;
+  --iv-color-surface: #f8fafc;
+  --iv-color-border: #d9e2ec;
+  --iv-color-text: #102a43;
+  --iv-color-text-muted: #52606d;
+  --iv-color-primary: #2563eb;
+  --iv-color-primary-hover: #1d4ed8;
+  --iv-color-primary-text: #ffffff;
+  --iv-color-danger: #b42318;
+  --iv-color-danger-hover: #8a1c13;
+  --iv-color-danger-text: #ffffff;
+  --iv-color-neutral: #e2e8f0;
+  --iv-color-neutral-hover: #cbd5e1;
+  --iv-font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --iv-font-size-sm: 0.875rem;
+  --iv-font-size-md: 1rem;
+  --iv-font-size-lg: 1.125rem;
+  --iv-space-xs: 0.25rem;
+  --iv-space-sm: 0.5rem;
+  --iv-space-md: 1rem;
+  --iv-space-lg: 1.5rem;
+  --iv-space-xl: 2rem;
+  --iv-radius-sm: 0.375rem;
+  --iv-radius-md: 0.625rem;
+  --iv-shadow-sm: 0 1px 2px rgb(16 42 67 / 0.08);
+  --iv-focus-ring: 0 0 0 3px rgb(37 99 235 / 0.28);
+}
+
+html {
+  font-family: var(--iv-font-family);
+  color: var(--iv-color-text);
+  background: var(--iv-color-background);
+}
+
+body {
+  margin: 0;
+}
+
+.iv-demo {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--iv-space-md);
+  background:
+    radial-gradient(circle at top left, rgb(37 99 235 / 0.12), transparent 32rem),
+    var(--iv-color-background);
+}
+
+.iv-demo__hero,
+.iv-demo__panel {
+  box-sizing: border-box;
+  width: min(100%, 58rem);
+  margin: 0 auto;
+}
+
+.iv-demo__hero {
+  padding: var(--iv-space-lg);
+  border: 1px solid var(--iv-color-border);
+  border-radius: 1.25rem;
+  background: rgb(255 255 255 / 0.86);
+  box-shadow: var(--iv-shadow-sm);
+}
+
+.iv-demo__hero h1 {
+  max-width: 42rem;
+  margin: 0;
+  font-size: clamp(2.1rem, 14vw, 3.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.iv-demo__hero p {
+  max-width: 38rem;
+  color: var(--iv-color-text-muted);
+  font-size: var(--iv-font-size-lg);
+  line-height: 1.6;
+}
+
+.iv-demo__eyebrow {
+  margin: 0 0 var(--iv-space-md);
+  color: var(--iv-color-primary);
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.iv-demo__actions,
+.iv-demo__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--iv-space-sm);
+}
+
+.iv-demo__actions--end,
+.iv-demo__stack--end {
+  justify-content: stretch;
+}
+
+.iv-demo__actions > iv-button,
+.iv-demo__actions > button,
+.iv-demo__stack > iv-button,
+.iv-demo__stack > button {
+  flex: 1 1 100%;
+}
+
+.iv-demo__actions > iv-button .iv-button,
+.iv-demo__actions > button,
+.iv-demo__stack > iv-button .iv-button,
+.iv-demo__stack > button {
+  width: 100%;
+}
+
+.iv-demo__panel {
+  margin-top: var(--iv-space-xl);
+  padding: var(--iv-space-lg);
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  background: var(--iv-color-surface);
+}
+
+.iv-demo__panel h2 {
+  margin-top: 0;
+}
+
+.iv-demo__levels {
+  display: grid;
+  gap: var(--iv-space-md);
+}
+
+.iv-demo__level {
+  padding: var(--iv-space-md);
+  border: 1px solid var(--iv-color-border);
+  border-radius: var(--iv-radius-md);
+  background: var(--iv-color-background);
+}
+
+.iv-demo__level-eyebrow {
+  margin: 0 0 var(--iv-space-xs);
+  color: var(--iv-color-primary);
+  font-size: var(--iv-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.iv-demo__level h3 {
+  margin: 0;
+  font-size: var(--iv-font-size-lg);
+}
+
+.iv-demo__level p:not(.iv-demo__level-eyebrow) {
+  margin: var(--iv-space-xs) 0 var(--iv-space-md);
+  color: var(--iv-color-text-muted);
+  line-height: 1.5;
+}
+
+@media (min-width: 40rem) {
+  .iv-demo {
+    padding: clamp(1.25rem, 4vw, 4rem);
+  }
+
+  .iv-demo__hero {
+    padding: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .iv-demo__hero h1 {
+    font-size: clamp(2.2rem, 8vw, 4.75rem);
+  }
+
+  .iv-demo__actions > iv-button,
+  .iv-demo__actions > button,
+  .iv-demo__stack > iv-button,
+  .iv-demo__stack > button {
+    flex: 0 1 auto;
+  }
+
+  .iv-demo__actions > iv-button .iv-button,
+  .iv-demo__actions > button,
+  .iv-demo__stack > iv-button .iv-button,
+  .iv-demo__stack > button {
+    width: auto;
+  }
+
+  .iv-demo__actions--end,
+  .iv-demo__stack--end {
+    justify-content: flex-end;
+  }
+
+  .iv-demo__panel {
+    padding: var(--iv-space-xl);
+  }
+
+  .iv-demo__levels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

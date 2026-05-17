@@ -1,0 +1,38 @@
+<main class="history-viewer" *ngIf="selected; else unsupported">
+  <section class="history-viewer__panel" [attr.aria-labelledby]="selected.component + '-' + selected.version + '-title'">
+    <p class="history-viewer__kicker">Historico CDN · {{ selected.status }}</p>
+    <h1 [id]="selected.component + '-' + selected.version + '-title'">{{ selected.title }}</h1>
+    <p>{{ selected.description }}</p>
+
+    <section class="history-viewer__section" aria-labelledby="angular-demo-title">
+      <h2 id="angular-demo-title">Render Angular aislado</h2>
+      <p>
+        Esta demo se ejecuta dentro de una app Angular independiente con <code>CUSTOM_ELEMENTS_SCHEMA</code>, bindings y eventos.
+      </p>
+      <div class="history-viewer__stack" aria-label="Variantes versionadas">
+        <iv-button *ngFor="let variant of selected.variants" [variant]="variant" (click)="registerClick(variant)">
+          {{ variant }}
+        </iv-button>
+        <iv-button disabled>Disabled</iv-button>
+      </div>
+      <p class="history-viewer__status" aria-live="polite">
+        Accion Angular: <strong>{{ lastAction }}</strong> · clicks: <strong>{{ clickCount }}</strong>
+      </p>
+    </section>
+
+    <section class="history-viewer__section" aria-labelledby="cdn-title">
+      <h2 id="cdn-title">CDN usado</h2>
+      <p><code>{{ selected.cdnUrl }}</code></p>
+    </section>
+  </section>
+</main>
+
+<ng-template #unsupported>
+  <main class="history-viewer">
+    <section class="history-viewer__panel" aria-labelledby="unsupported-title">
+      <p class="history-viewer__kicker">Historico no disponible</p>
+      <h1 id="unsupported-title">Version no soportada por el viewer Angular</h1>
+      <p>Revisa los parametros <code>component</code> y <code>version</code> de la URL.</p>
+    </section>
+  </main>
+</ng-template>
