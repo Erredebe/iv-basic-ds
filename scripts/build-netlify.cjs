@@ -13,6 +13,7 @@ const packages = [
   { atomicLevel: 'atoms', name: 'iv-input' },
   { atomicLevel: 'atoms', name: 'iv-textarea' },
   { atomicLevel: 'molecules', name: 'iv-dialog' },
+  { atomicLevel: 'molecules', name: 'iv-date-range-picker' },
 ];
 
 function run(command, args) {

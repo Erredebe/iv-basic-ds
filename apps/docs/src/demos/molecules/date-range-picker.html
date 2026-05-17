@@ -1,0 +1,136 @@
+<!doctype html>
+<html dir="ltr" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Date range picker - IV Basic DS</title>
+    <link rel="stylesheet" href="/build/iv-basic-ds.css" />
+    <script type="module" src="/build/iv-basic-ds.esm.js"></script>
+    <script nomodule src="/build/iv-basic-ds.js"></script>
+  </head>
+  <body>
+    <main class="iv-demo">
+      <section class="iv-demo__hero">
+        <p class="iv-demo__eyebrow">Demo HTML</p>
+        <h1>Date range picker</h1>
+        <p>Selector de rango mobile-first con fechas Desde y Hasta, entrada manual nativa y calendario accesible.</p>
+        <div class="iv-demo__actions">
+          <iv-button href="/" variant="ghost">Volver al indice</iv-button>
+          <iv-button href="/storybook/?path=/docs/molecules-date-range-picker--docs" variant="secondary">Ver en Storybook</iv-button>
+          <iv-button href="/test-report/" variant="secondary">Informe a11y</iv-button>
+          <iv-button href="/coverage/" variant="secondary">Coverage spec</iv-button>
+        </div>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-native-title">
+        <h2 id="range-native-title">Version 1: inputs nativos</h2>
+        <iv-date-range-picker
+          id="range-native"
+          variant="native"
+          label="Periodo de ausencia"
+          start-name="absenceStart"
+          end-name="absenceEnd"
+          hint="Usa el selector nativo del dispositivo o escribe AAAA-MM-DD."
+          required
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-sheet-title">
+        <h2 id="range-sheet-title">Version 2: bottom sheet</h2>
+        <iv-date-range-picker
+          id="range-sheet"
+          variant="sheet"
+          label="Reserva de hotel"
+          start-value="2026-05-18"
+          end-value="2026-05-22"
+          min="2026-05-01"
+          max="2026-08-31"
+          start-name="hotelStart"
+          end-name="hotelEnd"
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-stepper-title">
+        <h2 id="range-stepper-title">Version 3: flujo por pasos</h2>
+        <iv-date-range-picker
+          id="range-stepper"
+          variant="stepper"
+          label="Fechas de instalacion"
+          start-value="2026-05-10"
+          min="2026-05-01"
+          max="2026-07-31"
+          start-name="installStart"
+          end-name="installEnd"
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-segmented-title">
+        <h2 id="range-segmented-title">Version 4: selector segmentado</h2>
+        <iv-date-range-picker
+          id="range-segmented"
+          variant="segmented"
+          label="Campana activa"
+          start-value="2026-06-03"
+          end-value="2026-06-14"
+          start-name="campaignStart"
+          end-name="campaignEnd"
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-presets-title">
+        <h2 id="range-presets-title">Version 5: rangos rapidos</h2>
+        <iv-date-range-picker
+          id="range-presets"
+          variant="presets"
+          label="Rango del informe"
+          start-name="reportStart"
+          end-name="reportEnd"
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-compact-title">
+        <h2 id="range-compact-title">Version 6: filtro compacto</h2>
+        <iv-date-range-picker
+          id="range-compact"
+          variant="compact"
+          label="Filtrar por fechas"
+          start-value="2026-05-01"
+          end-value="2026-05-17"
+          start-name="filterStart"
+          end-name="filterEnd"
+        ></iv-date-range-picker>
+      </section>
+
+      <section class="iv-demo__panel" aria-labelledby="range-form-title">
+        <h2 id="range-form-title">Formulario nativo</h2>
+        <form id="range-form" class="iv-demo__stack">
+          <iv-date-range-picker
+            id="range-form-picker"
+            variant="sheet"
+            label="Fechas del viaje"
+            start-value="2026-05-18"
+            end-value="2026-05-24"
+            start-name="bookingStart"
+            end-name="bookingEnd"
+            required
+          ></iv-date-range-picker>
+          <iv-button type="submit">Enviar</iv-button>
+        </form>
+        <p>Ultimo cambio: <output id="range-output">sin cambios</output></p>
+      </section>
+    </main>
+    <script>
+      document.addEventListener('valueChange', function (event) {
+        if (!event.target.matches('iv-date-range-picker')) {
+          return;
+        }
+
+        document.getElementById('range-output').textContent = `${event.detail.startValue || 'sin desde'} / ${event.detail.endValue || 'sin hasta'}`;
+      });
+
+      document.getElementById('range-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+      });
+    </script>
+  </body>
+</html>

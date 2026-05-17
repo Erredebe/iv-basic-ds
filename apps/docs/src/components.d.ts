@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IvDateRangePickerPart, IvDateRangePickerValueChangeDetail, IvDateRangePickerVariant } from "./components/molecules/iv-date-range-picker/iv-date-range-picker";
 import { IvDialogCloseRequestDetail } from "./components/molecules/iv-dialog-close/iv-dialog-close";
 import { IvIconName } from "./components/atoms/iv-icon/iv-icon";
+export { IvDateRangePickerPart, IvDateRangePickerValueChangeDetail, IvDateRangePickerVariant } from "./components/molecules/iv-date-range-picker/iv-date-range-picker";
 export { IvDialogCloseRequestDetail } from "./components/molecules/iv-dialog-close/iv-dialog-close";
 export { IvIconName } from "./components/atoms/iv-icon/iv-icon";
 export namespace Components {
@@ -74,6 +76,113 @@ export namespace Components {
           * @default 'primary'
          */
         "variant": 'primary' | 'secondary' | 'ghost' | 'danger';
+    }
+    interface IvDateRangePicker {
+        /**
+          * Cierra el calendario.
+         */
+        "close": () => Promise<void>;
+        /**
+          * Deshabilita todos los controles.
+          * @default false
+         */
+        "disabled": boolean;
+        /**
+          * Etiqueta visible del campo final.
+          * @default 'Hasta'
+         */
+        "endLabel": string;
+        /**
+          * Nombre nativo enviado para la fecha final.
+         */
+        "endName"?: string;
+        /**
+          * Valor ISO YYYY-MM-DD del campo final.
+          * @default ''
+         */
+        "endValue": string;
+        /**
+          * Mensaje de error visible asociado al grupo.
+         */
+        "error"?: string;
+        /**
+          * Dia inicial de la semana: 0 domingo, 1 lunes, ... 6 sabado.
+          * @default 1
+         */
+        "firstDayOfWeek": number;
+        /**
+          * Identificador de formulario asociado cuando los inputs viven fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al grupo.
+          * @default 'Formato: AAAA-MM-DD. Tambien puedes escribir las fechas manualmente.'
+         */
+        "hint": string;
+        /**
+          * Etiqueta visible del grupo de rango.
+          * @default 'Rango de fechas'
+         */
+        "label": string;
+        /**
+          * Locale usado para textos de fechas del calendario.
+          * @default 'es-ES'
+         */
+        "locale": string;
+        /**
+          * Fecha maxima seleccionable en formato ISO YYYY-MM-DD.
+         */
+        "max"?: string;
+        /**
+          * Fecha minima seleccionable en formato ISO YYYY-MM-DD.
+         */
+        "min"?: string;
+        /**
+          * Controla si el calendario esta abierto.
+          * @default false
+         */
+        "open": boolean;
+        /**
+          * Identificador estable usado como base para los controles internos.
+         */
+        "pickerId"?: string;
+        /**
+          * Evita editar el rango sin deshabilitar la lectura ni el foco.
+          * @default false
+         */
+        "readonly": boolean;
+        /**
+          * Marca ambos campos como requeridos.
+          * @default false
+         */
+        "required": boolean;
+        /**
+          * Mueve el foco al campo nativo indicado.
+         */
+        "setFocus": (part?: IvDateRangePickerPart) => Promise<void>;
+        /**
+          * Abre el calendario cuando la variante lo permite.
+         */
+        "show": () => Promise<void>;
+        /**
+          * Etiqueta visible del campo inicial.
+          * @default 'Desde'
+         */
+        "startLabel": string;
+        /**
+          * Nombre nativo enviado para la fecha inicial.
+         */
+        "startName"?: string;
+        /**
+          * Valor ISO YYYY-MM-DD del campo inicial.
+          * @default ''
+         */
+        "startValue": string;
+        /**
+          * Variante mobile-first del selector.
+          * @default 'sheet'
+         */
+        "variant": IvDateRangePickerVariant;
     }
     interface IvDialog {
         /**
@@ -297,6 +406,10 @@ export namespace Components {
         "wrap"?: 'soft' | 'hard' | 'off';
     }
 }
+export interface IvDateRangePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIvDateRangePickerElement;
+}
 export interface IvDialogCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLIvDialogElement;
@@ -319,6 +432,24 @@ declare global {
     var HTMLIvButtonElement: {
         prototype: HTMLIvButtonElement;
         new (): HTMLIvButtonElement;
+    };
+    interface HTMLIvDateRangePickerElementEventMap {
+        "valueChange": IvDateRangePickerValueChangeDetail;
+        "openChange": boolean;
+    }
+    interface HTMLIvDateRangePickerElement extends Components.IvDateRangePicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIvDateRangePickerElementEventMap>(type: K, listener: (this: HTMLIvDateRangePickerElement, ev: IvDateRangePickerCustomEvent<HTMLIvDateRangePickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIvDateRangePickerElementEventMap>(type: K, listener: (this: HTMLIvDateRangePickerElement, ev: IvDateRangePickerCustomEvent<HTMLIvDateRangePickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLIvDateRangePickerElement: {
+        prototype: HTMLIvDateRangePickerElement;
+        new (): HTMLIvDateRangePickerElement;
     };
     interface HTMLIvDialogElementEventMap {
         "ivOpen": void;
@@ -398,6 +529,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "iv-button": HTMLIvButtonElement;
+        "iv-date-range-picker": HTMLIvDateRangePickerElement;
         "iv-dialog": HTMLIvDialogElement;
         "iv-dialog-close": HTMLIvDialogCloseElement;
         "iv-icon": HTMLIvIconElement;
@@ -472,6 +604,109 @@ declare namespace LocalJSX {
           * @default 'primary'
          */
         "variant"?: 'primary' | 'secondary' | 'ghost' | 'danger';
+    }
+    interface IvDateRangePicker {
+        /**
+          * Deshabilita todos los controles.
+          * @default false
+         */
+        "disabled"?: boolean;
+        /**
+          * Etiqueta visible del campo final.
+          * @default 'Hasta'
+         */
+        "endLabel"?: string;
+        /**
+          * Nombre nativo enviado para la fecha final.
+         */
+        "endName"?: string;
+        /**
+          * Valor ISO YYYY-MM-DD del campo final.
+          * @default ''
+         */
+        "endValue"?: string;
+        /**
+          * Mensaje de error visible asociado al grupo.
+         */
+        "error"?: string;
+        /**
+          * Dia inicial de la semana: 0 domingo, 1 lunes, ... 6 sabado.
+          * @default 1
+         */
+        "firstDayOfWeek"?: number;
+        /**
+          * Identificador de formulario asociado cuando los inputs viven fuera del form.
+         */
+        "form"?: string;
+        /**
+          * Ayuda visible asociada al grupo.
+          * @default 'Formato: AAAA-MM-DD. Tambien puedes escribir las fechas manualmente.'
+         */
+        "hint"?: string;
+        /**
+          * Etiqueta visible del grupo de rango.
+          * @default 'Rango de fechas'
+         */
+        "label"?: string;
+        /**
+          * Locale usado para textos de fechas del calendario.
+          * @default 'es-ES'
+         */
+        "locale"?: string;
+        /**
+          * Fecha maxima seleccionable en formato ISO YYYY-MM-DD.
+         */
+        "max"?: string;
+        /**
+          * Fecha minima seleccionable en formato ISO YYYY-MM-DD.
+         */
+        "min"?: string;
+        /**
+          * Se emite cuando se abre o cierra el calendario.
+         */
+        "onOpenChange"?: (event: IvDateRangePickerCustomEvent<boolean>) => void;
+        /**
+          * Se emite cuando cambia cualquiera de las fechas.
+         */
+        "onValueChange"?: (event: IvDateRangePickerCustomEvent<IvDateRangePickerValueChangeDetail>) => void;
+        /**
+          * Controla si el calendario esta abierto.
+          * @default false
+         */
+        "open"?: boolean;
+        /**
+          * Identificador estable usado como base para los controles internos.
+         */
+        "pickerId"?: string;
+        /**
+          * Evita editar el rango sin deshabilitar la lectura ni el foco.
+          * @default false
+         */
+        "readonly"?: boolean;
+        /**
+          * Marca ambos campos como requeridos.
+          * @default false
+         */
+        "required"?: boolean;
+        /**
+          * Etiqueta visible del campo inicial.
+          * @default 'Desde'
+         */
+        "startLabel"?: string;
+        /**
+          * Nombre nativo enviado para la fecha inicial.
+         */
+        "startName"?: string;
+        /**
+          * Valor ISO YYYY-MM-DD del campo inicial.
+          * @default ''
+         */
+        "startValue"?: string;
+        /**
+          * Variante mobile-first del selector.
+          * @default 'sheet'
+         */
+        "variant"?: IvDateRangePickerVariant;
     }
     interface IvDialog {
         /**
@@ -724,6 +959,28 @@ declare namespace LocalJSX {
         "hasPopup": 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
         "current": 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false';
     }
+    interface IvDateRangePickerAttributes {
+        "variant": IvDateRangePickerVariant;
+        "label": string;
+        "startLabel": string;
+        "endLabel": string;
+        "startValue": string;
+        "endValue": string;
+        "startName": string;
+        "endName": string;
+        "form": string;
+        "min": string;
+        "max": string;
+        "hint": string;
+        "error": string;
+        "disabled": boolean;
+        "readonly": boolean;
+        "required": boolean;
+        "open": boolean;
+        "locale": string;
+        "firstDayOfWeek": number;
+        "pickerId": string;
+    }
     interface IvDialogAttributes {
         "open": boolean;
         "modal": boolean;
@@ -782,6 +1039,7 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "iv-button": Omit<IvButton, keyof IvButtonAttributes> & { [K in keyof IvButton & keyof IvButtonAttributes]?: IvButton[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `attr:${K}`]?: IvButtonAttributes[K] } & { [K in keyof IvButton & keyof IvButtonAttributes as `prop:${K}`]?: IvButton[K] };
+        "iv-date-range-picker": Omit<IvDateRangePicker, keyof IvDateRangePickerAttributes> & { [K in keyof IvDateRangePicker & keyof IvDateRangePickerAttributes]?: IvDateRangePicker[K] } & { [K in keyof IvDateRangePicker & keyof IvDateRangePickerAttributes as `attr:${K}`]?: IvDateRangePickerAttributes[K] } & { [K in keyof IvDateRangePicker & keyof IvDateRangePickerAttributes as `prop:${K}`]?: IvDateRangePicker[K] };
         "iv-dialog": Omit<IvDialog, keyof IvDialogAttributes> & { [K in keyof IvDialog & keyof IvDialogAttributes]?: IvDialog[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `attr:${K}`]?: IvDialogAttributes[K] } & { [K in keyof IvDialog & keyof IvDialogAttributes as `prop:${K}`]?: IvDialog[K] };
         "iv-dialog-close": Omit<IvDialogClose, keyof IvDialogCloseAttributes> & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes]?: IvDialogClose[K] } & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes as `attr:${K}`]?: IvDialogCloseAttributes[K] } & { [K in keyof IvDialogClose & keyof IvDialogCloseAttributes as `prop:${K}`]?: IvDialogClose[K] };
         "iv-icon": Omit<IvIcon, keyof IvIconAttributes> & { [K in keyof IvIcon & keyof IvIconAttributes]?: IvIcon[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `attr:${K}`]?: IvIconAttributes[K] } & { [K in keyof IvIcon & keyof IvIconAttributes as `prop:${K}`]?: IvIcon[K] } & OneOf<"name", IvIcon["name"], IvIconAttributes["name"]>;
@@ -794,6 +1052,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "iv-button": LocalJSX.IntrinsicElements["iv-button"] & JSXBase.HTMLAttributes<HTMLIvButtonElement>;
+            "iv-date-range-picker": LocalJSX.IntrinsicElements["iv-date-range-picker"] & JSXBase.HTMLAttributes<HTMLIvDateRangePickerElement>;
             "iv-dialog": LocalJSX.IntrinsicElements["iv-dialog"] & JSXBase.HTMLAttributes<HTMLIvDialogElement>;
             "iv-dialog-close": LocalJSX.IntrinsicElements["iv-dialog-close"] & JSXBase.HTMLAttributes<HTMLIvDialogCloseElement>;
             "iv-icon": LocalJSX.IntrinsicElements["iv-icon"] & JSXBase.HTMLAttributes<HTMLIvIconElement>;

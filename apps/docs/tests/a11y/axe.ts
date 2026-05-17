@@ -5,7 +5,7 @@ const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22a', 'wcag22
 
 export async function waitForComponents(page: Page) {
   await page.waitForFunction(() => {
-    const tags = ['iv-button', 'iv-dialog', 'iv-icon', 'iv-input', 'iv-textarea'];
+    const tags = ['iv-button', 'iv-dialog', 'iv-date-range-picker', 'iv-icon', 'iv-input', 'iv-textarea'];
     const presentTags = tags.filter(tag => document.querySelector(tag));
 
     return Promise.all(presentTags.map(tag => customElements.whenDefined(tag)));
